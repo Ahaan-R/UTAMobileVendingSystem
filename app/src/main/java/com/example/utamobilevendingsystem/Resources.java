@@ -3,7 +3,7 @@ package com.example.utamobilevendingsystem;
 public class Resources {
 
     // Database name
-    public static final String DATABASE_NAME = "givingup.db";
+    public static final String DATABASE_NAME = "utaVendingMachine.db";
 
     // DATABASE VERSION
     public static final int DATABASE_VERSION = 1;
