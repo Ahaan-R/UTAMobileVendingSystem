@@ -1,7 +1,6 @@
 package com.example.utamobilevendingsystem.domain;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UserDetails {
@@ -11,7 +10,7 @@ public class UserDetails {
     private String fName;
     private String lName;
     private String username;
-    private Date dob;
+    private String dob;
     private String phoneNummber;
     private String email;
     private String address;
@@ -38,14 +37,7 @@ public class UserDetails {
         this.fName = fName;
     }
 
-
-    public String getUsername() { return username;}
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getlName() {
+     public String getlName() {
         return lName;
     }
 
@@ -61,13 +53,14 @@ public class UserDetails {
         this.utaID = utaID;
     }
 
-    public Date getDob() {
-        return dob;
-    }
+    public String getDob() { return dob; }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
+
+    public String getUsername() { return username; }
+
+    public void setUsername(String username) { this.username = username; }
+
+    public void setDob(String dob){ this.dob = dob; }
 
     public String getPhoneNummber() {
         return phoneNummber;

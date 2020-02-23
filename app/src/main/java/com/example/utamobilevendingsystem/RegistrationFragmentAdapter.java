@@ -1,3 +1,5 @@
+package com.example.utamobilevendingsystem;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
