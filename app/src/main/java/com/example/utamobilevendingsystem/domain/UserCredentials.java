@@ -5,6 +5,9 @@ public class UserCredentials {
     private String userName;
     private String password;
     private String role;
+    private int recovery;
+
+
 
     public int getUserID() {
         return userID;
@@ -37,6 +40,15 @@ public class UserCredentials {
     public void setRole(String role) {
         this.role = role;
     }
+    public int getRecovery() {
+        return recovery;
+    }
+
+    public void setRecovery(int recovery) {
+        this.recovery = recovery;
+    }
+
+
 
     @Override
     public String toString() {
@@ -45,6 +57,7 @@ public class UserCredentials {
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
+                ", recovery='" + recovery + '\''+
                 '}';
     }
 }

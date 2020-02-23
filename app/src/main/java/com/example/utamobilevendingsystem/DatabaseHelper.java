@@ -8,7 +8,13 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-
+    private static DatabaseHelper mInstance = null;
+    public static DatabaseHelper getInstance(Context ctx) {
+        if (mInstance == null) {
+            mInstance = new DatabaseHelper(ctx.getApplicationContext());
+        }
+        return mInstance;
+    }
     public DatabaseHelper(@Nullable Context context) {
         super(context, Resources.DATABASE_NAME, null, Resources.DATABASE_VERSION);
         SQLiteDatabase db = this.getWritableDatabase();
