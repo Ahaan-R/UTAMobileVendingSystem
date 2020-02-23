@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //onUpgrade(db, 1, 2);
         Log.i("DatabaseHelper","Oncreate()");
         db.execSQL(Resources.CREATE_TABLE_USER_CREDENTIALS);
+        Log.i("DBHrlper   ->", Resources.CREATE_TABLE_USER_DETAILS);
         db.execSQL(Resources.CREATE_TABLE_USER_DETAILS);
         db.execSQL(Resources.CREATE_TABLE_ITEM);
         db.execSQL(Resources.CREATE_TABLE_STATUS);

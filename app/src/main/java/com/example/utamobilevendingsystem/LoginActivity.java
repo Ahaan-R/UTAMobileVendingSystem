@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.utamobilevendingsystem.HomeScreens.UserHomeScreen;
 import com.example.utamobilevendingsystem.domain.UserCredentials;
 import com.example.utamobilevendingsystem.domain.UserDetails;
 
@@ -32,14 +34,21 @@ public class LoginActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.password);
         db= dbHelper.getWritableDatabase();
         login = findViewById(R.id.button);
-        insert();
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 username=usernameET.getText().toString();
                 password=passwordET.getText().toString();
-                if(fetch(username,password)){
-                    Intent myInt = new Intent(LoginActivity.this,MainActivity.class);
+                if(fetch(username,password)=="user"){
+                    Intent myInt = new Intent(LoginActivity.this, UserHomeScreen.class);
+                    startActivity(myInt);
+                }
+                else if(fetch(username,password)=="vendor"){
+                    Intent myInt = new Intent(LoginActivity.this, UserHomeScreen.class);
+                    startActivity(myInt);
+                }
+                else if(fetch(username,password)=="manager"){
+                    Intent myInt = new Intent(LoginActivity.this, UserHomeScreen.class);
                     startActivity(myInt);
                 }
                 else{
@@ -54,30 +63,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void insert(){
-        ContentValues contentValues=new ContentValues();
-        contentValues.put("user_id","1");
-        contentValues.put("username","test");
-        contentValues.put("password","pass123");
-        contentValues.put("role","user");
-        contentValues.put("recovery","");
-        db.insert(Resources.TABLE_USER_CREDS,null, contentValues);
-        ContentValues cv= new ContentValues();
-        cv.put("user_id","1");
-        cv.put("username","test");
-        cv.put("first_name","Prajwal");
-        cv.put("last_name","Prasad");
-        cv.put("uta_id","1001");
-        cv.put("dob","11/11/2019");
-        cv.put("phone","9876666111");
-        cv.put("emailid","pp@gmail.com");
-        cv.put("city","blr");
-        cv.put("state","KA");
-        cv.put("zip","560079");
-        db.insert(Resources.TABLE_USER_DETAILS,null, cv);
-    }
 
-    public boolean fetch(String username,String password){
+    public String fetch(String username,String password){
         String selectQuery = "SELECT  * FROM " + Resources.TABLE_USER_CREDS + " WHERE "
                 + Resources.USER_CREDS_USERNAME + " = " + "'"+username +"'"+" AND " + Resources.USER_CREDS_PASSWORD  +" = "+"'"+password+"'";
         Cursor c = db.rawQuery(selectQuery, null);
@@ -86,10 +73,11 @@ public class LoginActivity extends AppCompatActivity {
             c.moveToFirst();
         }
         else{
-            return false;
+            return "";
         }
         UserCredentials userCredentials = new UserCredentials();
         int  uid=c.getInt(c.getColumnIndex(Resources.USER_CREDS_USER_ID));
+        String userRole = c.getString(c.getColumnIndex(Resources.USER_CREDS_ROLE));
         String profileQuery= "SELECT * FROM "+ Resources.TABLE_USER_DETAILS+ " WHERE " +  Resources.USER_DETAILS_ID + " = " + uid;
         Cursor c1 = db.rawQuery(profileQuery, null);
 
@@ -109,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
         userDetails.setPhoneNummber(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_PHONE))));
         userDetails.setUtaID(c.getInt((c1.getColumnIndex(Resources.USER_DETAILS_UTA_ID))));
         userDetails.setZIP(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_ZIP))));
-        return true;
+        return userRole;
     }
 
 

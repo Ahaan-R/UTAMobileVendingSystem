@@ -33,7 +33,7 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:textColor="@color/colorPrimaryDark"
         android:textColorHint="@android:color/holo_orange_dark"
         android:textSize="20dp"
