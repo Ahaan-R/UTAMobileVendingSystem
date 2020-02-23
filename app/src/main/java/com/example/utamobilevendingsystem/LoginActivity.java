@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText usernameET,passwordET;
     String username,password;
     SQLiteDatabase db;
-    Button login;
+    Button login;nhfhff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
