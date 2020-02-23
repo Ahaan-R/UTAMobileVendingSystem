@@ -1,16 +1,16 @@
 package com.example.utamobilevendingsystem.domain;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UserDetails {
 
     private int userId;
-    private int fName;
-    private int lName;
     private int utaID;
-    private Date dob;
+    private String fName;
+    private String lName;
+    private String username;
+    private String dob;
     private String phoneNummber;
     private String email;
     private String address;
@@ -29,19 +29,19 @@ public class UserDetails {
         this.userId = userId;
     }
 
-    public int getfName() {
+    public String getfName() {
         return fName;
     }
 
-    public void setfName(int fName) {
+    public void setfName(String fName) {
         this.fName = fName;
     }
 
-    public int getlName() {
+    public String getlName() {
         return lName;
     }
 
-    public void setlName(int lName) {
+    public void setlName(String lName) {
         this.lName = lName;
     }
 
@@ -53,13 +53,14 @@ public class UserDetails {
         this.utaID = utaID;
     }
 
-    public Date getDob() {
-        return dob;
-    }
+    public String getDob() { return dob; }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
+
+    public String getUsername() { return username; }
+
+    public void setUsername(String username) { this.username = username; }
+
+    public void setDob(String dob){ this.dob = dob; }
 
     public String getPhoneNummber() {
         return phoneNummber;
