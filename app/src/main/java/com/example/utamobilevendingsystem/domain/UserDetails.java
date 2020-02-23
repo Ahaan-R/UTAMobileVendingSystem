@@ -7,9 +7,10 @@ import java.util.List;
 public class UserDetails {
 
     private int userId;
-    private int fName;
-    private int lName;
     private int utaID;
+    private String fName;
+    private String lName;
+    private String username;
     private Date dob;
     private String phoneNummber;
     private String email;
@@ -29,19 +30,26 @@ public class UserDetails {
         this.userId = userId;
     }
 
-    public int getfName() {
+    public String getfName() {
         return fName;
     }
 
-    public void setfName(int fName) {
+    public void setfName(String fName) {
         this.fName = fName;
     }
 
-    public int getlName() {
+
+    public String getUsername() { return username;}
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getlName() {
         return lName;
     }
 
-    public void setlName(int lName) {
+    public void setlName(String lName) {
         this.lName = lName;
     }
 
