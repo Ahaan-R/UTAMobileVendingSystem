@@ -8,6 +8,13 @@ public class Vehicle {
     private Status availability;
     private int locationId;
 
+    public Vehicle(String vehicleName, VehicleType vehicleType, Status availability, int locationId) {
+        this.vehicleName = vehicleName;
+        this.vehicleType = vehicleType;
+        this.availability = availability;
+        this.locationId = locationId;
+    }
+
     public int getVehicleId() {
         return vehicleId;
     }
