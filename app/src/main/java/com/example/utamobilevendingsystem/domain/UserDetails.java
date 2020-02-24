@@ -37,7 +37,7 @@ public class UserDetails {
         this.fName = fName;
     }
 
-    public String getlName() {
+     public String getlName() {
         return lName;
     }
 
@@ -126,7 +126,7 @@ public class UserDetails {
                 ", lName=" + lName +
                 ", utaID=" + utaID +
                 ", dob=" + dob +
-                ", phoneNummber='" + phoneNummber + '\'' +
+                ", phoneNumber='" + phoneNummber + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +

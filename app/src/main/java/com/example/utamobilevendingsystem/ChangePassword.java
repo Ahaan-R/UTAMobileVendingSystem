@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +35,11 @@ public class ChangePassword extends AppCompatActivity {
         changeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validatePassword()){
+                String pass = passwordET.getText().toString();
+                String reEnterPass = reEnterPasswordET.getText().toString();
+                if(pass.isEmpty() || reEnterPass.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter both the fields..!",Toast.LENGTH_SHORT).show();
+                } else if(validatePassword()){
                     updatePassword(passwordET.getText().toString());
                     Intent intent = new Intent(ChangePassword.this, LoginActivity.class);
                     startActivity(intent);
@@ -62,10 +67,10 @@ public class ChangePassword extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
         int userID = prefs.getInt("userid",0);
-
+        Log.i(" userId","user ID  "+userID);
         ContentValues cv = new ContentValues();
         cv.put(Resources.USER_CREDS_PASSWORD, password);
         String tableName = Resources.TABLE_USER_CREDS;
-        int value = db.update(Resources.USER_CREDS_PASSWORD,cv ,"user_id = "+ userID, null);
+        int value = db.update(Resources.TABLE_USER_CREDS,cv ,"user_id = "+ userID, null);
     }
 }
