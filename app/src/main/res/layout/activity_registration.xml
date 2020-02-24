@@ -149,6 +149,17 @@
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <EditText
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="Enter your address"
+        android:inputType="text|textPostalAddress"
+        app:layout_constraintStart_toStartOf="@+id/dateOfBirth"
+        app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+    <EditText
         android:id="@+id/city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -157,29 +168,29 @@
         android:hint="Enter your City"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/dateOfBirth"
-        app:layout_constraintTop_toBottomOf="@+id/phone" />
+        app:layout_constraintTop_toBottomOf="@+id/address" />
 
     <EditText
         android:id="@+id/state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
         android:hint="Enter your State"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/dateOfBirth"
-        app:layout_constraintTop_toBottomOf="@+id/phone" />
+        app:layout_constraintTop_toBottomOf="@+id/city" />
 
     <EditText
         android:id="@+id/zipCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
         android:hint="Enter your Zipcode"
         android:inputType="phone"
         app:layout_constraintStart_toStartOf="@+id/dateOfBirth"
-        app:layout_constraintTop_toBottomOf="@+id/city" />
+        app:layout_constraintTop_toBottomOf="@+id/state" />
 
     <Button
         android:id="@+id/submitButton"

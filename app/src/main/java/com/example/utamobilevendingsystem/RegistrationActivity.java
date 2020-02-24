@@ -34,6 +34,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText city;
     EditText zip;
     EditText userState;
+    EditText address;
     SQLiteDatabase dbObject;
     DatabaseHelper helper;
 
@@ -56,6 +57,7 @@ public class RegistrationActivity extends AppCompatActivity {
         city = findViewById(R.id.city);
         zip = findViewById(R.id.zipCode);
         userState = findViewById(R.id.state);
+        address = findViewById(R.id.address);
 
         submitButton = findViewById(R.id.submitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -72,18 +74,18 @@ public class RegistrationActivity extends AppCompatActivity {
                 String userCity = city.getText().toString();
                 String zipCode = zip.getText().toString();
                 String state = userState.getText().toString();
+                String adress = address.getText().toString();
 
                 if (password.equals(confirmPwd) && (password != "")) {
 
                     ContentValues contentValues=new ContentValues();
-//                    contentValues.put("user_id","1");
-                    contentValues.put("username","test");
-                    contentValues.put("password","123");
+                    contentValues.put("username",uname);
+                    contentValues.put("password",password);
                     contentValues.put("role","user");
-//                    contentValues.put("recovery","");
-                    dbObject.insert(Resources.TABLE_USER_CREDS,null, contentValues);
+                    long value = dbObject.insert(Resources.TABLE_USER_CREDS,null, contentValues);
                     ContentValues values = new ContentValues();
-                    Toast.makeText(RegistrationActivity.this, " Query for User_Creds has been completed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RegistrationActivity.this, " Query for User_Creds has been completed", Toast.LENGTH_SHORT).show();
+                    values.put("user_id", value);
                     values.put("username", uname);
                     values.put("first_name", fname);
                     values.put("last_name", lname);
@@ -91,14 +93,13 @@ public class RegistrationActivity extends AppCompatActivity {
                     values.put("dob", dob.toString());
                     values.put("phone",phNo);
                     values.put("emailid",mailAddress);
+                    values.put("address",adress);
                     values.put("city",userCity);
                     values.put("state",state);
                     values.put("zip",zipCode);
                     dbObject.insert(Resources.TABLE_USER_DETAILS,null, values);
-                    Toast.makeText(RegistrationActivity.this, " Query for User_Details has been completed", Toast.LENGTH_SHORT).show();
-
-
                     Toast.makeText(RegistrationActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+
                     Intent moveToLogin = new Intent(RegistrationActivity.this, LoginActivity.class);
                     startActivity(moveToLogin);
                 }
