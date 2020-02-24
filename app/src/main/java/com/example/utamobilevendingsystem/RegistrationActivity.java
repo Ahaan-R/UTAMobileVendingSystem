@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,8 +19,10 @@ import java.util.regex.Pattern;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    ViewPager viewPager;
-    Fragment fragment;
+    RadioGroup radioGroup;
+    RadioButton radioButtonUser;
+    RadioButton radioButtonOperator;
+    String typeOfUser;
     EditText firstName;
     EditText lastName;
     EditText enterPassword;
@@ -45,6 +47,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
         helper = new DatabaseHelper(this);
         dbObject = helper.getWritableDatabase();
+        radioGroup = findViewById(R.id.radioGroup);
+        radioButtonUser = findViewById(R.id.radio_user);
+        radioButtonOperator = findViewById(R.id.radio_operator);
         firstName = findViewById(R.id.firstName);
         lastName = findViewById(R.id.lastName);
         enterPassword = findViewById(R.id.enterPassword);
@@ -63,6 +68,8 @@ public class RegistrationActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 String fname = firstName.getText().toString();
                 String lname = lastName.getText().toString();
                 String password = enterPassword.getText().toString();
@@ -76,39 +83,64 @@ public class RegistrationActivity extends AppCompatActivity {
                 String state = userState.getText().toString();
                 String adress = address.getText().toString();
 
-                if (password.equals(confirmPwd) && (password != "")) {
+                if (password.equals(confirmPwd) && (password != "") && (confirmPwd!= "")) {
+                    boolean flag = true;
 
-                    ContentValues contentValues=new ContentValues();
-                    contentValues.put("username",uname);
-                    contentValues.put("password",password);
-                    contentValues.put("role","user");
-                    long value = dbObject.insert(Resources.TABLE_USER_CREDS,null, contentValues);
-                    ContentValues values = new ContentValues();
-//                    Toast.makeText(RegistrationActivity.this, " Query for User_Creds has been completed", Toast.LENGTH_SHORT).show();
-                    values.put("user_id", value);
-                    values.put("username", uname);
-                    values.put("first_name", fname);
-                    values.put("last_name", lname);
-                    values.put("uta_id", utaID);
-                    values.put("dob", dob.toString());
-                    values.put("phone",phNo);
-                    values.put("emailid",mailAddress);
-                    values.put("address",adress);
-                    values.put("city",userCity);
-                    values.put("state",state);
-                    values.put("zip",zipCode);
-                    dbObject.insert(Resources.TABLE_USER_DETAILS,null, values);
-                    Toast.makeText(RegistrationActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                    if (!verifyUsername(uname)) {
+                        flag = false;
+                        Toast.makeText(RegistrationActivity.this, "Please try with a different username", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (!verifyAddress(adress)){
+                        flag = false;
+                        Toast.makeText(RegistrationActivity.this, "Please enter Address in correct format", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (!verifydob(dob.getText().toString())){
+                        flag = false;
+                        Toast.makeText(RegistrationActivity.this, "Please enter DOB in correct format", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (!verifyEmail(mailAddress)){
+                        flag = false;
+                        Toast.makeText(RegistrationActivity.this, "Please enter valid email address", Toast.LENGTH_SHORT).show();
+                    }
 
-                    Intent moveToLogin = new Intent(RegistrationActivity.this, LoginActivity.class);
-                    startActivity(moveToLogin);
+                    if (flag){
+                        ContentValues contentValues=new ContentValues();
+                        contentValues.put("username",uname);
+                        contentValues.put("password",password);
+                        contentValues.put("role",typeOfUser);
+                        long value = dbObject.insert(Resources.TABLE_USER_CREDS,null, contentValues);
+                        ContentValues values = new ContentValues();
+                        values.put("user_id", value);
+                        values.put("username", uname);
+                        values.put("first_name", fname);
+                        values.put("last_name", lname);
+                        values.put("uta_id", utaID);
+                        values.put("dob", dob.toString());
+                        values.put("phone",phNo);
+                        values.put("emailid",mailAddress);
+                        values.put("address",adress);
+                        values.put("city",userCity);
+                        values.put("state",state);
+                        values.put("zip",zipCode);
+                        dbObject.insert(Resources.TABLE_USER_DETAILS,null, values);
+                        Toast.makeText(RegistrationActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+
+                        Intent moveToLogin = new Intent(RegistrationActivity.this, LoginActivity.class);
+                        startActivity(moveToLogin);
+                    }
                 }
-                else if(!password.isEmpty() && !confirmPwd.isEmpty()) {
-                    Toast.makeText(RegistrationActivity.this, "Please enter values", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(RegistrationActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+    }
+
+    public void onRadioButtonClicked(View view){
+        int selectedRadio = radioGroup.getCheckedRadioButtonId();
+        radioButtonUser = findViewById(selectedRadio);
+        typeOfUser = radioButtonUser.getText().toString();
     }
 
     public boolean verifyUsername(String userName){
