@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_marginLeft="20dp"
-                android:text="Food Item"
+                android:text="@string/food_item"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="25dp" />
 
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="2"
                 android:layout_marginLeft="50dp"
-                android:text="Quantity"
+                android:text="@string/quantity"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="25dp" />
 
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="3"
                 android:layout_marginLeft="40dp"
-                android:text="Price"
+                android:text="@string/price"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="25dp" />
 
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_marginLeft="20dp"
-                android:text="Sandwiches"
+                android:text="@string/sandwiches"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="25dp" />
 
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_marginLeft="20dp"
-                android:text="Drinks"
+                android:text="@string/drinks"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="25dp" />
 
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_marginLeft="20dp"
-                android:text="Snacks"
+                android:text="@string/snacks"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="25dp" />
 
@@ -163,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="2"
                 android:layout_marginLeft="50dp"
-                android:text="Total"
+                android:text="@string/total"
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="25dp" />
 
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="3"
                 android:layout_marginLeft="50dp"
-                android:text="0"
+                android:text=" "
                 android:textColor="@android:color/holo_orange_dark"
                 android:textSize="25dp" />
 
@@ -186,7 +186,7 @@
         android:layout_width="174dp"
         android:layout_height="58dp"
         android:layout_marginTop="112dp"
-        android:text="STATUS:"
+        android:text="@string/status"
         android:textSize="40dp"
         android:textColor="@android:color/holo_orange_dark"
         app:layout_constraintEnd_toEndOf="parent"
@@ -199,7 +199,7 @@
         android:layout_width="232dp"
         android:layout_height="55dp"
         android:layout_marginTop="111dp"
-        android:text="CONFIRMED:"
+        android:text="@string/confirmed"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"

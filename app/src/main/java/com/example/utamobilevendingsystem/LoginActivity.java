@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -106,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                 + Resources.USER_CREDS_USERNAME + " = " + "'"+username +"'"+" AND " + Resources.USER_CREDS_PASSWORD  +" = "+"'"+password+"'";
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if (c != null){
+        if (c.getCount() > 0){
             c.moveToFirst();
         }
         else{
