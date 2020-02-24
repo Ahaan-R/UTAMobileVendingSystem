@@ -14,7 +14,6 @@ public class Resources {
     public static final String USER_CREDS_USERNAME = "username";
     public static final String USER_CREDS_PASSWORD = "password";
     public static final String USER_CREDS_ROLE = "role";
-//    public static final String USER_CREDS_RECOVERY="recovery";
     // USER_DETAILS
     public static final String TABLE_USER_DETAILS = "user_details";
     public static final String USER_DETAILS_ID = "user_id"; //Foreign Key  -> USER_CREDS_USER_ID
