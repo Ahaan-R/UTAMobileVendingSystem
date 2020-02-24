@@ -43,6 +43,26 @@ public class UserHomeScreen extends AppCompatActivity {
         stateTV= findViewById(R.id.stateTV);
         zipTV= findViewById(R.id.zipTV);
         utaidTV= findViewById(R.id.utaidTV);
+        fetchSharedPref();
+        setUserProfile();
+
+    }
+
+    private void setUserProfile() {
+        fNameTV.setText("First Name: "+fName);
+        lNameTV.setText("Last Name: "+lName);
+        usernameTV.setText("Welcome, "+username);
+        dobTV.setText("Date of Birth: "+dob);
+        phoneNummberTV.setText("Phone: "+phoneNummber);
+        emailTV.setText("Email: "+email);
+        addressTV.setText("Address: "+address);
+        cityTV.setText("City: "+city);
+        stateTV.setText("State: "+state);
+        zipTV.setText("ZIP: "+zip);
+        utaidTV.setText("UTA ID: "+String.valueOf(utaID));
+    }
+
+    private void fetchSharedPref() {
         SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
         fName =prefs.getString("fname","");
         lName =prefs.getString("lname","");
@@ -55,17 +75,6 @@ public class UserHomeScreen extends AppCompatActivity {
         state =prefs.getString("state","");
         zip =prefs.getString("zip","");
         utaID = prefs.getInt("utaid",0);
-        fNameTV.setText("First Name: "+fName);
-        lNameTV.setText("Last Name: "+lName);
-        usernameTV.setText("Welcome, "+username);
-        dobTV.setText("Date of Birth: "+dob);
-        phoneNummberTV.setText("Phone: "+phoneNummber);
-        emailTV.setText("Email: "+email);
-        addressTV.setText("Address: "+address);
-        cityTV.setText("City: "+city);
-        stateTV.setText("State: "+state);
-        zipTV.setText("ZIP: "+zip);
-        utaidTV.setText("UTA ID: "+String.valueOf(utaID));
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
