@@ -9,5 +9,9 @@
         android:icon="@drawable/ic_search_black_24dp"
         android:title="Search Vehicles"
         app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:checkable="false"
+        android:checked="false"
+        android:title="Change Password" />
     <item android:title="Logout" />
 </menu>

@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     String username,password;
     SQLiteDatabase db;
     Button login;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +59,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
 
@@ -75,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         else{
             return "";
         }
+
         UserCredentials userCredentials = new UserCredentials();
         int  uid=c.getInt(c.getColumnIndex(Resources.USER_CREDS_USER_ID));
         String userRole = c.getString(c.getColumnIndex(Resources.USER_CREDS_ROLE));
