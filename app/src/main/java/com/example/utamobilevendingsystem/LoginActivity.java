@@ -2,6 +2,7 @@ package com.example.utamobilevendingsystem;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,7 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.utamobilevendingsystem.HomeScreens.ManagerHomeScreen;
 import com.example.utamobilevendingsystem.HomeScreens.UserHomeScreen;
+import com.example.utamobilevendingsystem.HomeScreens.VendorHomeScreen;
 import com.example.utamobilevendingsystem.domain.UserCredentials;
 import com.example.utamobilevendingsystem.domain.UserDetails;
 
@@ -39,22 +42,27 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 username=usernameET.getText().toString();
                 password=passwordET.getText().toString();
-                if(fetch(username,password)=="user"){
-                    Intent myInt = new Intent(LoginActivity.this, UserHomeScreen.class);
-                    startActivity(myInt);
-                }
-                else if(fetch(username,password)=="vendor"){
-                    Intent myInt = new Intent(LoginActivity.this, UserHomeScreen.class);
-                    startActivity(myInt);
-                }
-                else if(fetch(username,password)=="manager"){
-                    Intent myInt = new Intent(LoginActivity.this, UserHomeScreen.class);
-                    startActivity(myInt);
-                }
-                else{
-                    usernameET.getText().clear();
-                    passwordET.getText().clear();
-                    usernameET.setError("Please enter correct username and password");
+                switch (fetch(username, password)) {
+                    case "user": {
+                        Intent myInt = new Intent(LoginActivity.this, UserHomeScreen.class);
+                        startActivity(myInt);
+                        break;
+                    }
+                    case "vendor": {
+                        Intent myInt = new Intent(LoginActivity.this, VendorHomeScreen.class);
+                        startActivity(myInt);
+                        break;
+                    }
+                    case "manager": {
+                        Intent myInt = new Intent(LoginActivity.this, ManagerHomeScreen.class);
+                        startActivity(myInt);
+                        break;
+                    }
+                    default:
+                        usernameET.getText().clear();
+                        passwordET.getText().clear();
+                        usernameET.setError("Please enter correct username and password");
+                        break;
                 }
             }
         });
@@ -85,18 +93,20 @@ public class LoginActivity extends AppCompatActivity {
             c1.moveToFirst();
         }
 
-        UserDetails userDetails = new UserDetails();
-        userDetails.setUserId(c1.getInt((c1.getColumnIndex(Resources.USER_DETAILS_ID))));
-        userDetails.setAddress(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_ADDRESS))));
-        userDetails.setCity(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_CITY))));
-        userDetails.setDob(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_DOB))));
-        userDetails.setEmail(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_EMAIL_ID))));
-        userDetails.setlName(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_LNAME))));
-        userDetails.setfName(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_FNAME))));
-        userDetails.setState(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_STATE))));
-        userDetails.setPhoneNummber(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_PHONE))));
-        userDetails.setUtaID(c.getInt((c1.getColumnIndex(Resources.USER_DETAILS_UTA_ID))));
-        userDetails.setZIP(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_ZIP))));
+        SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
+        editor.putInt("userid",(c1.getInt((c1.getColumnIndex(Resources.USER_DETAILS_ID)))));
+        editor.putInt("utaid",(c1.getInt((c1.getColumnIndex(Resources.USER_DETAILS_UTA_ID)))));
+        editor.putString("address",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_ADDRESS)))));
+        editor.putString("username",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_USERNAME)))));
+        editor.putString("city",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_CITY)))));
+        editor.putString("state",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_STATE)))));
+        editor.putString("email",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_EMAIL_ID)))));
+        editor.putString("fname",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_FNAME)))));
+        editor.putString("lname",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_LNAME)))));
+        editor.putString("phone",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_PHONE)))));
+        editor.putString("dob",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_DOB)))));
+        editor.putString("zip",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_ZIP)))));
+        editor.apply();
         return userRole;
     }
 
