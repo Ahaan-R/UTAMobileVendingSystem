@@ -13,7 +13,7 @@
         <activity
             android:name=".HomeScreens.VendorHomeScreen"
             android:label="@string/title_activity_vendor_home_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".HomeScreens.ManagerHomeScreen"
             android:label="@string/title_activity_manager_home_screen"
