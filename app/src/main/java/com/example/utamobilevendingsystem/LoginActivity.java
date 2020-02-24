@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 
 import com.example.utamobilevendingsystem.HomeScreens.ManagerHomeScreen;
 import com.example.utamobilevendingsystem.HomeScreens.UserHomeScreen;
@@ -26,8 +30,10 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseHelper dbHelper;
     EditText usernameET,passwordET;
     String username,password;
+    TextView register;
     SQLiteDatabase db;
     Button login;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         usernameET = findViewById(R.id.username);
         passwordET = findViewById(R.id.password);
+        register = findViewById(R.id.register);
         db= dbHelper.getWritableDatabase();
         login = findViewById(R.id.button);
         login.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +78,28 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public void insert(){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put("user_id","1");
+        contentValues.put("username","test");
+        contentValues.put("password","pass123");
+        contentValues.put("role","user");
+        contentValues.put("recovery","");
+        db.insert(Resources.TABLE_USER_CREDS,null, contentValues);
+        ContentValues cv= new ContentValues();
+        cv.put("user_id","1");
+        cv.put("username","test");
+        cv.put("first_name","Prajwal");
+        cv.put("last_name","Prasad");
+        cv.put("uta_id","1001");
+        cv.put("dob","11/11/2019");
+        cv.put("phone","9876666111");
+        cv.put("emailid","pp@gmail.com");
+        cv.put("city","blr");
+        cv.put("state","KA");
+        cv.put("zip","560079");
+        db.insert(Resources.TABLE_USER_DETAILS,null, cv);
+    }
 
     public String fetch(String username,String password){
         String selectQuery = "SELECT  * FROM " + Resources.TABLE_USER_CREDS + " WHERE "
@@ -83,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         else{
             return "";
         }
+
         UserCredentials userCredentials = new UserCredentials();
         int  uid=c.getInt(c.getColumnIndex(Resources.USER_CREDS_USER_ID));
         String userRole = c.getString(c.getColumnIndex(Resources.USER_CREDS_ROLE));
@@ -111,4 +141,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    public void navigateToRegister(View view) {
+        register = findViewById(R.id.register);
+        Intent navigateToRegister = new Intent(this, RegistrationActivity.class);
+        startActivity(navigateToRegister);
+    }
 }

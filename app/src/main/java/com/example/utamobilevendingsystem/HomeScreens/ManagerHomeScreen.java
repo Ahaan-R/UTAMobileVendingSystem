@@ -91,10 +91,13 @@ public class ManagerHomeScreen extends AppCompatActivity {
             case R.id.menu_view_orders:
                 //startSettings();
                 return true;
-            case R.id.menu_bar_search:
+            case R.id.app_bar_search:
                 //startSettings();
                 return true;
             case R.id.menu_logout:
+                logout();
+                return true;
+            case R.id.change_password:
                 logout();
                 return true;
             default:

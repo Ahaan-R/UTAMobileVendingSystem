@@ -109,9 +109,9 @@ public class Resources {
             + USER_CREDS_RECOVERY + " INTERGER "
             + ")";
 
-    public static final String CREATE_TABLE_USER_DETAILS = "CREATE TABLE " + TABLE_USER_DETAILS
+    public static final String CREATE_TABLE_USER_DETAILS = "CREATE TABLE IF NOT EXISTS " + TABLE_USER_DETAILS
             + "(" + USER_DETAILS_ID + " INTEGER, "
-            + USER_DETAILS_USERNAME + " TEXT, "
+            + USER_DETAILS_USERNAME + "TEXT, "
             + USER_DETAILS_FNAME + " TEXT, "
             + USER_DETAILS_LNAME + " TEXT, "
             + USER_DETAILS_UTA_ID + " INTEGER, "

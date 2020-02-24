@@ -2,17 +2,20 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/menu_location"
-        android:title="Locations" />
-    <item
+    <item android:title="Locations"
+        android:id="@+id/menu_location"/>
+
+    <item android:title="View Orders"
         android:id="@+id/menu_view_orders"
-        android:title="View Orders" />
+        />
     <item
-        android:id="@+id/menu_bar_search"
+        android:id="@+id/app_bar_search"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="Search Vehicles"
         app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:id="@+id/change_password"
+        android:title="Change Password" />
     <item
         android:id="@+id/menu_schedule"
         android:title="View Schedule"

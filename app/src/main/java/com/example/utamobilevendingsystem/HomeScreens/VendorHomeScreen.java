@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.example.utamobilevendingsystem.ChangePassword;
 import com.example.utamobilevendingsystem.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -90,11 +91,14 @@ public class VendorHomeScreen extends AppCompatActivity {
             case R.id.menu_view_orders:
                 //startSettings();
                 return true;
-            case R.id.menu_bar_search:
+            case R.id.app_bar_search:
                 //startSettings();
                 return true;
             case R.id.menu_logout:
                 logout();
+                return true;
+            case R.id.change_password:
+                changePassword();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -104,6 +108,11 @@ public class VendorHomeScreen extends AppCompatActivity {
     private void logout() {
         Intent logout = new Intent(VendorHomeScreen.this, LoginActivity.class);
         startActivity(logout);
+    }
+
+    private void changePassword() {
+        Intent changePasswordIntent = new Intent(VendorHomeScreen.this, ChangePassword.class);
+        startActivity(changePasswordIntent);
     }
 
 }
