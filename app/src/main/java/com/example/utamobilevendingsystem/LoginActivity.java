@@ -1,4 +1,5 @@
 package com.example.utamobilevendingsystem;
+
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseHelper dbHelper;
     EditText usernameET,passwordET;
     String username,password;
+    TextView register;
     SQLiteDatabase db;
     Button login;
     @Override
@@ -27,9 +30,12 @@ public class LoginActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         usernameET = findViewById(R.id.username);
         passwordET = findViewById(R.id.password);
+        register = findViewById(R.id.register);
         db= dbHelper.getWritableDatabase();
         login = findViewById(R.id.button);
         insert();
+
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,4 +116,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    public void navigateToRegister(View view) {
+        register = findViewById(R.id.register);
+        Intent navigateToRegister = new Intent(this, RegistrationActivity.class);
+        startActivity(navigateToRegister);
+    }
 }
