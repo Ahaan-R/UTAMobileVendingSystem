@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrderSummary"></activity>
+        <activity android:name=".OrderConfirmation"></activity>
+        <activity android:name=".OrderSummary" />
         <activity
             android:name=".HomeScreens.VendorHomeScreen"
             android:label="@string/title_activity_vendor_home_screen"
