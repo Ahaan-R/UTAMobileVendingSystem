@@ -51,17 +51,17 @@ public class LoginActivity extends AppCompatActivity {
                 username=usernameET.getText().toString();
                 password=passwordET.getText().toString();
                 switch (fetch(username, password)) {
-                    case "user": {
+                    case "User": {
                         Intent myInt = new Intent(LoginActivity.this, UserHomeScreen.class);
                         startActivity(myInt);
                         break;
                     }
-                    case "vendor": {
+                    case "Vendor": {
                         Intent myInt = new Intent(LoginActivity.this, VendorHomeScreen.class);
                         startActivity(myInt);
                         break;
                     }
-                    case "manager": {
+                    case "Manager": {
                         Intent myInt = new Intent(LoginActivity.this, ManagerHomeScreen.class);
                         startActivity(myInt);
                         break;
