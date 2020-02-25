@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-public class VehicleInventoryScreen extends AppCompatActivity {
+public class LocationScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vehicle_inventory_screen);
+        setContentView(R.layout.activity_location_screen);
     }
 
     @Override

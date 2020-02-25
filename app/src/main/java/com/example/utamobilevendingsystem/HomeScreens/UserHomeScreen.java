@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.utamobilevendingsystem.ChangePassword;
+import com.example.utamobilevendingsystem.LocationScreen;
 import com.example.utamobilevendingsystem.LoginActivity;
 import com.example.utamobilevendingsystem.OrderDetails;
 import com.example.utamobilevendingsystem.VehicleScreen;
@@ -91,7 +92,7 @@ public class UserHomeScreen extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.menu_location:
-                //addSomething();
+                viewLocationList();
                 return true;
             case R.id.menu_view_orders:
                 viewOrders();
@@ -127,6 +128,11 @@ public class UserHomeScreen extends AppCompatActivity {
 
     private void changePassword() {
         Intent changePasswordIntent = new Intent(UserHomeScreen.this, ChangePassword.class);
+        startActivity(changePasswordIntent);
+    }
+
+    private void viewLocationList(){
+        Intent changePasswordIntent = new Intent(UserHomeScreen.this, LocationScreen.class);
         startActivity(changePasswordIntent);
     }
 
