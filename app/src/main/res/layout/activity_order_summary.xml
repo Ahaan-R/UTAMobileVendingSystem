@@ -7,16 +7,7 @@
     android:background="@color/colorPrimary"
     tools:context=".OrderSummary">
 
-    <Button
-        android:id="@+id/orderConfirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="125dp"
-        android:text="Confirm Order"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
