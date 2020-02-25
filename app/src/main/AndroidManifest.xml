@@ -29,6 +29,9 @@
         <activity android:name=".OrderDetails"/>
         <activity android:name=".OrderSummary"/>
         <activity android:name=".OrderConfirmation"/>
+        <activity android:name=".VehicleScreen"/>
+        <activity android:name=".VehicleDetailsScreen"/>
+        <activity android:name=".VehicleInventoryScreen"/>
         <activity android:name=".OperatorScheduleList"/>
         <activity android:name=".OperatorSchedule"/>
         <activity android:name=".OperatorList"/>

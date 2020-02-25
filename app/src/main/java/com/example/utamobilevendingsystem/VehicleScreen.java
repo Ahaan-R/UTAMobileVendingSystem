@@ -2,7 +2,10 @@ package com.example.utamobilevendingsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.utamobilevendingsystem.domain.Status;
@@ -12,11 +15,12 @@ import com.example.utamobilevendingsystem.domain.VehicleType;
 import java.util.ArrayList;
 
 public class VehicleScreen extends AppCompatActivity {
-
+    Button vehicleDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_screen);
+        vehicleDetails = findViewById(R.id.vehicleDetails);
         ListView vehicleListView = (ListView) findViewById(R.id.vehicleList);
 
         Vehicle v1 = new Vehicle("Vehicle 1",VehicleType.FOOD_TRUCK, Status.AVAILABLE, 1);
@@ -33,7 +37,13 @@ public class VehicleScreen extends AppCompatActivity {
 
         VehicleListAdapter adapter = new VehicleListAdapter(this, R.layout.vehicle_list_adaptor_view_layout, vehicleList);
         vehicleListView.setAdapter(adapter);
-
+        vehicleDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myint = new Intent(VehicleScreen.this,VehicleDetailsScreen.class);
+                startActivity(myint);
+            }
+        });
         
     }
 }

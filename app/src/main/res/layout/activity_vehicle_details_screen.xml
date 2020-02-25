@@ -8,8 +8,9 @@
     tools:context=".VehicleDetailsScreen">
 
     <TableLayout
-        android:layout_width="399dp"
-        android:layout_height="737dp"
+        android:layout_width="405dp"
+        android:layout_height="633dp"
+        android:layout_marginTop="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,15 +24,15 @@
                 android:id="@+id/vdsHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="Vehicle Details"
                 android:textAlignment="center"
-                android:textSize="24dp"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
-                android:background="@color/colorPrimary"
-                android:layout_weight="1"/>
+                android:textSize="24dp"
+                android:textStyle="bold" />
 
         </TableRow>
 
@@ -43,25 +44,25 @@
                 android:id="@+id/r1c1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="Name"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/r1c2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="Vehicle 1"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow
@@ -72,25 +73,25 @@
                 android:id="@+id/r2c1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="Location"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/r2c2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="MAC"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow
@@ -101,25 +102,25 @@
                 android:id="@+id/r3c1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="Type"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/r3c2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="Food Truck"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow
@@ -130,25 +131,25 @@
                 android:id="@+id/r4c1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="Operator"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/r4c2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="Bob"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow
@@ -159,25 +160,25 @@
                 android:id="@+id/r5c1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="Schedule"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/r5c2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="1:00-5:00PM"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow
@@ -188,22 +189,22 @@
                 android:id="@+id/r6c1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="Inventory"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/viewInventoryBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="View Inventory"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow
@@ -214,22 +215,22 @@
                 android:id="@+id/r7c1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
                 android:text="Total Revenue"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/r7c2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="View Revenue"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
         </TableRow>
 
     </TableLayout>

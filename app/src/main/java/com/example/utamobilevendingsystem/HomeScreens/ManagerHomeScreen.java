@@ -8,6 +8,7 @@ import com.example.utamobilevendingsystem.LoginActivity;
 import com.example.utamobilevendingsystem.OperatorDetails;
 import com.example.utamobilevendingsystem.OperatorScheduleList;
 import com.example.utamobilevendingsystem.OrderDetails;
+import com.example.utamobilevendingsystem.VehicleScreen;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -109,7 +110,7 @@ public class ManagerHomeScreen extends AppCompatActivity {
                 viewOrders();
                 return true;
             case R.id.app_bar_search:
-                //startSettings();
+                vehicleSearch();
                 return true;
             case R.id.menu_logout:
                 logout();
@@ -120,6 +121,10 @@ public class ManagerHomeScreen extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    private void vehicleSearch() {
+        Intent myint = new Intent(ManagerHomeScreen.this, VehicleScreen.class);
+        startActivity(myint);
     }
 
     private void viewOrders() {
