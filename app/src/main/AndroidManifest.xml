@@ -9,15 +9,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".ChangePassword"></activity>
+        <activity
+            android:name=".HomeScreens.VendorHomeScreen"
+            android:label="@string/title_activity_vendor_home_screen"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".HomeScreens.ManagerHomeScreen"
+            android:label="@string/title_activity_manager_home_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HomeScreens.UserHomeScreen"
+            android:label="@string/title_activity_user_home_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".RegistrationActivity"/>
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".OperatorDetails"/>
+        <activity android:name=".OrderDetails"/>
+        <activity android:name=".OrderSummary"/>
+        <activity android:name=".OrderConfirmation"/>
+        <activity android:name=".OperatorScheduleList"/>
+        <activity android:name=".OperatorSchedule"/>
+        <activity android:name=".OperatorList"/>
         <activity android:name=".SplashScreenActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
