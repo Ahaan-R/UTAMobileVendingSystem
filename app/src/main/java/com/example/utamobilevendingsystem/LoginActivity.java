@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
         String profileQuery= "SELECT * FROM "+ Resources.TABLE_USER_DETAILS+ " WHERE " +  Resources.USER_DETAILS_ID + " = " + uid;
         Cursor c1 = db.rawQuery(profileQuery, null);
 
-        if (c1 != null){
+        if (c1.getCount() >0){
             c1.moveToFirst();
         }
 

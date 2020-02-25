@@ -14,7 +14,6 @@ public class Resources {
     public static final String USER_CREDS_USERNAME = "username";
     public static final String USER_CREDS_PASSWORD = "password";
     public static final String USER_CREDS_ROLE = "role";
-    public static final String USER_CREDS_RECOVERY="recovery";
 
     // USER_DETAILS
     public static final String TABLE_USER_DETAILS = "user_details";
@@ -105,13 +104,12 @@ public class Resources {
             + "(" + USER_CREDS_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + USER_CREDS_USERNAME + " TEXT,"
             + USER_CREDS_PASSWORD + " TEXT,"
-            + USER_CREDS_ROLE + " TEXT, "
-            + USER_CREDS_RECOVERY + " INTERGER "
+            + USER_CREDS_ROLE + " TEXT "
             + ")";
 
     public static final String CREATE_TABLE_USER_DETAILS = "CREATE TABLE IF NOT EXISTS " + TABLE_USER_DETAILS
             + "(" + USER_DETAILS_ID + " INTEGER, "
-            + USER_DETAILS_USERNAME + "TEXT, "
+            + USER_DETAILS_USERNAME + " TEXT, "
             + USER_DETAILS_FNAME + " TEXT, "
             + USER_DETAILS_LNAME + " TEXT, "
             + USER_DETAILS_UTA_ID + " INTEGER, "

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,7 +70,6 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
                 String fname = firstName.getText().toString();
                 String lname = lastName.getText().toString();
                 String password = enterPassword.getText().toString();
@@ -77,6 +77,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 String uname = username.getText().toString();
                 String phNo = phone.getText().toString();
                 String utaID = utaid.getText().toString();
+                String dateOfBirth = dob.getText().toString();
                 String mailAddress = email.getText().toString();
                 String userCity = city.getText().toString();
                 String zipCode = zip.getText().toString();
@@ -107,7 +108,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         ContentValues contentValues=new ContentValues();
                         contentValues.put("username",uname);
                         contentValues.put("password",password);
-                        contentValues.put("role",typeOfUser);
+                        contentValues.put("role", "user");
                         long value = dbObject.insert(Resources.TABLE_USER_CREDS,null, contentValues);
                         ContentValues values = new ContentValues();
                         values.put("user_id", value);
@@ -115,16 +116,16 @@ public class RegistrationActivity extends AppCompatActivity {
                         values.put("first_name", fname);
                         values.put("last_name", lname);
                         values.put("uta_id", utaID);
-                        values.put("dob", dob.toString());
+                        values.put("dob", dateOfBirth);
                         values.put("phone",phNo);
                         values.put("emailid",mailAddress);
                         values.put("address",adress);
                         values.put("city",userCity);
                         values.put("state",state);
                         values.put("zip",zipCode);
-                        dbObject.insert(Resources.TABLE_USER_DETAILS,null, values);
+                        long id = dbObject.insert(Resources.TABLE_USER_DETAILS,null, values);
+                        Log.i("Registration","Registration ID "+id);
                         Toast.makeText(RegistrationActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
-
                         Intent moveToLogin = new Intent(RegistrationActivity.this, LoginActivity.class);
                         startActivity(moveToLogin);
                     }
