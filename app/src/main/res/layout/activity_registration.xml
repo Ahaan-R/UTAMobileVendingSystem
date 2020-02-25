@@ -56,7 +56,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="Operator" />
+            android:text="Vendor" />
+
+        <RadioButton
+            android:id="@+id/radio_manager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="Manager" />
     </RadioGroup>
 
     <EditText
