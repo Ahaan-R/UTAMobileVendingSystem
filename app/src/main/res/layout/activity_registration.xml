@@ -121,6 +121,9 @@
         android:ems="10"
         android:hint="Enter Username"
         android:inputType="textPersonName"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textColorHighlight="@android:color/holo_orange_dark"
+        android:textColorHint="@android:color/holo_orange_dark"
         app:layout_constraintStart_toStartOf="@+id/confirmPassword"
         app:layout_constraintTop_toBottomOf="@+id/confirmPassword" />
 
@@ -132,6 +135,9 @@
         android:ems="10"
         android:hint="Enter Date Of Birth"
         android:inputType="date"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textColorHighlight="@android:color/holo_orange_dark"
+        android:textColorHint="@android:color/holo_orange_dark"
         app:layout_constraintStart_toStartOf="@+id/utaID"
         app:layout_constraintTop_toBottomOf="@+id/utaID" />
 
@@ -143,6 +149,9 @@
         android:ems="10"
         android:hint="Enter UTA ID"
         android:inputType="numberDecimal"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textColorHighlight="@android:color/holo_orange_dark"
+        android:textColorHint="@android:color/holo_orange_dark"
         app:layout_constraintStart_toStartOf="@+id/username"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
@@ -154,6 +163,9 @@
         android:ems="10"
         android:hint="Enter your email address"
         android:inputType="textEmailAddress"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textColorHighlight="@android:color/holo_orange_dark"
+        android:textColorHint="@android:color/holo_orange_dark"
         app:layout_constraintStart_toStartOf="@+id/dateOfBirth"
         app:layout_constraintTop_toBottomOf="@+id/dateOfBirth" />
 
@@ -165,6 +177,9 @@
         android:ems="10"
         android:hint="Enter your phone number"
         android:inputType="phone"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textColorHighlight="@android:color/holo_orange_dark"
+        android:textColorHint="@android:color/holo_orange_dark"
         app:layout_constraintStart_toStartOf="@+id/dateOfBirth"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
@@ -176,6 +191,9 @@
         android:ems="10"
         android:hint="Enter your address"
         android:inputType="text|textPostalAddress"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textColorHighlight="@android:color/holo_orange_dark"
+        android:textColorHint="@android:color/holo_orange_dark"
         app:layout_constraintStart_toStartOf="@+id/dateOfBirth"
         app:layout_constraintTop_toBottomOf="@+id/phone" />
 
@@ -187,6 +205,9 @@
         android:ems="10"
         android:hint="Enter your City"
         android:inputType="text"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textColorHighlight="@android:color/holo_orange_dark"
+        android:textColorHint="@android:color/holo_orange_dark"
         app:layout_constraintStart_toStartOf="@+id/dateOfBirth"
         app:layout_constraintTop_toBottomOf="@+id/address" />
 
@@ -198,6 +219,9 @@
         android:ems="10"
         android:hint="Enter your State"
         android:inputType="text"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textColorHighlight="@android:color/holo_orange_dark"
+        android:textColorHint="@android:color/holo_orange_dark"
         app:layout_constraintStart_toStartOf="@+id/dateOfBirth"
         app:layout_constraintTop_toBottomOf="@+id/city" />
 
@@ -209,16 +233,21 @@
         android:ems="10"
         android:hint="Enter your Zipcode"
         android:inputType="phone"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textColorHint="@android:color/holo_orange_dark"
         app:layout_constraintStart_toStartOf="@+id/dateOfBirth"
-        app:layout_constraintTop_toBottomOf="@+id/state" />
+        app:layout_constraintTop_toBottomOf="@+id/state"
+        android:textColorHighlight="@android:color/holo_orange_dark" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp"
         android:background="@android:color/holo_orange_dark"
         android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent"
