@@ -7,8 +7,6 @@ public class UserCredentials {
     private String role;
     private int recovery;
 
-
-
     public int getUserID() {
         return userID;
     }
