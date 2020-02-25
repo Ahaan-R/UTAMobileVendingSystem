@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.utamobilevendingsystem.ChangePassword;
 import com.example.utamobilevendingsystem.LoginActivity;
+import com.example.utamobilevendingsystem.OrderDetails;
 import com.example.utamobilevendingsystem.domain.UserDetails;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -92,7 +93,7 @@ public class UserHomeScreen extends AppCompatActivity {
                 //addSomething();
                 return true;
             case R.id.menu_view_orders:
-                //startSettings();
+                viewOrders();
                 return true;
             case R.id.app_bar_search:
                 //startSettings();
@@ -106,6 +107,10 @@ public class UserHomeScreen extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    private void viewOrders() {
+        Intent myint = new Intent(UserHomeScreen.this, OrderDetails.class);
+        startActivity(myint);
     }
 
     private void logout() {

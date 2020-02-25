@@ -15,7 +15,7 @@
     <string name="sign_in">Sign In</string>
     <string name="click_here_to_register_if_new_user">Click Here To Register If New User</string>
     <string name="status">STATUS:</string>
-    <string name="confirmed">CONFIRMED:</string>
+    <string name="confirmed">CONFIRMED</string>
     <string name="total">Total</string>
     <string name="food_item">Food Item</string>
     <string name="quantity">Quantity</string>

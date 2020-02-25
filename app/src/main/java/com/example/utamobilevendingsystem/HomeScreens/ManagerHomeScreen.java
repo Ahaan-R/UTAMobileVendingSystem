@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.utamobilevendingsystem.LoginActivity;
+import com.example.utamobilevendingsystem.OperatorDetails;
+import com.example.utamobilevendingsystem.OperatorScheduleList;
+import com.example.utamobilevendingsystem.OrderDetails;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -15,14 +18,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.utamobilevendingsystem.R;
 
 public class ManagerHomeScreen extends AppCompatActivity {
     String fName,lName,username,dob,phoneNummber,email,address,city,state,zip;
-    int utaID;
-    TextView fNameTV,lNameTV,usernameTV,dobTV,phoneNummberTV,emailTV,addressTV,cityTV,stateTV,zipTV,utaidTV;
+    private Button VIEW_OPTR,VIEW_SCHEDULE;
+    TextView fNameTV,lNameTV,usernameTV,dobTV,phoneNummberTV,emailTV,addressTV,cityTV,stateTV,zipTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +43,24 @@ public class ManagerHomeScreen extends AppCompatActivity {
         cityTV= findViewById(R.id.cityTV);
         stateTV= findViewById(R.id.stateTV);
         zipTV= findViewById(R.id.zipTV);
-        utaidTV= findViewById(R.id.utaidTV);
         fetchSharedPref();
         setUserProfile();
+
+        VIEW_OPTR= (Button) findViewById(R.id.viewoperator);
+        VIEW_SCHEDULE=(Button) findViewById(R.id.schedule_id);
+        VIEW_OPTR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOperatorlist();
+            }
+        });
+
+        VIEW_SCHEDULE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewschedule();
+            }
+        });
 
     }
 
@@ -56,7 +75,6 @@ public class ManagerHomeScreen extends AppCompatActivity {
         cityTV.setText("City: "+city);
         stateTV.setText("State: "+state);
         zipTV.setText("ZIP: "+zip);
-        utaidTV.setText("UTA ID: "+String.valueOf(utaID));
     }
 
     private void fetchSharedPref() {
@@ -71,7 +89,6 @@ public class ManagerHomeScreen extends AppCompatActivity {
         city =prefs.getString("city","");
         state =prefs.getString("state","");
         zip =prefs.getString("zip","");
-        utaID = prefs.getInt("utaid",0);
     }
 
     @Override
@@ -89,7 +106,7 @@ public class ManagerHomeScreen extends AppCompatActivity {
                 //addSomething();
                 return true;
             case R.id.menu_view_orders:
-                //startSettings();
+                viewOrders();
                 return true;
             case R.id.app_bar_search:
                 //startSettings();
@@ -105,9 +122,24 @@ public class ManagerHomeScreen extends AppCompatActivity {
         }
     }
 
+    private void viewOrders() {
+        Intent myint = new Intent(ManagerHomeScreen.this, OrderDetails.class);
+        startActivity(myint);
+    }
+
     private void logout() {
         Intent logout = new Intent(ManagerHomeScreen.this, LoginActivity.class);
         startActivity(logout);
+    }
+    public void openOperatorlist(){
+
+        Intent intent= new Intent(this, OperatorDetails.class );
+        startActivity(intent );
+    }
+    public void viewschedule(){
+
+        Intent intent= new Intent(this, OperatorScheduleList.class );
+        startActivity(intent );
     }
 
 }
