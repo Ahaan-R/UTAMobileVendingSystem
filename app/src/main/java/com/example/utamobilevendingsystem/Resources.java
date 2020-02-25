@@ -10,95 +10,96 @@ public class Resources {
 
     // USER_CREDENTIALS
     public static final String TABLE_USER_CREDS = "user_creds";
-    private static final String USER_CREDS_USER_ID = "user_id";  // Primary Key
-    private static final String USER_CREDS_USERNAME = "username";
-    private static final String USER_CREDS_PASSWORD = "password";
-    private static final String USER_CREDS_ROLE = "role";
-    private static final String USER_CREDS_RECOVERY="recovery";
+    public static final String USER_CREDS_USER_ID = "user_id";  // Primary Key
+    public static final String USER_CREDS_USERNAME = "username";
+    public static final String USER_CREDS_PASSWORD = "password";
+    public static final String USER_CREDS_ROLE = "role";
+    public static final String USER_CREDS_RECOVERY="recovery";
 
     // USER_DETAILS
     public static final String TABLE_USER_DETAILS = "user_details";
-    private static final String USER_DETAILS_ID = "user_id"; //Foreign Key  -> USER_CREDS_USER_ID
-    private static final String USER_DETAILS_FNAME = "first_name";
-    private static final String USER_DETAILS_LNAME = "last_name";
-    private static final String USER_DETAILS_UTA_ID = "uta_id";
-    private static final String USER_DETAILS_DOB = "dob";
-    private static final String USER_DETAILS_PHONE = "phone";
-    private static final String USER_DETAILS_EMAIL_ID = "emailid";
-    private static final String USER_DETAILS_ADDRESS = "address";
-    private static final String USER_DETAILS_CITY = "city";
-    private static final String USER_DETAILS_STATE = "state";
-    private static final String USER_DETAILS_ZIP = "zip";
+    public static final String USER_DETAILS_ID = "user_id"; //Foreign Key  -> USER_CREDS_USER_ID
+    public static final String USER_DETAILS_USERNAME="username";
+    public static final String USER_DETAILS_FNAME = "first_name";
+    public static final String USER_DETAILS_LNAME = "last_name";
+    public static final String USER_DETAILS_UTA_ID = "uta_id";
+    public static final String USER_DETAILS_DOB = "dob";
+    public static final String USER_DETAILS_PHONE = "phone";
+    public static final String USER_DETAILS_EMAIL_ID = "emailid";
+    public static final String USER_DETAILS_ADDRESS = "address";
+    public static final String USER_DETAILS_CITY = "city";
+    public static final String USER_DETAILS_STATE = "state";
+    public static final String USER_DETAILS_ZIP = "zip";
 
     // VEHICLE INVENTORY
     public static final String TABLE_VEHICLE_INVENTORY = "vehicle_inventory";
-    private static final String VEHICLE_INVENTORY_ID = "id";
-    private static final String VEHICLE_INVENTORY_VEHICLE_ID = "vehicle_id";
-    private static final String VEHICLE_INVENTORY_ITEM_ID = "item_id";
-    private static final String VEHICLE_INVENTORY_QUANTITY = "quantity";
+    public static final String VEHICLE_INVENTORY_ID = "id";
+    public static final String VEHICLE_INVENTORY_VEHICLE_ID = "vehicle_id";
+    public static final String VEHICLE_INVENTORY_ITEM_ID = "item_id";
+    public static final String VEHICLE_INVENTORY_QUANTITY = "quantity";
 
     // CART
     public static final String TABLE_CART = "cart";
-    private static final String CART_ID = "cart_ID";
-    private static final String CART_ITEM_ID = "cart_item_id";
-    private static final String CART_QUANTITY = "quantity";
+    public static final String CART_ID = "cart_ID";
+    public static final String CART_ITEM_ID = "cart_item_id";
+    public static final String CART_QUANTITY = "quantity";
 
     // ORDER
     public static final String TABLE_ORDER = "orders";
-    private static final String ORDER_ID = "order_id";
-    private static final String ORDER_ITEM_ID = "order_item_id";
-    private static final String ORDER_ITEM_QUANTITY = "order_item_quantity";
-    private static final String ORDER_ITEM_PRICE = "order_item_price"; // Product of item price and quantity
-    private static final String ORDER_STATUS_ID = "order_status_id"; // foreign KEY -> STATUS_ID
+    public static final String ORDER_ID = "order_id";
+    public static final String ORDER_ITEM_ID = "order_item_id";
+    public static final String ORDER_ITEM_QUANTITY = "order_item_quantity";
+    public static final String ORDER_ITEM_PRICE = "order_item_price"; // Product of item price and quantity
+    public static final String ORDER_STATUS_ID = "order_status_id"; // foreign KEY -> STATUS_ID
 
     // STATUS
     public static final String TABLE_STATUS = "status";
-    private static final String STATUS_ID = "status_id";
-    private static final String STATUS_DESCRIPTION = "description";
+    public static final String STATUS_ID = "status_id";
+    public static final String STATUS_DESCRIPTION = "description";
 
     // ITEM
     public static final String TABLE_ITEM = "item";
-    private static final String ITEM_ID = "item_id";
-    private static final String ITEM_NAME = "item_name";
-    private static final String ITEM_PRICE = "item_price";
+    public static final String ITEM_ID = "item_id";
+    public static final String ITEM_NAME = "item_name";
+    public static final String ITEM_PRICE = "item_price";
 
     // VEHICLE
     public static final String TABLE_VEHICLE = "vehicle";
-    private static final String VEHICLE_ID = "vehicle_id";
-    private static final String VEHICLE_NAME = "name";
-    private static final String VEHICLE_type = "type";
-    private static final String VEHICLE_AVAILABILITY = "availability";
-    private static final String VEHICLE_LOCATION_ID = "location_id";
+    public static final String VEHICLE_ID = "vehicle_id";
+    public static final String VEHICLE_NAME = "name";
+    public static final String VEHICLE_type = "type";
+    public static final String VEHICLE_AVAILABILITY = "availability";
+    public static final String VEHICLE_LOCATION_ID = "location_id";
 
     // LOCATION
     public static final String TABLE_LOCATION = "location";
-    private static final String LOCATION_ID = "location_id";
-    private static final String LOCATION_NAME = "name";
-    private static final String LOCATION_SCHEDULE = "schedule";
+    public static final String LOCATION_ID = "location_id";
+    public static final String LOCATION_NAME = "name";
+    public static final String LOCATION_SCHEDULE = "schedule";
 
     // PAYMENTS
     public static final String TABLE_PAYMENTS = "payments";
-    private static final String PAYMENTS_ID = "id";
-    private static final String PAYMENTS_USER_ID = "user_id";
-    private static final String CARD_NUMBER = "card_number";
-    private static final String EXPIRATION_DATE = "expiration_date";
-    private static final String CARD_TYPE = "card_type";
+    public static final String PAYMENTS_ID = "id";
+    public static final String PAYMENTS_USER_ID = "user_id";
+    public static final String CARD_NUMBER = "card_number";
+    public static final String EXPIRATION_DATE = "expiration_date";
+    public static final String CARD_TYPE = "card_type";
 
     // OPERATOR VEHICLE
     public static final String TABLE_OPERATOR_VEHICLE = "operator_vehicle";
-    private static final String OPERATOR_VEHICLE_USER_ID = "user_id";
-    private static final String OPERATOR_VEHICLE_VEHICLE_ID = "vehicle_id";
+    public static final String OPERATOR_VEHICLE_USER_ID = "user_id";
+    public static final String OPERATOR_VEHICLE_VEHICLE_ID = "vehicle_id";
 
 
     // USER - ORDER table
     public static final String TABLE_USER_ORDER = "user_order";
-    private static final String USER_ORDER_USERID = "user_id";
-    private static final String USER_ORDER_ORDERID = "order_id";
+    public static final String USER_ORDER_USERID = "user_id";
+    public static final String USER_ORDER_ORDERID = "order_id";
 
     // USER - CART table
     public static final String TABLE_USER_CART = "user_cart";
-    private static final String USER_CART_USERID = "user_id";
-    private static final String USER_CART_ID = "cart_id";
+    public static final String USER_CART_USERID = "user_id";
+    public static final String USER_CART_ID = "cart_id";
 
     public static final String CREATE_TABLE_USER_CREDENTIALS = "CREATE TABLE IF NOT EXISTS " + TABLE_USER_CREDS
             + "(" + USER_CREDS_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -110,10 +111,11 @@ public class Resources {
 
     public static final String CREATE_TABLE_USER_DETAILS = "CREATE TABLE IF NOT EXISTS " + TABLE_USER_DETAILS
             + "(" + USER_DETAILS_ID + " INTEGER, "
+            + USER_DETAILS_USERNAME + "TEXT, "
             + USER_DETAILS_FNAME + " TEXT, "
             + USER_DETAILS_LNAME + " TEXT, "
             + USER_DETAILS_UTA_ID + " INTEGER, "
-            + USER_DETAILS_DOB + " DATE, "
+            + USER_DETAILS_DOB + " TEXT, "
             + USER_DETAILS_PHONE + " TEXT, "
             + USER_DETAILS_EMAIL_ID + " TEXT, "
             + USER_DETAILS_ADDRESS + " TEXT, "
