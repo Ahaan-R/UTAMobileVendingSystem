@@ -23,7 +23,7 @@ public class RegistrationActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioButtonUser;
     RadioButton radioButtonOperator;
-    String typeOfUser;
+    String role;
     EditText firstName;
     EditText lastName;
     EditText enterPassword;
@@ -69,7 +69,6 @@ public class RegistrationActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String fname = firstName.getText().toString();
                 String lname = lastName.getText().toString();
                 String password = enterPassword.getText().toString();
@@ -86,7 +85,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 if (password.equals(confirmPwd) && (password != "") && (confirmPwd!= "")) {
                     boolean flag = true;
-
                     if (!verifyUsername(uname)) {
                         flag = false;
                         Toast.makeText(RegistrationActivity.this, "Please try with a different username", Toast.LENGTH_SHORT).show();
@@ -104,11 +102,13 @@ public class RegistrationActivity extends AppCompatActivity {
                         Toast.makeText(RegistrationActivity.this, "Please enter valid email address", Toast.LENGTH_SHORT).show();
                     }
 
+                    onRadioButtonClicked( new View(getApplicationContext()));
+
                     if (flag){
                         ContentValues contentValues=new ContentValues();
                         contentValues.put("username",uname);
                         contentValues.put("password",password);
-                        contentValues.put("role", "user");
+                        contentValues.put("role", role);
                         long value = dbObject.insert(Resources.TABLE_USER_CREDS,null, contentValues);
                         ContentValues values = new ContentValues();
                         values.put("user_id", value);
@@ -138,10 +138,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
+
     public void onRadioButtonClicked(View view){
         int selectedRadio = radioGroup.getCheckedRadioButtonId();
         radioButtonUser = findViewById(selectedRadio);
-        typeOfUser = radioButtonUser.getText().toString();
+        role = radioButtonUser.getText().toString();
     }
 
     public boolean verifyUsername(String userName){

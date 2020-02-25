@@ -1,152 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:textAlignment="center"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".HomeScreens.ManagerHomeScreen"
     tools:showIn="@layout/activity_manager_home_screen">
 
-    <TextView
-        android:id="@+id/zipTV"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="15dp"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/schedule_id"
-        app:layout_constraintEnd_toEndOf="@+id/stateTV"
-        app:layout_constraintStart_toStartOf="@+id/stateTV"
-        app:layout_constraintTop_toBottomOf="@+id/stateTV" />
-
-    <TextView
-        android:id="@+id/stateTV"
-        android:layout_width="163dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/zipTV"
-        app:layout_constraintStart_toStartOf="@+id/schedule_id"
-        app:layout_constraintTop_toBottomOf="@+id/cityTV" />
-
-    <TextView
-        android:id="@+id/addressTV"
-        android:layout_width="190dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/cityTV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailTV" />
-
-    <TextView
-        android:id="@+id/emailTV"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="18dp"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/addressTV"
-        app:layout_constraintEnd_toEndOf="@+id/addressTV"
-        app:layout_constraintStart_toStartOf="@+id/schedule_id"
-        app:layout_constraintTop_toBottomOf="@+id/phoneTV" />
 
     <TextView
         android:id="@+id/userNameTV"
-        android:layout_width="238dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="19dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/viewoperator"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:text="Welcome," />
 
     <TextView
-        android:id="@+id/cityTV"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/stateTV"
-        app:layout_constraintEnd_toEndOf="@+id/stateTV"
-        app:layout_constraintStart_toStartOf="@+id/addressTV"
-        app:layout_constraintTop_toBottomOf="@+id/addressTV" />
-
-    <TextView
         android:id="@+id/fNameTV"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="27dp"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/lNameTV"
-        app:layout_constraintEnd_toEndOf="@+id/lNameTV"
-        app:layout_constraintStart_toStartOf="@+id/viewoperator"
-        app:layout_constraintTop_toBottomOf="@+id/viewoperator" />
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:id="@+id/lNameTV"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="18dp"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/dobTV"
-        app:layout_constraintEnd_toEndOf="@+id/dobTV"
-        app:layout_constraintStart_toStartOf="@+id/dobTV"
-        app:layout_constraintTop_toBottomOf="@+id/fNameTV" />
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/zipTV"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/stateTV"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/addressTV"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/emailTV"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/cityTV"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:id="@+id/dobTV"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/phoneTV"
-        app:layout_constraintEnd_toEndOf="@+id/phoneTV"
-        app:layout_constraintStart_toStartOf="@+id/phoneTV"
-        app:layout_constraintTop_toBottomOf="@+id/lNameTV" />
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:id="@+id/phoneTV"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="26dp"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/emailTV"
-        app:layout_constraintEnd_toEndOf="@+id/emailTV"
-        app:layout_constraintStart_toStartOf="@+id/emailTV"
-        app:layout_constraintTop_toBottomOf="@+id/dobTV" />
-
-    <Button
-        android:id="@+id/viewoperator"
-        android:background="@color/colorPrimaryDark"
-        android:layout_width="145dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="18dp"
-        android:text="VIEW OPERATORS"
-        app:layout_constraintBottom_toTopOf="@+id/fNameTV"
-        app:layout_constraintEnd_toEndOf="@+id/userNameTV"
-        app:layout_constraintTop_toBottomOf="@+id/userNameTV" />
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark" />
 
-    <Button
-        android:id="@+id/schedule_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:text="VIEW OPERATOR SCHEDULE"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zipTV" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:textAlignment="center">
+
+        <Button
+            android:id="@+id/viewoperator"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="VIEW OPERATORS"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/schedule_id"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="VIEW OPERATOR SCHEDULES"
+            android:textAlignment="center" />
+    </LinearLayout>
+</LinearLayout>
