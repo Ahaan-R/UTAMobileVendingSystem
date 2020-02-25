@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.utamobilevendingsystem.ChangePassword;
+import com.example.utamobilevendingsystem.LocationScreen;
 import com.example.utamobilevendingsystem.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -57,7 +58,6 @@ public class VendorHomeScreen extends AppCompatActivity {
         cityTV.setText("City: "+city);
         stateTV.setText("State: "+state);
         zipTV.setText("ZIP: "+zip);
-        utaidTV.setText("UTA ID: "+String.valueOf(utaID));
     }
 
     private void fetchSharedPref() {
@@ -72,7 +72,6 @@ public class VendorHomeScreen extends AppCompatActivity {
         city =prefs.getString("city","");
         state =prefs.getString("state","");
         zip =prefs.getString("zip","");
-        utaID = prefs.getInt("utaid",0);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,7 +85,7 @@ public class VendorHomeScreen extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.menu_location:
-                //addSomething();
+                viewLocationList();
                 return true;
             case R.id.menu_view_orders:
                 //startSettings();
@@ -112,6 +111,11 @@ public class VendorHomeScreen extends AppCompatActivity {
 
     private void changePassword() {
         Intent changePasswordIntent = new Intent(VendorHomeScreen.this, ChangePassword.class);
+        startActivity(changePasswordIntent);
+    }
+
+    private void viewLocationList(){
+        Intent changePasswordIntent = new Intent(VendorHomeScreen.this, LocationScreen.class);
         startActivity(changePasswordIntent);
     }
 

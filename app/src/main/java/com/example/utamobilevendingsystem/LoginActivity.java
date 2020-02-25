@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(myInt);
                         break;
                     }
-                    case "Vendor": {
+                    case "Operator": {
                         Intent myInt = new Intent(LoginActivity.this, VendorHomeScreen.class);
                         startActivity(myInt);
                         break;

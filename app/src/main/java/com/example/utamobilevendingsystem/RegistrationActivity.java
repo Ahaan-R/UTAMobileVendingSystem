@@ -43,6 +43,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
@@ -64,6 +65,7 @@ public class RegistrationActivity extends AppCompatActivity {
         zip = findViewById(R.id.zipCode);
         userState = findViewById(R.id.state);
         address = findViewById(R.id.address);
+        onRadioButtonClicked( new View(getApplicationContext()));
 
         submitButton = findViewById(R.id.submitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +77,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 String confirmPwd = confirmPassword.getText().toString();
                 String uname = username.getText().toString();
                 String phNo = phone.getText().toString();
-                String utaID = utaid.getText().toString();
+                String utaID ="";
+                if(role.equalsIgnoreCase("user")){
+                    utaID = utaid.getText().toString();
+                }
                 String dateOfBirth = dob.getText().toString();
                 String mailAddress = email.getText().toString();
                 String userCity = city.getText().toString();
@@ -102,8 +107,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         Toast.makeText(RegistrationActivity.this, "Please enter valid email address", Toast.LENGTH_SHORT).show();
                     }
 
-                    onRadioButtonClicked( new View(getApplicationContext()));
-
                     if (flag){
                         ContentValues contentValues=new ContentValues();
                         contentValues.put("username",uname);
@@ -115,7 +118,10 @@ public class RegistrationActivity extends AppCompatActivity {
                         values.put("username", uname);
                         values.put("first_name", fname);
                         values.put("last_name", lname);
-                        values.put("uta_id", utaID);
+                        if(role.equalsIgnoreCase("user")){
+                            values.put("uta_id", utaID);
+                        }
+
                         values.put("dob", dateOfBirth);
                         values.put("phone",phNo);
                         values.put("emailid",mailAddress);
@@ -142,7 +148,13 @@ public class RegistrationActivity extends AppCompatActivity {
     public void onRadioButtonClicked(View view){
         int selectedRadio = radioGroup.getCheckedRadioButtonId();
         radioButtonUser = findViewById(selectedRadio);
+        utaid = findViewById(R.id.utaID);
         role = radioButtonUser.getText().toString();
+        if(!role.equalsIgnoreCase("user")){
+            utaid.setVisibility(View.INVISIBLE);
+        } else {
+            utaid.setVisibility(View.VISIBLE);
+        }
     }
 
     public boolean verifyUsername(String userName){
@@ -153,7 +165,6 @@ public class RegistrationActivity extends AppCompatActivity {
         }
         return true;
     }
-
 
     public boolean verifyName(String name){
         name=name.trim();

@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.example.utamobilevendingsystem.LocationScreen;
 import com.example.utamobilevendingsystem.LoginActivity;
 import com.example.utamobilevendingsystem.OperatorDetails;
+import com.example.utamobilevendingsystem.OperatorList;
 import com.example.utamobilevendingsystem.OperatorScheduleList;
 import com.example.utamobilevendingsystem.OrderDetails;
 import com.example.utamobilevendingsystem.VehicleScreen;
@@ -104,7 +106,7 @@ public class ManagerHomeScreen extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.menu_location:
-                //addSomething();
+                viewLocationList();
                 return true;
             case R.id.menu_view_orders:
                 viewOrders();
@@ -138,13 +140,18 @@ public class ManagerHomeScreen extends AppCompatActivity {
     }
     public void openOperatorlist(){
 
-        Intent intent= new Intent(this, OperatorDetails.class );
+        Intent intent= new Intent(this, OperatorList.class );
         startActivity(intent );
     }
     public void viewschedule(){
 
         Intent intent= new Intent(this, OperatorScheduleList.class );
         startActivity(intent );
+    }
+
+    private void viewLocationList(){
+        Intent changePasswordIntent = new Intent(ManagerHomeScreen.this, LocationScreen.class);
+        startActivity(changePasswordIntent);
     }
 
 }
