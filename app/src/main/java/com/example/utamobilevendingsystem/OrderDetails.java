@@ -17,9 +17,28 @@ public class OrderDetails extends AppCompatActivity {
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myintent = new Intent(OrderDetails.this,OrderSummary.class);
-                startActivity(myintent);
+                openfooddetails();
+
             }
         });
     }
+    public void openfooddetails(){
+        Intent intent =new Intent(this, OrderSummary.class);
+        startActivity(intent );
+    }
 }
+
+//    Intent myintent = new Intent(OrderDetails.this,OrderSummary.class);
+//    startActivity(myintent);
+////////
+//    public void onClick(View v) {
+//        openoptrdeatils();
+//    }
+//});
+//
+//        }
+//
+//public void openoptrdeatils(){
+//        Intent intent =new Intent(this, OperatorDetails.class);
+//        startActivity(intent );
+//        }
