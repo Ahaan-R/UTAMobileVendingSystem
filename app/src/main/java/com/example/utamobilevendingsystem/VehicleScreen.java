@@ -11,7 +11,7 @@ import com.example.utamobilevendingsystem.domain.VehicleType;
 
 import java.util.ArrayList;
 
-public class vehicle_screen extends AppCompatActivity {
+public class VehicleScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

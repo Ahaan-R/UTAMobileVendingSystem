@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".vehicle_details_screen">
+    tools:context=".VehicleDetailsScreen">
 
     <TableLayout
         android:layout_width="399dp"
