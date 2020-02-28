@@ -162,10 +162,17 @@ public class Resources {
             + "CONSTRAINT fk_table_operator_vehicle_vehicle_id FOREIGN KEY ("+OPERATOR_VEHICLE_VEHICLE_ID+") REFERENCES "+ TABLE_VEHICLE+"(" +VEHICLE_ID+")"
             + ")";
 
+    public static final String CREATE_TABLE_USER_CART = "CREATE TABLE IF NOT EXISTS " + TABLE_USER_CART
+            + "(" + USER_CART_USERID + " INTEGER, "
+            + USER_CART_ID + " INTEGER PRIMARY KEY, "
+            + "CONSTRAINT fk_table_user_cart_cart_id FOREIGN KEY ("+USER_CART_USERID+") REFERENCES "+ TABLE_USER_CREDS+"(" +USER_CREDS_USER_ID+")"
+            + ")";
+
     public static final String CREATE_TABLE_CART = "CREATE TABLE IF NOT EXISTS " + TABLE_CART
-            + "(" + CART_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + "(" + CART_ID + " INTEGER, "
             + CART_ITEM_ID + " INTEGER, "
-            + CART_QUANTITY + " INTEGER,"
+            + CART_QUANTITY + " INTEGER, "
+            + "CONSTRAINT fk_table_cart  FOREIGN KEY ("+CART_ID+") REFERENCES "+ TABLE_USER_CART+"(" +USER_CART_ID+"), "
             + "CONSTRAINT fk_table_cart  FOREIGN KEY ("+CART_ITEM_ID+") REFERENCES "+ TABLE_ITEM+"(" +ITEM_ID+")"
             + ")";
 
@@ -193,13 +200,6 @@ public class Resources {
             + USER_ORDER_ORDERID + " INTEGER, "
             + "CONSTRAINT fk_table_user_order_user_id FOREIGN KEY ("+USER_ORDER_USERID+") REFERENCES "+ TABLE_USER_CREDS+"(" +USER_CREDS_USER_ID+"), "
             + "CONSTRAINT fk_table_user_order_order_id FOREIGN KEY ("+USER_ORDER_ORDERID+") REFERENCES "+ TABLE_ORDER+"(" +ORDER_ID+")"
-            + ")";
-
-    public static final String CREATE_TABLE_USER_CART = "CREATE TABLE IF NOT EXISTS " + TABLE_USER_CART
-            + "(" + USER_CART_USERID + " INTEGER, "
-            + USER_CART_ID + " INTEGER, "
-            + "CONSTRAINT fk_table_user_cart_user_id FOREIGN KEY ("+USER_CART_USERID+") REFERENCES "+ TABLE_USER_CREDS+"(" +USER_CREDS_USER_ID+"), "
-            + "CONSTRAINT fk_table_user_cart_cart_id FOREIGN KEY ("+USER_CART_ID+") REFERENCES "+ TABLE_CART+"(" +CART_ID+")"
             + ")";
 
     public static String getDatabaseName(){
