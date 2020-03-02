@@ -2,7 +2,9 @@ package com.example.utamobilevendingsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.example.utamobilevendingsystem.domain.Item;
 import com.example.utamobilevendingsystem.domain.OrderItem;
 import com.example.utamobilevendingsystem.domain.Payments;
+import com.example.utamobilevendingsystem.domain.UserCart;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +28,9 @@ public class UserOrder extends AppCompatActivity {
     TextView swichAvl,drinksAvl,snacksAvl,totalPrice,switchPrice,drinksPrice,snacksPrice;
     EditText switchQty,drinksQty,snacksQty;
     Button placeOrder;
+    UserCart userCart = new UserCart();
+    HashMap<Integer,Integer> vehicleInventory = new HashMap<>();
+    ContentValues cart = new ContentValues();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +91,6 @@ public class UserOrder extends AppCompatActivity {
         String inventoryQuery= "SELECT * FROM "+ Resources.TABLE_VEHICLE_INVENTORY+ " WHERE " +  Resources.VEHICLE_INVENTORY_VEHICLE_ID + " = " + vehicleID;
         Cursor c1 = db.rawQuery(inventoryQuery, null);
         int count= c1.getCount();
-        HashMap<Integer,Integer> vehicleInventory = new HashMap<>();
 
         while (count >0){
             c1.moveToPosition(count-1);
@@ -128,8 +133,24 @@ public class UserOrder extends AppCompatActivity {
                     flag= false;
                 }
                 if(flag){
-                    Intent myint = new Intent(UserOrder.this, PaymentsActivity.class);
+                    SQLiteDatabase db=DatabaseHelper.getInstance(getApplicationContext()).getWritableDatabase();
+                    SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
+                    int uid =prefs.getInt("userid",0);
+                    cart.put("cart_ID",uid);
+                    cart.put("cart_item_id",1);
+                    cart.put("quantity",Integer.parseInt(switchQty.getText().toString()));
+                    db.insert(Resources.TABLE_CART,null, cart);
+                    cart.put("cart_ID",uid);
+                    cart.put("cart_item_id",2);
+                    cart.put("quantity",Integer.parseInt(drinksQty.getText().toString()));
+                    db.insert(Resources.TABLE_CART,null, cart);
+                    cart.put("cart_ID",uid);
+                    cart.put("cart_item_id",3);
+                    cart.put("quantity",Integer.parseInt(snacksQty.getText().toString()));
+                    db.insert(Resources.TABLE_CART,null, cart);
+                    Intent myint = new Intent(UserOrder.this, CardDetails.class);
                     myint.putExtra("total",total);
+                    myint.putExtra("uid",uid);
                     startActivity(myint);
                 }
             }

@@ -85,7 +85,7 @@
             <TextView
 
                 android:id="@+id/r1c4"
-                android:layout_width="169dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
@@ -294,4 +294,18 @@
         app:layout_constraintBottom_toTopOf="@+id/placeOrder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout3" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="281dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="124dp"
+        android:paddingTop="5dp"
+        android:text="* Price indicated is displayed per unit."
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.015"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
