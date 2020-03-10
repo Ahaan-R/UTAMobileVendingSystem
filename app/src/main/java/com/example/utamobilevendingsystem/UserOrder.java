@@ -31,7 +31,7 @@ public class UserOrder extends AppCompatActivity {
     UserCart userCart = new UserCart();
     HashMap<Integer,Integer> vehicleInventory = new HashMap<>();
     ContentValues cart = new ContentValues();
-    SharedPreferences.Editor editor = getSharedPreferences("userCart", MODE_PRIVATE).edit();
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +58,7 @@ public class UserOrder extends AppCompatActivity {
         drinksQty= findViewById(R.id.drinksQty);
         snacksQty= findViewById(R.id.snacksQty);
         placeOrder= findViewById(R.id.placeOrder);
+        editor = getSharedPreferences("userCart", MODE_PRIVATE).edit();
         getInventory(locationId);
         switchQty.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -156,6 +157,7 @@ public class UserOrder extends AppCompatActivity {
                     editor.putInt("swichQty",Integer.parseInt(switchQty.getText().toString()));
                     editor.putInt("drinksQty",Integer.parseInt(drinksQty.getText().toString()));
                     editor.putInt("snacksQty",Integer.parseInt(snacksQty.getText().toString()));
+                    editor.apply();
                     Intent myint = new Intent(UserOrder.this, CardDetails.class);
                     myint.putExtra("total",total);
                     myint.putExtra("uid",uid);

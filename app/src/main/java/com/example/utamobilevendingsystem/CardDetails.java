@@ -41,7 +41,6 @@ public class CardDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 expiry= expiryED.getText().toString();
-                cvv= Integer.parseInt(cvvED.getText().toString());
                 cardNumber= cardNumberED.getText().toString();
                 boolean flag=true;
                 if(cardNumberED.getText().toString().length()!=16){
@@ -54,6 +53,7 @@ public class CardDetails extends AppCompatActivity {
                 }
 
                 if(flag){
+                    cvv= Integer.parseInt(cvvED.getText().toString());
                     Payments payments = new Payments();
                     payments.setExpirationDate(expiry);
                     payments.setCardType(CardType.CREDIT);

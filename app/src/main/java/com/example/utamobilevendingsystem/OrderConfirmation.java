@@ -19,17 +19,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OrderConfirmation extends AppCompatActivity {
-    int userId,totalPrice;
+    int userId;
     TextView swichQty,swichPrice,drinksQty,drinksPrice,snacksQty,snacksPrice,total;
     int swichQuantity,drinksQuantity,snacksQuantity;
     String switchAmt,drinksAmt,snacksAmt;
+    double totalPrice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
         Intent newint = getIntent();
         userId=newint.getIntExtra("userid",0);
-        totalPrice=newint.getIntExtra("totalPrice",0);
+        totalPrice=newint.getDoubleExtra("totalPrice",0.0);
         swichQty = findViewById(R.id.swichQty);
         swichPrice = findViewById(R.id.swichPrice);
         drinksQty = findViewById(R.id.drinksQty);
@@ -60,13 +61,13 @@ public class OrderConfirmation extends AppCompatActivity {
 
     private void confirmOrder() {
         SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getWritableDatabase();
-        String lastOrder = "SELECT LAST(order_id) FROM "+Resources.TABLE_ORDER;
+        String lastOrder = "SELECT "+Resources.ORDER_ID +" FROM "+Resources.TABLE_ORDER;
         Cursor c = db.rawQuery(lastOrder, null);
         int order_id=1;
-        if (c.getCount() > 0){
-            c.moveToFirst();
+        if (c.getCount() > 0) {
+            c.moveToLast();
+            order_id = c.getInt(c.getColumnIndex(Resources.ORDER_ID)) + 1;
         }
-        order_id= c.getInt(c.getColumnIndex(Resources.ORDER_ID));
         ContentValues order = new ContentValues();
         order.put("order_id",order_id);
         order.put("order_item_id",1);
@@ -93,7 +94,7 @@ public class OrderConfirmation extends AppCompatActivity {
         db.insert(Resources.TABLE_USER_ORDER,null, userOrders);
 
         String deleteCart = "DELETE FROM "+Resources.TABLE_CART+" WHERE "+Resources.CART_ID +" = "+userId ;
-        Cursor c1 = db.rawQuery(deleteCart, null);
+        db.execSQL(deleteCart);
     }
 
     @Override

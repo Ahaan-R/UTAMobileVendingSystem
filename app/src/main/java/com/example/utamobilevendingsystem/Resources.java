@@ -177,7 +177,7 @@ public class Resources {
             + ")";
 
     public static final String CREATE_TABLE_ORDER = "CREATE TABLE IF NOT EXISTS " + TABLE_ORDER
-            + "(" + ORDER_ID + " INTEGER PRIMARY KEY,"
+            + "(" + ORDER_ID + " INTEGER, "
             + ORDER_ITEM_ID + " INTEGER, "
             + ORDER_ITEM_QUANTITY + " INTEGER, "
             + ORDER_ITEM_PRICE + " INTEGER, "
