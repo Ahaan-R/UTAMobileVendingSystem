@@ -81,6 +81,7 @@
                 android:textSize="25dp" />
 
             <TextView
+                android:id="@+id/swichQty"
                 android:layout_width="101dp"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -90,6 +91,7 @@
                 android:textSize="25dp" />
 
             <TextView
+                android:id="@+id/swichPrice"
                 android:layout_width="101dp"
                 android:layout_height="match_parent"
                 android:layout_column="3"
@@ -113,6 +115,7 @@
                 android:textSize="25dp" />
 
             <TextView
+                android:id="@+id/drinksQty"
                 android:layout_width="101dp"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -122,6 +125,7 @@
                 android:textSize="25dp" />
 
             <TextView
+                android:id="@+id/drinksPrice"
                 android:layout_width="101dp"
                 android:layout_height="wrap_content"
                 android:layout_column="3"
@@ -144,6 +148,7 @@
                 android:textSize="25dp" />
 
             <TextView
+                android:id="@+id/snacksQty"
                 android:layout_width="101dp"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -153,6 +158,7 @@
                 android:textSize="25dp" />
 
             <TextView
+                android:id="@+id/snacksPrice"
                 android:layout_width="101dp"
                 android:layout_height="wrap_content"
                 android:layout_column="3"
@@ -175,6 +181,7 @@
                 android:textSize="25dp" />
 
             <TextView
+                android:id="@+id/totalPrice"
                 android:layout_width="101dp"
                 android:layout_height="wrap_content"
                 android:layout_column="3"

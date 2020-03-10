@@ -31,6 +31,7 @@ public class UserOrder extends AppCompatActivity {
     UserCart userCart = new UserCart();
     HashMap<Integer,Integer> vehicleInventory = new HashMap<>();
     ContentValues cart = new ContentValues();
+    SharedPreferences.Editor editor = getSharedPreferences("userCart", MODE_PRIVATE).edit();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +112,9 @@ public class UserOrder extends AppCompatActivity {
 
             double total = swichPrice+drnksPrice+snksPrice;
             totalPrice.setText("Total = $"+total);
+            editor.putString("swichPrice", String.valueOf(swichPrice));
+            editor.putString("drinksPrice", String.valueOf(drnksPrice));
+            editor.putString("snacksPrice", String.valueOf(snksPrice));
             placeOrderMethod(total);
     }
 
@@ -148,6 +152,10 @@ public class UserOrder extends AppCompatActivity {
                     cart.put("cart_item_id",3);
                     cart.put("quantity",Integer.parseInt(snacksQty.getText().toString()));
                     db.insert(Resources.TABLE_CART,null, cart);
+
+                    editor.putInt("swichQty",Integer.parseInt(switchQty.getText().toString()));
+                    editor.putInt("drinksQty",Integer.parseInt(drinksQty.getText().toString()));
+                    editor.putInt("snacksQty",Integer.parseInt(snacksQty.getText().toString()));
                     Intent myint = new Intent(UserOrder.this, CardDetails.class);
                     myint.putExtra("total",total);
                     myint.putExtra("uid",uid);

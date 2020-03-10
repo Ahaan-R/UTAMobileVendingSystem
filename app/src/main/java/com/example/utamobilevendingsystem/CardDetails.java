@@ -66,6 +66,7 @@ public class CardDetails extends AppCompatActivity {
                     db.insert(Resources.TABLE_PAYMENTS,null, cardDetails);
                     Intent myint= new Intent(CardDetails.this,OrderConfirmation.class);
                     myint.putExtra("userid",userId);
+                    myint.putExtra("totalPrice",total);
                     startActivity(myint);
                 }
             }
