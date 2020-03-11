@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         register = findViewById(R.id.register);
         db= dbHelper.getWritableDatabase();
         login = findViewById(R.id.button);
-        //insert();
+        insert();
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

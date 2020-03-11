@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.utamobilevendingsystem.domain.Item;
 import com.example.utamobilevendingsystem.domain.OrderItem;
@@ -158,6 +159,7 @@ public class UserOrder extends AppCompatActivity {
                     editor.putInt("drinksQty",Integer.parseInt(drinksQty.getText().toString()));
                     editor.putInt("snacksQty",Integer.parseInt(snacksQty.getText().toString()));
                     editor.apply();
+                    Toast.makeText(getApplicationContext(),"Items added to cart!",Toast.LENGTH_SHORT).show();
                     Intent myint = new Intent(UserOrder.this, CardDetails.class);
                     myint.putExtra("total",total);
                     myint.putExtra("uid",uid);

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.utamobilevendingsystem.domain.Status;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,14 +24,15 @@ public class OrderConfirmation extends AppCompatActivity {
     TextView swichQty,swichPrice,drinksQty,drinksPrice,snacksQty,snacksPrice,total;
     int swichQuantity,drinksQuantity,snacksQuantity;
     String switchAmt,drinksAmt,snacksAmt;
-    double totalPrice;
+    double totalAmt;
+    private static DecimalFormat df = new DecimalFormat("0.00");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
         Intent newint = getIntent();
         userId=newint.getIntExtra("userid",0);
-        totalPrice=newint.getDoubleExtra("totalPrice",0.0);
+        totalAmt=newint.getDoubleExtra("totalPrice",0.0);
         swichQty = findViewById(R.id.swichQty);
         swichPrice = findViewById(R.id.swichPrice);
         drinksQty = findViewById(R.id.drinksQty);
@@ -38,7 +40,7 @@ public class OrderConfirmation extends AppCompatActivity {
         snacksQty = findViewById(R.id.snacksQty);
         snacksPrice = findViewById(R.id.snacksPrice);
         total = findViewById(R.id.totalPrice);
-        total.setText("$"+totalPrice);
+        total.setText("$"+ df.format(totalAmt));
         fetchCurrOrder();
     }
 
