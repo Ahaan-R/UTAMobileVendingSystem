@@ -17,14 +17,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.utamobilevendingsystem.R;
 
 public class VendorHomeScreen extends AppCompatActivity {
-    String fName,lName,username,dob,phoneNummber,email,address,city,state,zip;
+    String firstName,lastName,username,dob,phoneNummber,email,address,city,state,zip;
     int utaID;
     TextView fNameTV,lNameTV,usernameTV,dobTV,phoneNummberTV,emailTV,addressTV,cityTV,stateTV,zipTV,utaidTV;
+    EditText emailET,addressET,cityET,stateET,zipET,phoneET,dobET;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,22 +50,29 @@ public class VendorHomeScreen extends AppCompatActivity {
     }
 
     private void setUserProfile() {
-        fNameTV.setText("First Name: "+fName);
-        lNameTV.setText("Last Name: "+lName);
+        fNameTV.setText("First Name: "+firstName);
+        lNameTV.setText("Last Name: "+lastName);
         usernameTV.setText("Welcome, "+username);
-        dobTV.setText("Date of Birth: "+dob);
-        phoneNummberTV.setText("Phone: "+phoneNummber);
-        emailTV.setText("Email: "+email);
-        addressTV.setText("Address: "+address);
-        cityTV.setText("City: "+city);
-        stateTV.setText("State: "+state);
-        zipTV.setText("ZIP: "+zip);
+        dobTV.setText("Date of Birth: ");
+        dobET.setText(dob);
+        phoneNummberTV.setText("Phone: ");
+        phoneET.setText(phoneNummber);
+        emailTV.setText("Email: ");
+        emailET.setText(email);
+        addressTV.setText("Address: ");
+        addressET.setText(address);
+        cityTV.setText("City: ");
+        cityET.setText(city);
+        stateTV.setText("State: ");
+        stateET.setText(state);
+        zipTV.setText("ZIP: ");
+        zipET.setText(zip);
     }
 
     private void fetchSharedPref() {
         SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
-        fName =prefs.getString("fname","");
-        lName =prefs.getString("lname","");
+        firstName =prefs.getString("fname","");
+        lastName =prefs.getString("lname","");
         username =prefs.getString("username","");
         dob =prefs.getString("dob","");
         phoneNummber =prefs.getString("phone","");

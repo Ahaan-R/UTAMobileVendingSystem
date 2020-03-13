@@ -1,14 +1,21 @@
 package com.example.utamobilevendingsystem.HomeScreens;
 
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.example.utamobilevendingsystem.ChangePassword;
+import com.example.utamobilevendingsystem.DatabaseHelper;
 import com.example.utamobilevendingsystem.LocationScreen;
 import com.example.utamobilevendingsystem.LoginActivity;
 import com.example.utamobilevendingsystem.OrderDetails;
+import com.example.utamobilevendingsystem.Resources;
 import com.example.utamobilevendingsystem.VehicleScreen;
+import com.example.utamobilevendingsystem.domain.RegistrationHelper;
 import com.example.utamobilevendingsystem.domain.UserDetails;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -21,15 +28,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.utamobilevendingsystem.R;
 
-public class UserHomeScreen extends AppCompatActivity {
-    String fName,lName,username,dob,phoneNummber,email,address,city,state,zip;
+public class UserHomeScreen extends RegistrationHelper {
+    String firstName,lastName,username,dob,phoneNummber,email,address,city,state,zip;
     int utaID;
     TextView fNameTV,lNameTV,usernameTV,dobTV,phoneNummberTV,emailTV,addressTV,cityTV,stateTV,zipTV,utaidTV;
-
+    EditText emailET,addressET,cityET,stateET,zipET,phoneET,dobET;
+    Button update;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,29 +57,129 @@ public class UserHomeScreen extends AppCompatActivity {
         stateTV= findViewById(R.id.stateTV);
         zipTV= findViewById(R.id.zipTV);
         utaidTV= findViewById(R.id.utaidTV);
+        emailET= findViewById(R.id.emailET);
+        addressET= findViewById(R.id.addressET);
+        cityET= findViewById(R.id.cityET);
+        stateET= findViewById(R.id.stateET);
+        zipET= findViewById(R.id.zipET);
+        phoneET= findViewById(R.id.phoneET);
+        dobET= findViewById(R.id.dobET);
+        update = findViewById(R.id.updateProfile);
         fetchSharedPref();
         setUserProfile();
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                email = getEmail(emailET);
+                phoneNummber = getPhone(phoneET);
+                city = getCity(cityET);
+                state = getAddress(stateET);
+                dob = getDateOfBirth(dobET);
+                address=getAddress(addressET);
+                zip=getAddress(zipET);
+                boolean flag = true;
+                if(city.length()<1){
+                    cityET.setError("Enter a City");
+                    flag=false;
+                }
+                if(state.length()<1){
+                    stateET.setError("Enter a  State");
+                    flag=false;
+                }
+                if(zip.length()<6){
+                    stateET.setError("Enter a valid zip");
+                    flag=false;
+                }
+                if(!verifyAddress(address)){
+                    addressET.setError("Enter an Address");
+                    flag=false;
+                }
+                if (!verifyPhone(phoneNummber)) {
+                    phoneET.setError("Enter a valid 10 digit phone number");
+                    flag = false;
+                }
+                if (!verifyEmail(email)) {
+                    emailTV.setError("Enter a valid e-mail address");
+                    flag = false;
+                }
+                if (!verifydob(dob)) {
+                    dobET.setError("Enter a valid date");
+                    flag = false;
+                }
+                if (flag) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(UserHomeScreen.this);
+                    //new AlertDialog.Builder(getApplication())
+                    builder.setTitle("Update Profile");
+                    builder.setMessage("Are you sure you want to make these changes to your profile?")
+
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Continue with delete operation
+                                    SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
+                                    editor.putString("address",address);
+                                    editor.putString("city",city);
+                                    editor.putString("state",state);
+                                    editor.putString("email",email);
+                                    editor.putString("phone",phoneNummber);
+                                    editor.putString("dob",dob);
+                                    editor.putString("zip",zip);
+                                    editor.apply();
+
+                                    ContentValues user_details= new ContentValues();
+                                    user_details.put("user_id","1");
+                                    user_details.put("username","test");
+                                    user_details.put("first_name","Prajwal");
+                                    user_details.put("last_name","Prasad");
+                                    user_details.put("uta_id","1001");
+                                    user_details.put("dob","11/11/2019");
+                                    user_details.put("phone","9876666111");
+                                    user_details.put("emailid","pp@gmail.com");
+                                    user_details.put("city","blr");
+                                    user_details.put("state","KA");
+                                    user_details.put("zip","560079");
+                                    SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getWritableDatabase();
+                                    db.insert(Resources.TABLE_USER_DETAILS,null, user_details);
+                                }
+                            })
+
+                            // A null listener allows the button to dismiss the dialog and take no further action.
+                            .setNegativeButton(android.R.string.no, null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            }
+        });
 
     }
 
     private void setUserProfile() {
-        fNameTV.setText("First Name: "+fName);
-        lNameTV.setText("Last Name: "+lName);
+        fNameTV.setText("First Name: "+firstName);
+        lNameTV.setText("Last Name: "+lastName);
         usernameTV.setText("Welcome, "+username);
-        dobTV.setText("Date of Birth: "+dob);
-        phoneNummberTV.setText("Phone: "+phoneNummber);
-        emailTV.setText("Email: "+email);
-        addressTV.setText("Address: "+address);
-        cityTV.setText("City: "+city);
-        stateTV.setText("State: "+state);
-        zipTV.setText("ZIP: "+zip);
+        dobTV.setText("Date of Birth: ");
+        dobET.setText(dob);
+        phoneNummberTV.setText("Phone: ");
+        phoneET.setText(phoneNummber);
+        emailTV.setText("Email: ");
+        emailET.setText(email);
+        addressTV.setText("Address: ");
+        addressET.setText(address);
+        cityTV.setText("City: ");
+        cityET.setText(city);
+        stateTV.setText("State: ");
+        stateET.setText(state);
+        zipTV.setText("ZIP: ");
+        zipET.setText(zip);
         utaidTV.setText("UTA ID: "+String.valueOf(utaID));
     }
 
     private void fetchSharedPref() {
         SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
-        fName =prefs.getString("fname","");
-        lName =prefs.getString("lname","");
+        firstName =prefs.getString("fname","");
+        lastName =prefs.getString("lname","");
         username =prefs.getString("username","");
         dob =prefs.getString("dob","");
         phoneNummber =prefs.getString("phone","");
@@ -136,4 +246,8 @@ public class UserHomeScreen extends AppCompatActivity {
         startActivity(changePasswordIntent);
     }
 
+    @Override
+    protected void sendData() {
+
+    }
 }

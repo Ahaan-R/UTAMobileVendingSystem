@@ -61,24 +61,25 @@ public class UserOrder extends AppCompatActivity {
         placeOrder= findViewById(R.id.placeOrder);
         editor = getSharedPreferences("userCart", MODE_PRIVATE).edit();
         getInventory(locationId);
-        switchQty.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                getUserInput();
-            }
-        });
-        drinksQty.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                getUserInput();
-            }
-        });
-        snacksQty.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                getUserInput();
-            }
-        });
+        placeOrderMethod();
+//        switchQty.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                getUserInput();
+//            }
+//        });
+//        drinksQty.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                getUserInput();
+//            }
+//        });
+//        snacksQty.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                getUserInput();
+//            }
+//        });
     }
 
     private void getInventory(int locationId) {
@@ -107,35 +108,31 @@ public class UserOrder extends AppCompatActivity {
         snacksAvl.setText(String.valueOf(vehicleInventory.get(3)));
     }
 
-    private void getUserInput() {
-            double swichPrice = Double.parseDouble(switchPrice.getText().toString().substring(1)) * Integer.parseInt(switchQty.getText().toString());
-            double drnksPrice = Double.parseDouble(drinksPrice.getText().toString().substring(1)) * Integer.parseInt(drinksQty.getText().toString());
-            double snksPrice = Double.parseDouble(snacksPrice.getText().toString().substring(1)) * Integer.parseInt(snacksQty.getText().toString());
-
-            double total = swichPrice+drnksPrice+snksPrice;
-            totalPrice.setText("Total = $"+total);
-            editor.putString("swichPrice", String.valueOf(swichPrice));
-            editor.putString("drinksPrice", String.valueOf(drnksPrice));
-            editor.putString("snacksPrice", String.valueOf(snksPrice));
-            placeOrderMethod(total);
-    }
-
-    private void placeOrderMethod(double total) {
+    private void placeOrderMethod() {
         placeOrder.setClickable(true);
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                double swichPrice = Double.parseDouble(switchPrice.getText().toString().substring(1)) * Integer.parseInt(switchQty.getText().toString());
+                double drnksPrice = Double.parseDouble(drinksPrice.getText().toString().substring(1)) * Integer.parseInt(drinksQty.getText().toString());
+                double snksPrice = Double.parseDouble(snacksPrice.getText().toString().substring(1)) * Integer.parseInt(snacksQty.getText().toString());
+
+                double total = swichPrice+drnksPrice+snksPrice;
+                totalPrice.setText("Total = $"+total);
+                editor.putString("swichPrice", String.valueOf(swichPrice));
+                editor.putString("drinksPrice", String.valueOf(drnksPrice));
+                editor.putString("snacksPrice", String.valueOf(snksPrice));
                 boolean flag= true;
-                if(Integer.parseInt(switchQty.getText().toString()) > Integer.parseInt(switchQty.getText().toString())){
+                if(Integer.parseInt(switchQty.getText().toString()) > Integer.parseInt(swichAvl.getText().toString())){
                     switchQty.setError("Please enter according to availability of item");
                     flag= false;
                 }
-                if(Integer.parseInt(drinksQty.getText().toString()) > Integer.parseInt(drinksQty.getText().toString())){
-                    switchQty.setError("Please enter according to availability of item");
+                if(Integer.parseInt(drinksQty.getText().toString()) > Integer.parseInt(drinksAvl.getText().toString())){
+                    drinksQty.setError("Please enter according to availability of item");
                     flag= false;
                 }
-                if(Integer.parseInt(snacksQty.getText().toString()) > Integer.parseInt(snacksQty.getText().toString())){
-                    switchQty.setError("Please enter according to availability of item");
+                if(Integer.parseInt(snacksQty.getText().toString()) > Integer.parseInt(snacksAvl.getText().toString())){
+                    snacksQty.setError("Please enter according to availability of item");
                     flag= false;
                 }
                 if(flag){
