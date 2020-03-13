@@ -1,16 +1,22 @@
 package com.example.utamobilevendingsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.utamobilevendingsystem.HomeScreens.UserHomeScreen;
 import com.example.utamobilevendingsystem.domain.CardType;
 import com.example.utamobilevendingsystem.domain.Payments;
 import com.example.utamobilevendingsystem.domain.Status;
@@ -30,10 +36,10 @@ public class CardDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_card_details);
         Intent newint = getIntent();
         userId=newint.getIntExtra("uid",0);
         total=newint.getDoubleExtra("total",0.0);
-        setContentView(R.layout.activity_card_details);
         expiryED= findViewById(R.id.expiry);
         cvvED= findViewById(R.id.cvv);
         cardNumberED= findViewById(R.id.cardNumber);
@@ -81,5 +87,67 @@ public class CardDetails extends AppCompatActivity {
     private void generateTax(double total) {
         tax= (8.25/100)*total;
         taxAmt.setText("Tax : $"+ df.format(tax));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.user_menu,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_location:
+                viewLocationList();
+                return true;
+            case R.id.menu_view_orders:
+                viewOrders();
+                return true;
+            case R.id.app_bar_search:
+                vehicleSearch();
+                return true;
+            case R.id.menu_logout:
+                logout();
+                return true;
+            case R.id.menu_home:
+                Intent homeIntent = new Intent(this, UserHomeScreen.class);
+                startActivity(homeIntent);
+                return true;
+            case R.id.change_password:
+                changePassword();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void vehicleSearch() {
+        Intent myint = new Intent(this, VehicleScreen.class);
+        startActivity(myint);
+    }
+
+    private void viewOrders() {
+        Intent myint = new Intent(this, OrderDetails.class);
+        startActivity(myint);
+    }
+
+    private void logout() {
+        SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
+        Intent logout = new Intent(this, LoginActivity.class);
+        startActivity(logout);
+    }
+
+    private void changePassword() {
+        Intent changePasswordIntent = new Intent(this, ChangePassword.class);
+        startActivity(changePasswordIntent);
+    }
+
+    private void viewLocationList(){
+        Intent changePasswordIntent = new Intent(this, LocationScreen.class);
+        startActivity(changePasswordIntent);
     }
 }

@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,12 +32,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.utamobilevendingsystem.R;
+import com.google.android.material.tabs.TabLayout;
 
 public class UserHomeScreen extends RegistrationHelper {
     String firstName,lastName,username,dob,phoneNummber,email,address,city,state,zip;
-    int utaID;
+    int utaID,userID;
     TextView fNameTV,lNameTV,usernameTV,dobTV,phoneNummberTV,emailTV,addressTV,cityTV,stateTV,zipTV,utaidTV;
     EditText emailET,addressET,cityET,stateET,zipET,phoneET,dobET;
     Button update;
@@ -129,19 +132,17 @@ public class UserHomeScreen extends RegistrationHelper {
                                     editor.apply();
 
                                     ContentValues user_details= new ContentValues();
-                                    user_details.put("user_id","1");
-                                    user_details.put("username","test");
-                                    user_details.put("first_name","Prajwal");
-                                    user_details.put("last_name","Prasad");
-                                    user_details.put("uta_id","1001");
-                                    user_details.put("dob","11/11/2019");
-                                    user_details.put("phone","9876666111");
-                                    user_details.put("emailid","pp@gmail.com");
-                                    user_details.put("city","blr");
-                                    user_details.put("state","KA");
-                                    user_details.put("zip","560079");
+                                    user_details.put("dob",dob);
+                                    user_details.put("phone",phoneNummber);
+                                    user_details.put("emailid",email);
+                                    user_details.put("address",address);
+                                    user_details.put("city",city);
+                                    user_details.put("state",state);
+                                    user_details.put("zip",zip);
                                     SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getWritableDatabase();
-                                    db.insert(Resources.TABLE_USER_DETAILS,null, user_details);
+                                    db.update(Resources.TABLE_USER_DETAILS,user_details, "user_id="+userID,null);
+                                    Log.i("Update","Updated");
+                                    Toast.makeText(getApplicationContext(),"Updated Successfully",Toast.LENGTH_SHORT).show();
                                 }
                             })
 
@@ -188,6 +189,7 @@ public class UserHomeScreen extends RegistrationHelper {
         city =prefs.getString("city","");
         state =prefs.getString("state","");
         zip =prefs.getString("zip","");
+        userID= prefs.getInt("userid",0);
         utaID = prefs.getInt("utaid",0);
     }
     @Override
@@ -213,6 +215,8 @@ public class UserHomeScreen extends RegistrationHelper {
             case R.id.menu_logout:
                 logout();
                 return true;
+            case R.id.menu_home:
+                return true;
             case R.id.change_password:
                 changePassword();
                 return true;
@@ -232,6 +236,9 @@ public class UserHomeScreen extends RegistrationHelper {
     }
 
     private void logout() {
+        SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
         Intent logout = new Intent(UserHomeScreen.this, LoginActivity.class);
         startActivity(logout);
     }

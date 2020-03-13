@@ -108,7 +108,7 @@ public class Resources {
             + ")";
 
     public static final String CREATE_TABLE_USER_DETAILS = "CREATE TABLE IF NOT EXISTS " + TABLE_USER_DETAILS
-            + "(" + USER_DETAILS_ID + " INTEGER, "
+            + "(" + USER_DETAILS_ID + " INTEGER PRIMARY KEY, "
             + USER_DETAILS_USERNAME + " TEXT, "
             + USER_DETAILS_FNAME + " TEXT, "
             + USER_DETAILS_LNAME + " TEXT, "
