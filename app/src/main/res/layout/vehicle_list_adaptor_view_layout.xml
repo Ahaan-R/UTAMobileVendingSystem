@@ -34,7 +34,6 @@
             android:layout_height="30dp"
             android:layout_weight="33.3"
             android:background="@color/colorPrimary"
-            android:text="Location 1"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"/>
 
@@ -44,7 +43,14 @@
             android:layout_height="30dp"
             android:layout_weight="33.3"
             android:background="@color/colorPrimary"
-            android:text="Food Truck"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/vehicleID"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"/>
     </LinearLayout>

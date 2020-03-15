@@ -15,6 +15,10 @@ public class Vehicle {
         this.locationId = locationId;
     }
 
+    public Vehicle() {
+
+    }
+
     public int getVehicleId() {
         return vehicleId;
     }
@@ -44,7 +48,7 @@ public class Vehicle {
     }
 
     public void setAvailability(Status status) {
-        this.availability = availability;
+        this.availability = status;
     }
 
     public int getLocationId() {

@@ -34,18 +34,20 @@ public class VehicleListAdapter extends ArrayAdapter<Vehicle> {
         String vehicleName = getItem(position).getVehicleName();
         int location = getItem(position).getLocationId();
         VehicleType type = getItem(position).getVehicleType();
-        Vehicle v = new Vehicle(vehicleName,type, Status.AVAILABLE,1);
+        int id = getItem(position).getVehicleId();
+
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
         TextView tvName = (TextView) convertView.findViewById(R.id.vehicleName);
         TextView tvLocation = (TextView) convertView.findViewById(R.id.vehicleLocation);
         TextView tvType = (TextView) convertView.findViewById(R.id.vehicleType);
+        TextView vehicleIDTV = (TextView) convertView.findViewById(R.id.vehicleID);
 
         tvName.setText(vehicleName);
-        tvLocation.setText("Location: "+String.valueOf(location));
+        tvLocation.setText("Location: " + (location == 0 ? Status.UNASSIGNED.getDescription() :String.valueOf(location)));
         tvType.setText(String.valueOf(type.name()));
-
+        vehicleIDTV.setText(String.valueOf(id));
         return convertView;
     }
 }

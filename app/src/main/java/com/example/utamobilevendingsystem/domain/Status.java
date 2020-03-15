@@ -8,7 +8,8 @@ public enum Status {
     SUCCESS(4, "SUCCESS"),
     ORDER_COMPLETED(5, "Order Completed"),
     AVAILABLE(6, "Available"),
-    UNAVAILABLE(7, "Unavailable");
+    UNAVAILABLE(7, "Unavailable"),
+    UNASSIGNED(8, "Unassigned");
 
     private int id;
     private String description;

@@ -66,14 +66,15 @@ public class Resources {
     public static final String TABLE_VEHICLE = "vehicle";
     public static final String VEHICLE_ID = "vehicle_id";
     public static final String VEHICLE_NAME = "name";
-    public static final String VEHICLE_type = "type";
+    public static final String VEHICLE_TYPE = "type";
     public static final String VEHICLE_AVAILABILITY = "availability";
     public static final String VEHICLE_LOCATION_ID = "location_id";
+    public static final String VEHICLE_USER_ID = "user_id";
 
     // LOCATION
     public static final String TABLE_LOCATION = "location";
     public static final String LOCATION_ID = "location_id";
-    public static final String LOCATION_NAME = "name";
+    public static final String LOCATION_NAME = "locationName";
     public static final String LOCATION_SCHEDULE = "schedule";
 
     // PAYMENTS
@@ -140,10 +141,12 @@ public class Resources {
     public static final String CREATE_TABLE_VEHICLE = "CREATE TABLE IF NOT EXISTS " + TABLE_VEHICLE
             + "(" + VEHICLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + VEHICLE_NAME + " TEXT, "
-            + VEHICLE_type + " TEXT, "
+            + VEHICLE_TYPE + " TEXT, "
             + VEHICLE_AVAILABILITY + " TEXT, "
             + VEHICLE_LOCATION_ID + " INTEGER, "
-            + "CONSTRAINT fk_vehicle FOREIGN KEY ("+VEHICLE_LOCATION_ID+") REFERENCES "+ TABLE_LOCATION+"(" +LOCATION_ID+")"
+            + VEHICLE_USER_ID + " INTEGER, "
+            + "CONSTRAINT fk_vehicle FOREIGN KEY ("+VEHICLE_LOCATION_ID+") REFERENCES "+ TABLE_LOCATION+"(" +LOCATION_ID+"), "
+            + "CONSTRAINT fk_vehicle_user FOREIGN KEY ("+VEHICLE_USER_ID+") REFERENCES "+ TABLE_USER_CREDS+"(" +USER_CREDS_USER_ID+")"
             + ")";
 
     public static final String CREATE_TABLE_VEHICLE_INVENTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_VEHICLE_INVENTORY
