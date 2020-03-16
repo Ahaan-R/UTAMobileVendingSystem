@@ -34,7 +34,7 @@ public class VehicleDetailsScreen extends Activity {
         tvOperatorDesc = findViewById(R.id.tvOperatorDesc);
         tvScheduleDesc = findViewById(R.id.tvScheduleDesc);
         tvTotalRevenueDesc = findViewById(R.id.tvTotalRevenueDesc);
-        int id = getIntent().getIntExtra("VehicleID", 1);
+        String id = getIntent().getStringExtra("vehicleID");
 
         String vehicleDetailScreenQuery = "select v.name, l.locationName, v.type, l.schedule, u.first_name, v.user_id " +
                                             "from (vehicle v LEFT JOIN location l on l.location_id = v.location_id) " +
@@ -48,10 +48,9 @@ public class VehicleDetailsScreen extends Activity {
             for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
                 tvNameDesc.setText(c.getString(c.getColumnIndex(Resources.VEHICLE_NAME)));
                 tvLocationDesc.setText(c.getString(c.getColumnIndex(Resources.LOCATION_NAME)) == null ? Status.UNASSIGNED.getDescription() : c.getString(c.getColumnIndex(Resources.LOCATION_NAME)));
-                tvVehicleTypeDesc.setText(c.getInt(c.getColumnIndex(Resources.VEHICLE_TYPE)) == 1? VehicleType.CART.getDescription(): VehicleType.FOOD_TRUCK.getDescription());
-                tvOperatorDesc.setText(c.getString(c.getColumnIndex(Resources.USER_DETAILS_FNAME)));
-                //tvScheduleDesc.setText(c.getInt(c.getColumnIndex(Resources.LOCATION_SCHEDULE)));
-                tvScheduleDesc.setText("2");
+                tvVehicleTypeDesc.setText(c.getString(c.getColumnIndex(Resources.VEHICLE_TYPE)).contains("Cart")? VehicleType.CART.getDescription(): VehicleType.FOOD_TRUCK.getDescription());
+                tvOperatorDesc.setText(c.getString(c.getColumnIndex(Resources.USER_DETAILS_FNAME)) == null ? Status.UNASSIGNED.getDescription() : c.getString(c.getColumnIndex(Resources.LOCATION_NAME)));
+                tvScheduleDesc.setText(c.getString(c.getColumnIndex(Resources.LOCATION_SCHEDULE)) == null ? Status.UNASSIGNED.getDescription() : c.getString(c.getColumnIndex(Resources.LOCATION_NAME)));
                 tvTotalRevenueDesc.setText("1233");
             }
         }
@@ -62,6 +61,7 @@ public class VehicleDetailsScreen extends Activity {
             @Override
             public void onClick(View v) {
                 Intent myint = new Intent(VehicleDetailsScreen.this,VehicleInventoryScreen.class);
+                myint.putExtra("vehicleID", id);
                 startActivity(myint);
             }
         });

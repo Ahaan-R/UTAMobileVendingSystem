@@ -201,7 +201,108 @@ public class LoginActivity extends AppCompatActivity {
         vehicle_inventory.put("vehicle_id","1");
         vehicle_inventory.put("item_id","3");
         vehicle_inventory.put("quantity","7");
+
         db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","4");
+        vehicle_inventory.put("vehicle_id","2");
+        vehicle_inventory.put("item_id","1");
+        vehicle_inventory.put("quantity","10");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","5");
+        vehicle_inventory.put("vehicle_id","2");
+        vehicle_inventory.put("item_id","2");
+        vehicle_inventory.put("quantity","5");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","6");
+        vehicle_inventory.put("vehicle_id","2");
+        vehicle_inventory.put("item_id","3");
+        vehicle_inventory.put("quantity","7");
+
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","7");
+        vehicle_inventory.put("vehicle_id","3");
+        vehicle_inventory.put("item_id","1");
+        vehicle_inventory.put("quantity","10");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","8");
+        vehicle_inventory.put("vehicle_id","3");
+        vehicle_inventory.put("item_id","2");
+        vehicle_inventory.put("quantity","5");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","9");
+        vehicle_inventory.put("vehicle_id","3");
+        vehicle_inventory.put("item_id","3");
+        vehicle_inventory.put("quantity","7");
+
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","10");
+        vehicle_inventory.put("vehicle_id","4");
+        vehicle_inventory.put("item_id","1");
+        vehicle_inventory.put("quantity","10");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","11");
+        vehicle_inventory.put("vehicle_id","4");
+        vehicle_inventory.put("item_id","2");
+        vehicle_inventory.put("quantity","5");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","12");
+        vehicle_inventory.put("vehicle_id","4");
+        vehicle_inventory.put("item_id","3");
+        vehicle_inventory.put("quantity","7");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","13");
+        vehicle_inventory.put("vehicle_id","5");
+        vehicle_inventory.put("item_id","1");
+        vehicle_inventory.put("quantity","10");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","14");
+        vehicle_inventory.put("vehicle_id","5");
+        vehicle_inventory.put("item_id","2");
+        vehicle_inventory.put("quantity","5");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","15");
+        vehicle_inventory.put("vehicle_id","5");
+        vehicle_inventory.put("item_id","3");
+        vehicle_inventory.put("quantity","7");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","16");
+        vehicle_inventory.put("vehicle_id","6");
+        vehicle_inventory.put("item_id","1");
+        vehicle_inventory.put("quantity","10");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","17");
+        vehicle_inventory.put("vehicle_id","6");
+        vehicle_inventory.put("item_id","2");
+        vehicle_inventory.put("quantity","5");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","18");
+        vehicle_inventory.put("vehicle_id","6");
+        vehicle_inventory.put("item_id","3");
+        vehicle_inventory.put("quantity","7");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+
+
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","19");
+        vehicle_inventory.put("vehicle_id","7");
+        vehicle_inventory.put("item_id","1");
+        vehicle_inventory.put("quantity","10");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","20");
+        vehicle_inventory.put("vehicle_id","7");
+        vehicle_inventory.put("item_id","2");
+        vehicle_inventory.put("quantity","5");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","21");
+        vehicle_inventory.put("vehicle_id","7");
+        vehicle_inventory.put("item_id","3");
+        vehicle_inventory.put("quantity","7");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+
     }
 
     public String fetch(String username,String password){

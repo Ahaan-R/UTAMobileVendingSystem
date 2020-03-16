@@ -22,7 +22,6 @@ import com.example.utamobilevendingsystem.domain.VehicleType;
 import java.util.ArrayList;
 
 public class VehicleScreen extends Activity {
-    Button vehicleDetails;
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
     @Override
@@ -35,7 +34,6 @@ public class VehicleScreen extends Activity {
 
         ArrayList<Vehicle> vehicleList = new ArrayList<>();
 
-        vehicleDetails = findViewById(R.id.vehicleDetails);
         ListView vehicleListView = (ListView) findViewById(R.id.vehicleList);
 
         String selectQuery = "SELECT  * FROM " + Resources.TABLE_VEHICLE;
@@ -62,7 +60,7 @@ public class VehicleScreen extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = view.findViewById(R.id.vehicleID);
                 Intent intent = new Intent(VehicleScreen.this,VehicleDetailsScreen.class);
-                intent.putExtra("vehicleID", Integer.parseInt(tv.getText().toString()));
+                intent.putExtra("vehicleID", tv.getText().toString());
                 startActivity(intent);
             }
         });
