@@ -142,6 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:horizontalSpacing="10dp"
+                android:clickable="true"
                 android:padding="18dip"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
@@ -228,6 +229,32 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
                 android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvAvaiablility"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:horizontalSpacing="10dp"
+                android:padding="18dp"
+                android:text="Available"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18dip"
+                android:textStyle="bold" />
+
+            <Switch
+                android:id="@+id/switchAvaiability"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_gravity="left" />
         </TableRow>
 
     </TableLayout>

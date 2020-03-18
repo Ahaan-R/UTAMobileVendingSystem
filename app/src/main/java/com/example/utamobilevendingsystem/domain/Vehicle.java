@@ -7,12 +7,14 @@ public class Vehicle {
     private VehicleType vehicleType;
     private Status availability;
     private int locationId;
+    private String locationName;
 
-    public Vehicle(String vehicleName, VehicleType vehicleType, Status availability, int locationId) {
+    public Vehicle(String vehicleName, VehicleType vehicleType, Status availability, int locationId, String locationName) {
         this.vehicleName = vehicleName;
         this.vehicleType = vehicleType;
         this.availability = availability;
         this.locationId = locationId;
+        this.locationName = locationName;
     }
 
     public Vehicle() {
@@ -57,5 +59,13 @@ public class Vehicle {
 
     public void setLocationId(int locationId) {
         this.locationId = locationId;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 }

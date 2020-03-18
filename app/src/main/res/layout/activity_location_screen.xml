@@ -13,7 +13,8 @@
         android:layout_height="40dp"
         android:background="@color/design_default_color_primary_dark"
         android:paddingTop="5dp"
-        android:text="      Select a Location"
+        android:gravity="center"
+        android:text="Select a Location"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
@@ -119,5 +120,19 @@
         android:contextClickable="true"
         android:text="S Center and W Mitchell"
         android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/removeAllocationTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="10dp"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:text="Remove Allocation"
+        android:textColor="@color/colorPrimaryDark"
+        android:visibility="invisible"
         android:textSize="24sp" />
 </LinearLayout>
