@@ -1,32 +1,43 @@
 package com.example.utamobilevendingsystem.HomeScreens;
 
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.example.utamobilevendingsystem.ChangePassword;
+import com.example.utamobilevendingsystem.DatabaseHelper;
 import com.example.utamobilevendingsystem.LocationScreen;
 import com.example.utamobilevendingsystem.LoginActivity;
+import com.example.utamobilevendingsystem.Resources;
+import com.example.utamobilevendingsystem.domain.RegistrationHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.utamobilevendingsystem.R;
 
-public class VendorHomeScreen extends AppCompatActivity {
+public class VendorHomeScreen extends RegistrationHelper {
     String firstName,lastName,username,dob,phoneNummber,email,address,city,state,zip;
-    int utaID;
-    TextView fNameTV,lNameTV,usernameTV,dobTV,phoneNummberTV,emailTV,addressTV,cityTV,stateTV,zipTV,utaidTV;
+    int userID;
+    TextView fNameTV,lNameTV,usernameTV,dobTV,phoneNummberTV,emailTV,addressTV,cityTV,stateTV,zipTV;
     EditText emailET,addressET,cityET,stateET,zipET,phoneET,dobET;
+    Button update;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +54,99 @@ public class VendorHomeScreen extends AppCompatActivity {
         cityTV= findViewById(R.id.cityTV);
         stateTV= findViewById(R.id.stateTV);
         zipTV= findViewById(R.id.zipTV);
-        utaidTV= findViewById(R.id.utaidTV);
+        emailET= findViewById(R.id.emailET);
+        addressET= findViewById(R.id.addressET);
+        cityET= findViewById(R.id.cityET);
+        stateET= findViewById(R.id.stateET);
+        zipET= findViewById(R.id.zipET);
+        phoneET= findViewById(R.id.phoneET);
+        dobET= findViewById(R.id.dobET);
+        update = findViewById(R.id.updateProfile);
         fetchSharedPref();
         setUserProfile();
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                email = getEmail(emailET);
+                phoneNummber = getPhone(phoneET);
+                city = getCity(cityET);
+                state = getAddress(stateET);
+                dob = getDateOfBirth(dobET);
+                address=getAddress(addressET);
+                zip=getAddress(zipET);
+                boolean flag = true;
+                if(city.length()<1){
+                    cityET.setError("Enter a City");
+                    flag=false;
+                }
+                if(state.length()<1){
+                    stateET.setError("Enter a  State");
+                    flag=false;
+                }
+                if(zip.length()<6){
+                    stateET.setError("Enter a valid zip");
+                    flag=false;
+                }
+                if(!verifyAddress(address)){
+                    addressET.setError("Enter an Address");
+                    flag=false;
+                }
+                if (!verifyPhone(phoneNummber)) {
+                    phoneET.setError("Enter a valid 10 digit phone number");
+                    flag = false;
+                }
+                if (!verifyEmail(email)) {
+                    emailTV.setError("Enter a valid e-mail address");
+                    flag = false;
+                }
+                if (!verifydob(dob)) {
+                    dobET.setError("Enter a valid date");
+                    flag = false;
+                }
+                if (flag) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(VendorHomeScreen.this);
+                    //new AlertDialog.Builder(getApplication())
+                    builder.setTitle("Update Profile");
+                    builder.setMessage("Are you sure you want to make these changes to your profile?")
+
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Continue with delete operation
+                                    SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
+                                    editor.putString("address",address);
+                                    editor.putString("city",city);
+                                    editor.putString("state",state);
+                                    editor.putString("email",email);
+                                    editor.putString("phone",phoneNummber);
+                                    editor.putString("dob",dob);
+                                    editor.putString("zip",zip);
+                                    editor.apply();
+
+                                    ContentValues user_details= new ContentValues();
+                                    user_details.put("dob",dob);
+                                    user_details.put("phone",phoneNummber);
+                                    user_details.put("emailid",email);
+                                    user_details.put("address",address);
+                                    user_details.put("city",city);
+                                    user_details.put("state",state);
+                                    user_details.put("zip",zip);
+                                    SQLiteDatabase db = DatabaseHelper.getInstance(getApplicationContext()).getWritableDatabase();
+                                    db.update(Resources.TABLE_USER_DETAILS,user_details, "user_id="+userID,null);
+                                    Log.i("Update","Updated");
+                                    Toast.makeText(getApplicationContext(),"Updated Successfully",Toast.LENGTH_SHORT).show();
+                                }
+                            })
+
+                            // A null listener allows the button to dismiss the dialog and take no further action.
+                            .setNegativeButton(android.R.string.no, null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            }
+        });
 
     }
 
@@ -81,6 +182,7 @@ public class VendorHomeScreen extends AppCompatActivity {
         city =prefs.getString("city","");
         state =prefs.getString("state","");
         zip =prefs.getString("zip","");
+        userID= prefs.getInt("userid",0);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -105,6 +207,8 @@ public class VendorHomeScreen extends AppCompatActivity {
             case R.id.menu_logout:
                 logout();
                 return true;
+            case R.id.menu_home:
+                return true;
             case R.id.change_password:
                 changePassword();
                 return true;
@@ -114,6 +218,9 @@ public class VendorHomeScreen extends AppCompatActivity {
     }
 
     private void logout() {
+        SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
         Intent logout = new Intent(VendorHomeScreen.this, LoginActivity.class);
         startActivity(logout);
     }
@@ -128,4 +235,8 @@ public class VendorHomeScreen extends AppCompatActivity {
         startActivity(changePasswordIntent);
     }
 
+    @Override
+    protected void sendData() {
+
+    }
 }
