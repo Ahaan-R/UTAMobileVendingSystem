@@ -14,10 +14,7 @@ import com.example.utamobilevendingsystem.LocationScreen;
 import com.example.utamobilevendingsystem.LoginActivity;
 import com.example.utamobilevendingsystem.Resources;
 import com.example.utamobilevendingsystem.domain.RegistrationHelper;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
@@ -32,7 +29,7 @@ import android.widget.Toast;
 
 import com.example.utamobilevendingsystem.R;
 
-public class VendorHomeScreen extends RegistrationHelper {
+public class OperatorHomeScreen extends RegistrationHelper {
     String firstName,lastName,username,dob,phoneNummber,email,address,city,state,zip;
     int userID;
     TextView fNameTV,lNameTV,usernameTV,dobTV,phoneNummberTV,emailTV,addressTV,cityTV,stateTV,zipTV;
@@ -105,7 +102,7 @@ public class VendorHomeScreen extends RegistrationHelper {
                     flag = false;
                 }
                 if (flag) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(VendorHomeScreen.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(OperatorHomeScreen.this);
                     //new AlertDialog.Builder(getApplication())
                     builder.setTitle("Update Profile");
                     builder.setMessage("Are you sure you want to make these changes to your profile?")
@@ -221,17 +218,17 @@ public class VendorHomeScreen extends RegistrationHelper {
         SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
         editor.clear();
         editor.apply();
-        Intent logout = new Intent(VendorHomeScreen.this, LoginActivity.class);
+        Intent logout = new Intent(OperatorHomeScreen.this, LoginActivity.class);
         startActivity(logout);
     }
 
     private void changePassword() {
-        Intent changePasswordIntent = new Intent(VendorHomeScreen.this, ChangePassword.class);
+        Intent changePasswordIntent = new Intent(OperatorHomeScreen.this, ChangePassword.class);
         startActivity(changePasswordIntent);
     }
 
     private void viewLocationList(){
-        Intent changePasswordIntent = new Intent(VendorHomeScreen.this, LocationScreen.class);
+        Intent changePasswordIntent = new Intent(OperatorHomeScreen.this, LocationScreen.class);
         startActivity(changePasswordIntent);
     }
 
