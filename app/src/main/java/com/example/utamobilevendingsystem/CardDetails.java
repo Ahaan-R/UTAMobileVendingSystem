@@ -112,8 +112,16 @@ public class CardDetails extends AppCompatActivity {
                 logout();
                 return true;
             case R.id.menu_home:
-                Intent homeIntent = new Intent(this, UserHomeScreen.class);
-                startActivity(homeIntent);
+                SharedPreferences preferences = getSharedPreferences("currUser", MODE_PRIVATE);
+                String role = preferences.getString("userRole","");
+                role= role+"HomeScreen";
+                try {
+                    Class<?> cls = Class.forName("com.example.utamobilevendingsystem.HomeScreens."+role);
+                    Intent homeIntent = new Intent(this, cls);
+                    startActivity(homeIntent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
                 return true;
             case R.id.change_password:
                 changePassword();

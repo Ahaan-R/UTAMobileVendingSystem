@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -75,7 +76,6 @@ public class VehicleScreen extends AppCompatActivity {
         inflater.inflate(R.menu.user_menu,menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -92,41 +92,50 @@ public class VehicleScreen extends AppCompatActivity {
             case R.id.menu_logout:
                 logout();
                 return true;
+            case R.id.menu_home:
+                SharedPreferences preferences = getSharedPreferences("currUser", MODE_PRIVATE);
+                String role = preferences.getString("userRole","");
+                role= role+"HomeScreen";
+                try {
+                    Class<?> cls = Class.forName("com.example.utamobilevendingsystem.HomeScreens."+role);
+                    Intent homeIntent = new Intent(this, cls);
+                    startActivity(homeIntent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                return true;
             case R.id.change_password:
-                logout();
+                changePassword();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
     private void vehicleSearch() {
-        Intent myint = new Intent(VehicleScreen.this, VehicleScreen.class);
+        Intent myint = new Intent(this, VehicleScreen.class);
         startActivity(myint);
     }
 
     private void viewOrders() {
-        Intent myint = new Intent(VehicleScreen.this, OrderDetails.class);
+        Intent myint = new Intent(this, OrderDetails.class);
         startActivity(myint);
     }
 
     private void logout() {
-        Intent logout = new Intent(VehicleScreen.this, LoginActivity.class);
+        SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
+        Intent logout = new Intent(this, LoginActivity.class);
         startActivity(logout);
     }
-    public void openOperatorlist(){
-        Intent intent= new Intent(this, OperatorList.class );
-        intent.putExtra("callingActivity", ManagerHomeScreen.class.toString());
-        startActivity(intent );
-    }
-    public void viewschedule(){
 
-        Intent intent= new Intent(this, OperatorScheduleList.class );
-        startActivity(intent );
-    }
-
-    private void viewLocationList(){
-        Intent changePasswordIntent = new Intent(VehicleScreen.this, LocationScreen.class);
+    private void changePassword() {
+        Intent changePasswordIntent = new Intent(this, ChangePassword.class);
         startActivity(changePasswordIntent);
     }
 
+    private void viewLocationList(){
+        Intent changePasswordIntent = new Intent(this, LocationScreen.class);
+        startActivity(changePasswordIntent);
+    }
 }
