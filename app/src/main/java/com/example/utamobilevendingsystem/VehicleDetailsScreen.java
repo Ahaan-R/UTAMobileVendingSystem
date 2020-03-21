@@ -2,8 +2,11 @@ package com.example.utamobilevendingsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,11 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.utamobilevendingsystem.HomeScreens.ManagerHomeScreen;
 import com.example.utamobilevendingsystem.domain.Status;
 import com.example.utamobilevendingsystem.domain.Vehicle;
 import com.example.utamobilevendingsystem.domain.VehicleType;
@@ -31,6 +35,7 @@ public class VehicleDetailsScreen extends AppCompatActivity {
     TextView tvNameDesc, tvLocationDesc,tvVehicleTypeDesc,tvOperatorDesc,tvScheduleDesc,tvTotalRevenueDesc;
     Switch toggleAvailability;
     String vehicleID;
+    int locationSchedule;
     final int OPERATOR_REQUEST_CODE = 1111;
     final int LOCATION_REQUEST_CODE = 2222;
     @Override
@@ -48,7 +53,7 @@ public class VehicleDetailsScreen extends AppCompatActivity {
         toggleAvailability = findViewById(R.id.switchAvaiability);
         vehicleID = getIntent().getStringExtra("vehicleID");
 
-        String vehicleDetailScreenQuery = "select v.name, l.locationName, v.type, v.availability, l.schedule, u.first_name, v.user_id " +
+        String vehicleDetailScreenQuery = "select v.name, l.locationName, v.type, v.availability, l.schedule, u.first_name, v.user_id, v.schedule_time " +
                                             "from (vehicle v LEFT JOIN location l on l.location_id = v.location_id) " +
                                             "LEFT JOIN user_details u on v.user_id = u.user_id WHERE v.vehicle_id = "+vehicleID;
 
@@ -61,8 +66,9 @@ public class VehicleDetailsScreen extends AppCompatActivity {
                 tvNameDesc.setText(c.getString(c.getColumnIndex(Resources.VEHICLE_NAME)));
                 tvLocationDesc.setText(c.getString(c.getColumnIndex(Resources.LOCATION_NAME)) == null ? Status.UNASSIGNED.getDescription() : c.getString(c.getColumnIndex(Resources.LOCATION_NAME)));
                 tvVehicleTypeDesc.setText(c.getString(c.getColumnIndex(Resources.VEHICLE_TYPE)).contains("Cart")? VehicleType.CART.getDescription(): VehicleType.FOOD_TRUCK.getDescription());
-                tvOperatorDesc.setText(c.getString(c.getColumnIndex(Resources.USER_DETAILS_FNAME)) == null ? Status.UNASSIGNED.getDescription() : c.getString(c.getColumnIndex(Resources.LOCATION_NAME)));
-                tvScheduleDesc.setText(c.getString(c.getColumnIndex(Resources.LOCATION_SCHEDULE)) == null ? Status.UNASSIGNED.getDescription() : c.getString(c.getColumnIndex(Resources.LOCATION_NAME)));
+                tvOperatorDesc.setText(c.getString(c.getColumnIndex(Resources.USER_DETAILS_FNAME)) == null ? Status.UNASSIGNED.getDescription() : c.getString(c.getColumnIndex(Resources.USER_DETAILS_FNAME)));
+                tvScheduleDesc.setText(c.getString(c.getColumnIndex(Resources.VEHICLE_SCHEDULE_TIME)) == null ? Status.UNASSIGNED.getDescription() : c.getString(c.getColumnIndex(Resources.VEHICLE_SCHEDULE_TIME)));
+                locationSchedule = c.getInt(c.getColumnIndex(Resources.LOCATION_SCHEDULE));
                 toggleAvailability.setChecked(c.getString(c.getColumnIndex(Resources.VEHICLE_AVAILABILITY)).equalsIgnoreCase(Status.AVAILABLE.getDescription()) ? true : false);
                 tvTotalRevenueDesc.setText("1233");
             }
@@ -112,6 +118,27 @@ public class VehicleDetailsScreen extends AppCompatActivity {
                 startActivityForResult(intent, LOCATION_REQUEST_CODE );
             }
         });
+
+        tvScheduleDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(tvLocationDesc.getText().toString().equals(Status.UNASSIGNED.getDescription())){
+                    Toast.makeText(getApplicationContext(), "Please Assign location before setting the schedule..!", Toast.LENGTH_SHORT).show();
+                } else {
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(VehicleDetailsScreen.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                            int closingTime = hourOfDay+locationSchedule;
+                            tvScheduleDesc.setText(hourOfDay + ":" + (minute < 10? "0"+minute : minute) +" - "+ closingTime +":" + (minute < 10? "0"+minute : minute));
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put(Resources.VEHICLE_SCHEDULE_TIME, hourOfDay + ":" + (minute < 10? "0"+minute : minute) +" - "+ closingTime +":" + (minute < 10? "0"+minute : minute));
+                            db.update(Resources.TABLE_VEHICLE, contentValues, "vehicle_id = ?", new String[]{vehicleID});
+                        }
+                    }, 0, 0, true);
+                    timePickerDialog.show();
+                }
+            }
+        });
     }
 
     @Override
@@ -122,6 +149,9 @@ public class VehicleDetailsScreen extends AppCompatActivity {
 
         if (requestCode == LOCATION_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             tvLocationDesc.setText(data.getStringExtra("locationName"));
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(Resources.VEHICLE_SCHEDULE_TIME, "");
+            db.update(Resources.TABLE_VEHICLE, contentValues, "vehicle_id = ?", new String[]{vehicleID});
         }
     }
 
@@ -192,5 +222,23 @@ public class VehicleDetailsScreen extends AppCompatActivity {
     private void viewLocationList(){
         Intent changePasswordIntent = new Intent(this, LocationScreen.class);
         startActivity(changePasswordIntent);
+    }
+
+    private void showAddItemDialog(Context c) {
+        final EditText taskEditText = new EditText(c);
+        taskEditText.setText("00:00");
+        AlertDialog dialog = new AlertDialog.Builder(c)
+                .setTitle("VEHICLE SCHEDULE")
+                .setMessage("Enter the time between 08:00 - 16:00.")
+                .setView(taskEditText)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String task = String.valueOf(taskEditText.getText());
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+        dialog.show();
     }
 }

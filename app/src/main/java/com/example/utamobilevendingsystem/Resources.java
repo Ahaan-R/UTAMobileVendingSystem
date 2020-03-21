@@ -70,6 +70,7 @@ public class Resources {
     public static final String VEHICLE_AVAILABILITY = "availability";
     public static final String VEHICLE_LOCATION_ID = "location_id";
     public static final String VEHICLE_USER_ID = "user_id";
+    public static final String VEHICLE_SCHEDULE_TIME = "schedule_time";
 
     // LOCATION
     public static final String TABLE_LOCATION = "location";
@@ -136,7 +137,7 @@ public class Resources {
     public static final String CREATE_TABLE_LOCATION = "CREATE TABLE IF NOT EXISTS " + TABLE_LOCATION
             + "(" + LOCATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + LOCATION_NAME + " TEXT, "
-            + LOCATION_SCHEDULE + " TEXT" + ")";
+            + LOCATION_SCHEDULE + " INTEGER" + ")";
 
     public static final String CREATE_TABLE_VEHICLE = "CREATE TABLE IF NOT EXISTS " + TABLE_VEHICLE
             + "(" + VEHICLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -145,6 +146,7 @@ public class Resources {
             + VEHICLE_AVAILABILITY + " TEXT, "
             + VEHICLE_LOCATION_ID + " INTEGER, "
             + VEHICLE_USER_ID + " INTEGER, "
+            + VEHICLE_SCHEDULE_TIME + " TEXT , "
             + "CONSTRAINT fk_vehicle FOREIGN KEY ("+VEHICLE_LOCATION_ID+") REFERENCES "+ TABLE_LOCATION+"(" +LOCATION_ID+"), "
             + "CONSTRAINT fk_vehicle_user FOREIGN KEY ("+VEHICLE_USER_ID+") REFERENCES "+ TABLE_USER_CREDS+"(" +USER_CREDS_USER_ID+")"
             + ")";

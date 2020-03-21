@@ -112,31 +112,31 @@ public class LoginActivity extends AppCompatActivity {
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","2");
         location.put("locationName","W Nedderman & Greek Row");
-        location.put("schedule","1");
+        location.put("schedule", 1);
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","3");
         location.put("locationName","S Davis & W Mitchell");
-        location.put("schedule","2");
+        location.put("schedule", 2);
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","4");
         location.put("locationName","Cooper & W Mitchell");
-        location.put("schedule","3");
+        location.put("schedule", 3);
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","5");
         location.put("locationName","S Oak & UTA Blvd");
-        location.put("schedule","3");
+        location.put("schedule", 3);
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","6");
         location.put("locationName","Spaniolo & W 1st");
-        location.put("schedule","4");
+        location.put("schedule", 4);
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","7");
         location.put("locationName","Spaniolo & W Mitchell");
-        location.put("schedule","2");
+        location.put("schedule", 2);
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","8");
         location.put("locationName","S Center & W Mitchell");
-        location.put("schedule","1");
+        location.put("schedule", 1);
         db.insert(Resources.TABLE_LOCATION,null, location);
 
 
