@@ -41,6 +41,7 @@ public class LocationScreen extends AppCompatActivity {
         if(role!=null && role.equals("User")) {
             onClicks();
         }
+
     }
 
     private void onClicks() {
