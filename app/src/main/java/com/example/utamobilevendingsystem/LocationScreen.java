@@ -60,8 +60,11 @@ public class LocationScreen extends AppCompatActivity {
         spanioloMithcell = spanioloMitchellTv.getText().toString();
         centerMitchell = centerMitchellTV.getText().toString();
         removeAllocation = removeAllocationTV.getText().toString();
-
-        onClicks();
+        SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
+        String role= prefs.getString("userRole","");
+        if(role!=null && role.equals("User")) {
+            onClicks();
+        }
     }
 
     private void onClicks() {
