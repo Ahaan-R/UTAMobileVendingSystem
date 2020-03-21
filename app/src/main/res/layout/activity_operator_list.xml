@@ -13,15 +13,4 @@
         android:layout_height="wrap_content"
         android:id="@+id/lvOperatorList">
     </ListView>
-    <Button
-        android:id="@+id/optr_schedule_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:layout_marginTop="79dp"
-        android:layout_marginEnd="87dp"
-        android:layout_marginRight="87dp"
-        android:text="VIEW DETAILS"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 </LinearLayout>
