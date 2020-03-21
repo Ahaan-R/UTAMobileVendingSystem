@@ -256,6 +256,5 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_gravity="left" />
         </TableRow>
-
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

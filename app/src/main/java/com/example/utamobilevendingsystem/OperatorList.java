@@ -24,7 +24,7 @@ import com.example.utamobilevendingsystem.domain.UserDetails;
 
 import java.util.ArrayList;
 
-public class OperatorList extends Activity {
+public class OperatorList extends AppCompatActivity {
 
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
