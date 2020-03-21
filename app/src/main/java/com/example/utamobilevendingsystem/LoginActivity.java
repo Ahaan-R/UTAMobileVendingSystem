@@ -73,14 +73,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void insert(){
         ContentValues user_creds=new ContentValues();
-        user_creds.put("user_id","2");
-        user_creds.put("username","test2");
+        user_creds.put("user_id","1");
+        user_creds.put("username","test");
         user_creds.put("password","pass123");
-        user_creds.put("role","Operator");
+        user_creds.put("role","User");
         db.insert(Resources.TABLE_USER_CREDS,null, user_creds);
         ContentValues user_details= new ContentValues();
-        user_details.put("user_id","2");
-        user_details.put("username","test2");
+        user_details.put("user_id","1");
+        user_details.put("username","test");
         user_details.put("first_name","Prajwal");
         user_details.put("last_name","Prasad");
         user_details.put("uta_id","1001");
@@ -118,18 +118,22 @@ public class LoginActivity extends AppCompatActivity {
         location.put("schedule","2");
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","4");
-        location.put("name","S Oak & UTA Blvd");
+        location.put("name","Cooper & W Mitchell");
         location.put("schedule","3");
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","5");
+        location.put("name","S Oak & UTA Blvd");
+        location.put("schedule","2");
+        db.insert(Resources.TABLE_LOCATION,null, location);
+        location.put("location_id","6");
         location.put("name","Spaniolo & W 1st");
         location.put("schedule","4");
         db.insert(Resources.TABLE_LOCATION,null, location);
-        location.put("location_id","6");
+        location.put("location_id","7");
         location.put("name","Spaniolo & W Mitchell");
         location.put("schedule","2");
         db.insert(Resources.TABLE_LOCATION,null, location);
-        location.put("location_id","7");
+        location.put("location_id","8");
         location.put("name","S Center & W Mitchell");
         location.put("schedule","1");
         db.insert(Resources.TABLE_LOCATION,null, location);

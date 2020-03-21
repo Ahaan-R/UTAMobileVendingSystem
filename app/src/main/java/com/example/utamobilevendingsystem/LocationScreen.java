@@ -36,7 +36,11 @@ public class LocationScreen extends AppCompatActivity {
         spanioloW = spanioloWTV.getText().toString();
         spanioloMithcell = spanioloMitchellTv.getText().toString();
         centerMitchell = centerMitchellTV.getText().toString();
-        onClicks();
+        SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
+        String role= prefs.getString("userRole","");
+        if(role!=null && role.equals("User")) {
+            onClicks();
+        }
     }
 
     private void onClicks() {
