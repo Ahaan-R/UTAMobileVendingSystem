@@ -74,14 +74,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void insert(){
         ContentValues user_creds=new ContentValues();
-        user_creds.put("user_id","2");
-        user_creds.put("username","test2");
+        user_creds.put("user_id","1");
+        user_creds.put("username","test");
         user_creds.put("password","pass123");
-        user_creds.put("role","Operator");
+        user_creds.put("role","User");
         db.insert(Resources.TABLE_USER_CREDS,null, user_creds);
         ContentValues user_details= new ContentValues();
-        user_details.put("user_id","2");
-        user_details.put("username","test2");
+        user_details.put("user_id","1");
+        user_details.put("username","test");
         user_details.put("first_name","Prajwal");
         user_details.put("last_name","Prasad");
         user_details.put("uta_id","1001");
