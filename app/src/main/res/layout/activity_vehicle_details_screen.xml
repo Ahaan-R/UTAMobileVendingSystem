@@ -241,10 +241,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:horizontalSpacing="10dp"
-                android:padding="18dp"
+                android:padding="18dip"
                 android:text="Available"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18dip"
+                android:textSize="14dp"
                 android:textStyle="bold" />
 
             <Switch
