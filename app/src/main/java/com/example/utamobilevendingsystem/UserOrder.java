@@ -24,6 +24,7 @@ import com.example.utamobilevendingsystem.domain.Item;
 import com.example.utamobilevendingsystem.domain.OrderItem;
 import com.example.utamobilevendingsystem.domain.Payments;
 import com.example.utamobilevendingsystem.domain.UserCart;
+import com.example.utamobilevendingsystem.users.UserOrderDetails;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -193,7 +194,7 @@ public class UserOrder extends AppCompatActivity {
     }
 
     private void viewOrders() {
-        Intent myint = new Intent(this, OrderDetails.class);
+        Intent myint = new Intent(this, UserOrderDetails.class);
         startActivity(myint);
     }
 

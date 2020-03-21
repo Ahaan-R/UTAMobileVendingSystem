@@ -32,12 +32,15 @@ public class OrderSummary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_summary);
-        getAndPutData();
+        getAndPutDataUsers();
+    }
+
+    private void getAndPutDataManagers() {
 
     }
 
-    private void getAndPutData() {
-        Log.i(TAG, "OrderSummary: getAndPutData");
+    private void getAndPutDataUsers() {
+        Log.i(TAG, "OrderSummary: getAndPutDataUsers");
         sandwichPrice = findViewById(R.id.sandwichPrice);
         drinkPrice = findViewById(R.id.drinkPrice);
         snackPrice = findViewById(R.id.snackPrice);
@@ -47,34 +50,43 @@ public class OrderSummary extends AppCompatActivity {
         totalPrice = findViewById(R.id.totalPrice);
 
         dbHelper = new DatabaseHelper(this);
-        db= dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
         SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
-        int uid =prefs.getInt("userid",0);
+        int uid = prefs.getInt("userid", 0);
         Intent intent = getIntent();
         String orderID = intent.getStringExtra("orderID");
         String totalprice = intent.getStringExtra("totalPrice");
-        Cursor cursor = db.rawQuery("SELECT order_item_quantity, order_item_price FROM orders WHERE order_id="+orderID,null);
+        String context = intent.getStringExtra("context");
+        Cursor cursor = db.rawQuery("SELECT order_item_quantity, order_item_price FROM orders WHERE order_id=" + orderID, null);
+        int loopCounter = 0;
         int counter = 0;
-        while(cursor.moveToNext()){
-            int i = 0;
-            orderItemPrice.add(counter, cursor.getString(i));
-            sandwichQuantity.setText(orderItemPrice.get(i));
-            i+=1;
-            orderItemQuantity.add(counter, cursor.getString(i));
-            sandwichPrice.setText(orderItemQuantity.get(counter));
-//            i+=1;
+        int i = 0;
+        while (cursor.moveToNext()) {
+            if (loopCounter == 0) {
+                counter = 0;
+                orderItemPrice.add(counter, cursor.getString(1));
+                sandwichPrice.setText(orderItemPrice.get(counter));
+                i += 1;
+                orderItemQuantity.add(counter, cursor.getString(0));
+                sandwichQuantity.setText(orderItemQuantity.get(counter));
+            } else if (loopCounter == 1) {
+                counter = 1;
+                orderItemPrice.add(counter, cursor.getString(1));
+                drinkPrice.setText(orderItemPrice.get(counter));
+                i += 1;
+                orderItemQuantity.add(counter, cursor.getString(0));
+                drinkQuantity.setText(orderItemQuantity.get(counter));
+            } else if (loopCounter == 2) {
+                counter = 2;
+                orderItemPrice.add(counter, cursor.getString(0));
+                snackPrice.setText(orderItemPrice.get(counter));
+                i += 1;
+                orderItemQuantity.add(counter, cursor.getString(1));
+                snackQuantity.setText(orderItemQuantity.get(counter));
+            }
 
-            counter+=1;
-            orderItemPrice.add(counter, cursor.getString(i));
-            snackPrice.setText(orderItemPrice.get(counter));
-//            i+=1;
-            orderItemQuantity.add(counter, cursor.getString(i));
-            snackQuantity.setText(orderItemPrice.get(counter));
-            i+=1;
-
-//            orderItemPrice.add(counter, cursor.getString(i));
-//            snackPrice.setText(orderItemPrice.get(i));
-            counter+=1;
+            loopCounter += 1;
+            i += 1;
         }
         totalPrice.setText(totalprice);
     }
@@ -82,7 +94,7 @@ public class OrderSummary extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.user_menu,menu);
+        inflater.inflate(R.menu.user_menu, menu);
         return true;
     }
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.utamobilevendingsystem.HomeScreens.UserHomeScreen;
+import com.example.utamobilevendingsystem.users.UserOrderDetails;
 
 public class LocationScreen extends AppCompatActivity {
     TextView cooperUtaTV,nedderGreekTV,davisMitchellTV,cooperMitchellTV,oakUtaTV,spanioloWTV,spanioloMitchellTv,centerMitchellTV;
@@ -131,7 +132,7 @@ public class LocationScreen extends AppCompatActivity {
     }
 
     private void viewOrders() {
-        Intent myint = new Intent(this, OrderDetails.class);
+        Intent myint = new Intent(this, UserOrderDetails.class);
         startActivity(myint);
     }
 

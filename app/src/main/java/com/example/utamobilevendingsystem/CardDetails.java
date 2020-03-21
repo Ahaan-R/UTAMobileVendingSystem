@@ -20,6 +20,7 @@ import com.example.utamobilevendingsystem.HomeScreens.UserHomeScreen;
 import com.example.utamobilevendingsystem.domain.CardType;
 import com.example.utamobilevendingsystem.domain.Payments;
 import com.example.utamobilevendingsystem.domain.Status;
+import com.example.utamobilevendingsystem.users.UserOrderDetails;
 
 import java.text.DecimalFormat;
 
@@ -129,7 +130,7 @@ public class CardDetails extends AppCompatActivity {
     }
 
     private void viewOrders() {
-        Intent myint = new Intent(this, OrderDetails.class);
+        Intent myint = new Intent(this, UserOrderDetails.class);
         startActivity(myint);
     }
 

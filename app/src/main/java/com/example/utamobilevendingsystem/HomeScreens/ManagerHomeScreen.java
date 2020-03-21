@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.utamobilevendingsystem.LocationScreen;
 import com.example.utamobilevendingsystem.LoginActivity;
+import com.example.utamobilevendingsystem.ManagerOrderDetails;
 import com.example.utamobilevendingsystem.OperatorDetails;
 import com.example.utamobilevendingsystem.OperatorList;
 import com.example.utamobilevendingsystem.OperatorScheduleList;
@@ -130,7 +131,7 @@ public class ManagerHomeScreen extends AppCompatActivity {
     }
 
     private void viewOrders() {
-        Intent myint = new Intent(ManagerHomeScreen.this, UserOrderDetails.class);
+        Intent myint = new Intent(ManagerHomeScreen.this, ManagerOrderDetails.class);
         startActivity(myint);
     }
 

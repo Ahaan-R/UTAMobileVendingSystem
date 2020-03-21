@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.utamobilevendingsystem.HomeScreens.UserHomeScreen;
 import com.example.utamobilevendingsystem.domain.Status;
+import com.example.utamobilevendingsystem.users.UserOrderDetails;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -141,7 +142,7 @@ public class OrderConfirmation extends AppCompatActivity {
     }
 
     private void viewOrders() {
-        Intent myint = new Intent(this, OrderDetails.class);
+        Intent myint = new Intent(this, UserOrderDetails.class);
         startActivity(myint);
     }
 
