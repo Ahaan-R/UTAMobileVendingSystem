@@ -11,22 +11,10 @@
     <ListView
         android:id="@+id/vehicleList"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/vehicleDetails"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/vehicleDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:background="@color/colorPrimaryDark"
-        android:text="Vehicle Details"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vehicleList" />
 </androidx.constraintlayout.widget.ConstraintLayout>

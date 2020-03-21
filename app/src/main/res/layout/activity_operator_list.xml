@@ -1,46 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:orientation="vertical"
     tools:context=".OperatorList">
 
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="101dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_marginLeft="101dp"
-        android:layout_marginTop="100dp"
-        android:text="OPERATOR LIST"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginLeft="56dp"
-        android:text="OPERATOR 1"
-        app:layout_constraintBaseline_toBaselineOf="@+id/optr_schedule_id"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/optr_schedule_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:layout_marginTop="79dp"
-        android:layout_marginEnd="87dp"
-        android:layout_marginRight="87dp"
-        android:text="VIEW DETAILS"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/lvOperatorList">
+    </ListView>
+</LinearLayout>
