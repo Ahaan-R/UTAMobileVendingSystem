@@ -38,8 +38,7 @@ public class OperatorDetails extends AppCompatActivity {
 
         String userID = getIntent().getStringExtra("userID");
         String operatorDetaolsQuery = "select u.first_name, u.last_name,u.emailid, u.phone, v.name, l.locationName from " +
-                "user_details u LEFT join operator_vehicle o on o.user_id = u.user_id " +
-                "LEFT JOIN vehicle v on v.vehicle_id = o.vehicle_id " +
+                "user_details u LEFT JOIN vehicle v on v.user_id = u.user_id  " +
                 "LEFT JOIN location l on v.location_id = l.location_id " +
                 "where u.user_id = ?";
 

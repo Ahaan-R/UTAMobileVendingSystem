@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.utamobilevendingsystem.HomeScreens.ManagerHomeScreen;
 import com.example.utamobilevendingsystem.HomeScreens.UserHomeScreen;
-import com.example.utamobilevendingsystem.HomeScreens.VendorHomeScreen;
+import com.example.utamobilevendingsystem.HomeScreens.OperatorHomeScreen;
 import com.example.utamobilevendingsystem.domain.Status;
 import com.example.utamobilevendingsystem.domain.UserCredentials;
 
