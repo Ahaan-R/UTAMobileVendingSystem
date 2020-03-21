@@ -139,8 +139,8 @@ public class ManagerHomeScreen extends AppCompatActivity {
         startActivity(logout);
     }
     public void openOperatorlist(){
-
         Intent intent= new Intent(this, OperatorList.class );
+        intent.putExtra("callingActivity", ManagerHomeScreen.class.toString());
         startActivity(intent );
     }
     public void viewschedule(){
