@@ -62,7 +62,7 @@ public class LocationScreen extends AppCompatActivity {
         removeAllocation = removeAllocationTV.getText().toString();
         SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
         String role= prefs.getString("userRole","");
-        if(role!=null && role.equals("User")) {
+        if(role!=null && role.equals("User") || isCallingActivityVehicleDetailScreen) {
             onClicks();
         }
     }

@@ -35,7 +35,6 @@ public class VehicleDetailsScreen extends AppCompatActivity {
     TextView tvNameDesc, tvLocationDesc,tvVehicleTypeDesc,tvOperatorDesc,tvScheduleDesc,tvTotalRevenueDesc;
     Switch toggleAvailability;
     String vehicleID;
-    int locationSchedule;
     final int OPERATOR_REQUEST_CODE = 1111;
     final int LOCATION_REQUEST_CODE = 2222;
     @Override
@@ -68,7 +67,6 @@ public class VehicleDetailsScreen extends AppCompatActivity {
                 tvVehicleTypeDesc.setText(c.getString(c.getColumnIndex(Resources.VEHICLE_TYPE)).contains("Cart")? VehicleType.CART.getDescription(): VehicleType.FOOD_TRUCK.getDescription());
                 tvOperatorDesc.setText(c.getString(c.getColumnIndex(Resources.USER_DETAILS_FNAME)) == null ? Status.UNASSIGNED.getDescription() : c.getString(c.getColumnIndex(Resources.USER_DETAILS_FNAME)));
                 tvScheduleDesc.setText(c.getString(c.getColumnIndex(Resources.VEHICLE_SCHEDULE_TIME)) == null ? Status.UNASSIGNED.getDescription() : c.getString(c.getColumnIndex(Resources.VEHICLE_SCHEDULE_TIME)));
-                locationSchedule = c.getInt(c.getColumnIndex(Resources.LOCATION_SCHEDULE));
                 toggleAvailability.setChecked(c.getString(c.getColumnIndex(Resources.VEHICLE_AVAILABILITY)).equalsIgnoreCase(Status.AVAILABLE.getDescription()) ? true : false);
                 tvTotalRevenueDesc.setText("1233");
             }
@@ -128,6 +126,9 @@ public class VehicleDetailsScreen extends AppCompatActivity {
                     TimePickerDialog timePickerDialog = new TimePickerDialog(VehicleDetailsScreen.this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                            Cursor c = db.rawQuery("select schedule from location where locationName = ?",  new String[] {tvLocationDesc.getText().toString()});
+                            c.moveToFirst();
+                            int locationSchedule = c.getInt(c.getColumnIndex(Resources.LOCATION_SCHEDULE));
                             int closingTime = hourOfDay+locationSchedule;
                             tvScheduleDesc.setText(hourOfDay + ":" + (minute < 10? "0"+minute : minute) +" - "+ closingTime +":" + (minute < 10? "0"+minute : minute));
                             ContentValues contentValues = new ContentValues();
