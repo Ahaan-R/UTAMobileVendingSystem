@@ -62,7 +62,7 @@ public class LocationScreen extends AppCompatActivity {
         removeAllocation = removeAllocationTV.getText().toString();
         SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
         String role= prefs.getString("userRole","");
-        if(role!=null && role.equals("User")) {
+        if(role!=null && role.equals("User") || isCallingActivityVehicleDetailScreen) {
             onClicks();
         }
     }
@@ -70,13 +70,7 @@ public class LocationScreen extends AppCompatActivity {
     private void onClicks() {
         cooperUtaTV.setOnClickListener(v -> {
             if(isCallingActivityVehicleDetailScreen){
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(Resources.VEHICLE_LOCATION_ID, "1");
-                db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
-                Intent output = new Intent();
-                output.putExtra("locationName", "Cooper And UTA Blvd");
-                setResult(RESULT_OK, output);
-                finish();
+                updateVehicleLocation("Cooper And UTA Blvd","1");
             } else{
                 Intent myint = new Intent(LocationScreen.this,UserOrder.class);
                 myint.putExtra("location",cooperUta);
@@ -86,13 +80,7 @@ public class LocationScreen extends AppCompatActivity {
         });
         nedderGreekTV.setOnClickListener(v -> {
             if(isCallingActivityVehicleDetailScreen){
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(Resources.VEHICLE_LOCATION_ID, "2");
-                db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
-                Intent output = new Intent();
-                output.putExtra("locationName", "W Nedderman & Greek Row");
-                setResult(RESULT_OK, output);
-                finish();
+                updateVehicleLocation("W Nedderman & Greek Row","2");
             }  else{
                 Intent myint = new Intent(LocationScreen.this,UserOrder.class);
                 myint.putExtra("location",neederGreek);
@@ -103,13 +91,7 @@ public class LocationScreen extends AppCompatActivity {
         });
         davisMitchellTV.setOnClickListener(v -> {
             if(isCallingActivityVehicleDetailScreen){
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(Resources.VEHICLE_LOCATION_ID, "3");
-                db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
-                Intent output = new Intent();
-                output.putExtra("locationName", "S Davis & W Mitchell");
-                setResult(RESULT_OK, output);
-                finish();
+                updateVehicleLocation("S Davis & W Mitchell","3");
             }  else{
                 Intent myint = new Intent(LocationScreen.this,UserOrder.class);
                 myint.putExtra("location",davisMitchell);
@@ -120,13 +102,7 @@ public class LocationScreen extends AppCompatActivity {
         });
         cooperMitchellTV.setOnClickListener(v -> {
             if(isCallingActivityVehicleDetailScreen){
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(Resources.VEHICLE_LOCATION_ID, "4");
-                db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
-                Intent output = new Intent();
-                output.putExtra("locationName", "Cooper & W Mitchell");
-                setResult(RESULT_OK, output);
-                finish();
+                updateVehicleLocation("Cooper & W Mitchell","4");
             }  else{
                 Intent myint = new Intent(LocationScreen.this,UserOrder.class);
                 myint.putExtra("location",centerMitchell);
@@ -137,13 +113,7 @@ public class LocationScreen extends AppCompatActivity {
         });
         oakUtaTV.setOnClickListener(v -> {
             if(isCallingActivityVehicleDetailScreen){
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(Resources.VEHICLE_LOCATION_ID, "5");
-                db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
-                Intent output = new Intent();
-                output.putExtra("locationName", "S Oak & UTA Blvd");
-                setResult(RESULT_OK, output);
-                finish();
+                updateVehicleLocation("S Oak & UTA Blvd","5");
             }  else{
                 Intent myint = new Intent(LocationScreen.this,UserOrder.class);
                 myint.putExtra("location",oakUta);
@@ -154,13 +124,7 @@ public class LocationScreen extends AppCompatActivity {
         });
         spanioloWTV.setOnClickListener(v -> {
             if(isCallingActivityVehicleDetailScreen){
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(Resources.VEHICLE_LOCATION_ID, "6");
-                db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
-                Intent output = new Intent();
-                output.putExtra("locationName", "Spaniolo & W 1st");
-                setResult(RESULT_OK, output);
-                finish();
+                updateVehicleLocation("Spaniolo & W 1st","6");
             }  else{
                 Intent myint = new Intent(LocationScreen.this,UserOrder.class);
                 myint.putExtra("location",spanioloW);
@@ -171,13 +135,7 @@ public class LocationScreen extends AppCompatActivity {
         });
         spanioloMitchellTv.setOnClickListener(v -> {
             if(isCallingActivityVehicleDetailScreen){
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(Resources.VEHICLE_LOCATION_ID, "7");
-                db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
-                Intent output = new Intent();
-                output.putExtra("locationName", "Spaniolo & W Mitchell");
-                setResult(RESULT_OK, output);
-                finish();
+                updateVehicleLocation("Spaniolo & W Mitchell","7");
             }  else{
                 Intent myint = new Intent(LocationScreen.this,UserOrder.class);
                 myint.putExtra("location",spanioloMithcell);
@@ -187,13 +145,7 @@ public class LocationScreen extends AppCompatActivity {
         });
         centerMitchellTV.setOnClickListener(v -> {
             if(isCallingActivityVehicleDetailScreen){
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(Resources.VEHICLE_LOCATION_ID, "8");
-                db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
-                Intent output = new Intent();
-                output.putExtra("locationName", "S Center & W Mitchell");
-                setResult(RESULT_OK, output);
-                finish();
+                updateVehicleLocation("S Center & W Mitchell","8");
             }  else{
                 Intent myint = new Intent(LocationScreen.this,UserOrder.class);
                 myint.putExtra("location",centerMitchell);
@@ -204,16 +156,23 @@ public class LocationScreen extends AppCompatActivity {
 
         removeAllocationTV.setOnClickListener(v -> {
             if(isCallingActivityVehicleDetailScreen){
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(Resources.VEHICLE_LOCATION_ID, "null");
-                db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
-                Intent output = new Intent();
-                output.putExtra("locationName", Status.UNASSIGNED.getDescription());
-                setResult(RESULT_OK, output);
-                finish();
+                updateVehicleLocation(Status.UNASSIGNED.getDescription(),"null");
             }
         });
 
+    }
+
+    private void updateVehicleLocation(String locationName,String locationID){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Resources.VEHICLE_LOCATION_ID, locationID);
+        if("null".equalsIgnoreCase(locationID)){
+            contentValues.putNull(Resources.VEHICLE_SCHEDULE_TIME);
+        }
+        db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
+        Intent output = new Intent();
+        output.putExtra("locationName", locationName);
+        setResult(RESULT_OK, output);
+        finish();
     }
 
     @Override

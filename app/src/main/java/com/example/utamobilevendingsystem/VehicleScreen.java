@@ -39,8 +39,8 @@ public class VehicleScreen extends AppCompatActivity {
 
         ListView vehicleListView = (ListView) findViewById(R.id.vehicleList);
 
-        String selectQuery = "select v.vehicle_id, v.name, v.type, v.availability, v.location_id, l.locationName from vehicle v left join location l on v.location_id = l.location_id";
-        Cursor c = db.rawQuery(selectQuery, null);
+        String VEHICLE_LOCATION_QUERY = "select v.vehicle_id, v.name, v.type, v.availability, v.location_id, l.locationName from vehicle v left join location l on v.location_id = l.location_id";
+        Cursor c = db.rawQuery(VEHICLE_LOCATION_QUERY, null);
 
         if (c.getCount() > 0){
             c.moveToFirst();
