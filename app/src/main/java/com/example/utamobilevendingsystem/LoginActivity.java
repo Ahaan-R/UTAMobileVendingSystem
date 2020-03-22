@@ -6,25 +6,17 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 
 import com.example.utamobilevendingsystem.HomeScreens.ManagerHomeScreen;
 import com.example.utamobilevendingsystem.HomeScreens.UserHomeScreen;
-import com.example.utamobilevendingsystem.HomeScreens.VendorHomeScreen;
+import com.example.utamobilevendingsystem.HomeScreens.OperatorHomeScreen;
+import com.example.utamobilevendingsystem.domain.Status;
 import com.example.utamobilevendingsystem.domain.UserCredentials;
-import com.example.utamobilevendingsystem.domain.UserDetails;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -58,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                         break;
                     }
                     case "Operator": {
-                        Intent myInt = new Intent(LoginActivity.this, VendorHomeScreen.class);
+                        Intent myInt = new Intent(LoginActivity.this, OperatorHomeScreen.class);
                         startActivity(myInt);
                         break;
                     }
@@ -82,14 +74,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void insert(){
         ContentValues user_creds=new ContentValues();
-        user_creds.put("user_id","2");
-        user_creds.put("username","test2");
+        user_creds.put("user_id","1");
+        user_creds.put("username","test");
         user_creds.put("password","pass123");
-        user_creds.put("role","Operator");
+        user_creds.put("role","User");
         db.insert(Resources.TABLE_USER_CREDS,null, user_creds);
         ContentValues user_details= new ContentValues();
-        user_details.put("user_id","2");
-        user_details.put("username","test2");
+        user_details.put("user_id","1");
+        user_details.put("username","test");
         user_details.put("first_name","Prajwal");
         user_details.put("last_name","Prasad");
         user_details.put("uta_id","1001");
@@ -115,46 +107,76 @@ public class LoginActivity extends AppCompatActivity {
         db.insert(Resources.TABLE_ITEM,null, items);
         ContentValues location= new ContentValues();
         location.put("location_id","1");
-        location.put("name","Cooper And UTA Blvd");
+        location.put("locationName","Cooper And UTA Blvd");
         location.put("schedule","2");
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","2");
-        location.put("name","W Nedderman & Greek Row");
-        location.put("schedule","1");
+        location.put("locationName","W Nedderman & Greek Row");
+        location.put("schedule", 1);
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","3");
-        location.put("name","S Davis & W Mitchell");
-        location.put("schedule","2");
+        location.put("locationName","S Davis & W Mitchell");
+        location.put("schedule", 2);
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","4");
-        location.put("name","S Oak & UTA Blvd");
-        location.put("schedule","3");
+        location.put("locationName","Cooper & W Mitchell");
+        location.put("schedule", 3);
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","5");
-        location.put("name","Spaniolo & W 1st");
-        location.put("schedule","4");
+        location.put("locationName","S Oak & UTA Blvd");
+        location.put("schedule", 3);
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","6");
-        location.put("name","Spaniolo & W Mitchell");
-        location.put("schedule","2");
+        location.put("locationName","Spaniolo & W 1st");
+        location.put("schedule", 4);
         db.insert(Resources.TABLE_LOCATION,null, location);
         location.put("location_id","7");
-        location.put("name","S Center & W Mitchell");
-        location.put("schedule","1");
+        location.put("locationName","Spaniolo & W Mitchell");
+        location.put("schedule", 2);
         db.insert(Resources.TABLE_LOCATION,null, location);
+        location.put("location_id","8");
+        location.put("locationName","S Center & W Mitchell");
+        location.put("schedule", 1);
+        db.insert(Resources.TABLE_LOCATION,null, location);
+
+
         ContentValues vehicle= new ContentValues();
         vehicle.put("vehicle_id","1");
         vehicle.put("name","Truck 1");
         vehicle.put("type","Food Truck");
-        vehicle.put("availability","2");
-        vehicle.put("location_id","1");
+        vehicle.put("availability", Status.AVAILABLE.getId());
         db.insert(Resources.TABLE_VEHICLE,null, vehicle);
         vehicle.put("vehicle_id","2");
         vehicle.put("name","Truck 2");
         vehicle.put("type","Food Truck");
-        vehicle.put("availability","4");
-        vehicle.put("location_id","6");
+        vehicle.put("availability", Status.AVAILABLE.getId());
         db.insert(Resources.TABLE_VEHICLE,null, vehicle);
+        vehicle.put("vehicle_id","3");
+        vehicle.put("name","Cart 1");
+        vehicle.put("type","Cart");
+        vehicle.put("availability", Status.AVAILABLE.getId());
+        db.insert(Resources.TABLE_VEHICLE,null, vehicle);
+        vehicle.put("vehicle_id","4");
+        vehicle.put("name","Cart 2");
+        vehicle.put("type","Cart");
+        vehicle.put("availability", Status.AVAILABLE.getId());
+        db.insert(Resources.TABLE_VEHICLE,null, vehicle);
+        vehicle.put("vehicle_id","5");
+        vehicle.put("name","Cart 3");
+        vehicle.put("type","Cart");
+        vehicle.put("availability", Status.AVAILABLE.getId());
+        db.insert(Resources.TABLE_VEHICLE,null, vehicle);
+        vehicle.put("vehicle_id","6");
+        vehicle.put("name","Cart 4");
+        vehicle.put("type","Cart");
+        vehicle.put("availability", Status.AVAILABLE.getId());
+        db.insert(Resources.TABLE_VEHICLE,null, vehicle);
+        vehicle.put("vehicle_id","7");
+        vehicle.put("name","Cart 5");
+        vehicle.put("type","Cart");
+        vehicle.put("availability", Status.AVAILABLE.getId());
+        db.insert(Resources.TABLE_VEHICLE,null, vehicle);
+
         ContentValues vehicle_inventory= new ContentValues();
         vehicle_inventory.put("id","1");
         vehicle_inventory.put("vehicle_id","1");
@@ -168,6 +190,106 @@ public class LoginActivity extends AppCompatActivity {
         db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
         vehicle_inventory.put("id","3");
         vehicle_inventory.put("vehicle_id","1");
+        vehicle_inventory.put("item_id","3");
+        vehicle_inventory.put("quantity","7");
+
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","4");
+        vehicle_inventory.put("vehicle_id","2");
+        vehicle_inventory.put("item_id","1");
+        vehicle_inventory.put("quantity","10");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","5");
+        vehicle_inventory.put("vehicle_id","2");
+        vehicle_inventory.put("item_id","2");
+        vehicle_inventory.put("quantity","5");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","6");
+        vehicle_inventory.put("vehicle_id","2");
+        vehicle_inventory.put("item_id","3");
+        vehicle_inventory.put("quantity","7");
+
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","7");
+        vehicle_inventory.put("vehicle_id","3");
+        vehicle_inventory.put("item_id","1");
+        vehicle_inventory.put("quantity","10");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","8");
+        vehicle_inventory.put("vehicle_id","3");
+        vehicle_inventory.put("item_id","2");
+        vehicle_inventory.put("quantity","5");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","9");
+        vehicle_inventory.put("vehicle_id","3");
+        vehicle_inventory.put("item_id","3");
+        vehicle_inventory.put("quantity","7");
+
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","10");
+        vehicle_inventory.put("vehicle_id","4");
+        vehicle_inventory.put("item_id","1");
+        vehicle_inventory.put("quantity","10");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","11");
+        vehicle_inventory.put("vehicle_id","4");
+        vehicle_inventory.put("item_id","2");
+        vehicle_inventory.put("quantity","5");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","12");
+        vehicle_inventory.put("vehicle_id","4");
+        vehicle_inventory.put("item_id","3");
+        vehicle_inventory.put("quantity","7");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","13");
+        vehicle_inventory.put("vehicle_id","5");
+        vehicle_inventory.put("item_id","1");
+        vehicle_inventory.put("quantity","10");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","14");
+        vehicle_inventory.put("vehicle_id","5");
+        vehicle_inventory.put("item_id","2");
+        vehicle_inventory.put("quantity","5");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","15");
+        vehicle_inventory.put("vehicle_id","5");
+        vehicle_inventory.put("item_id","3");
+        vehicle_inventory.put("quantity","7");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","16");
+        vehicle_inventory.put("vehicle_id","6");
+        vehicle_inventory.put("item_id","1");
+        vehicle_inventory.put("quantity","10");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","17");
+        vehicle_inventory.put("vehicle_id","6");
+        vehicle_inventory.put("item_id","2");
+        vehicle_inventory.put("quantity","5");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","18");
+        vehicle_inventory.put("vehicle_id","6");
+        vehicle_inventory.put("item_id","3");
+        vehicle_inventory.put("quantity","7");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+
+
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","19");
+        vehicle_inventory.put("vehicle_id","7");
+        vehicle_inventory.put("item_id","1");
+        vehicle_inventory.put("quantity","10");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","20");
+        vehicle_inventory.put("vehicle_id","7");
+        vehicle_inventory.put("item_id","2");
+        vehicle_inventory.put("quantity","5");
+        db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
+        vehicle_inventory.put("id","21");
+        vehicle_inventory.put("vehicle_id","7");
         vehicle_inventory.put("item_id","3");
         vehicle_inventory.put("quantity","7");
         db.insert(Resources.TABLE_VEHICLE_INVENTORY,null, vehicle_inventory);
@@ -204,6 +326,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
         editor.putInt("userid",(c1.getInt((c1.getColumnIndex(Resources.USER_DETAILS_ID)))));
         editor.putInt("utaid",(c1.getInt((c1.getColumnIndex(Resources.USER_DETAILS_UTA_ID)))));
+        editor.putString("userRole",userRole);
         editor.putString("address",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_ADDRESS)))));
         editor.putString("username",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_USERNAME)))));
         editor.putString("city",(c1.getString((c1.getColumnIndex(Resources.USER_DETAILS_CITY)))));

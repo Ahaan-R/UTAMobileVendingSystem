@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ManagerOrderDetails"></activity>
-        <activity android:name=".CardDetails" />
+        <activity android:name=".CardDetails"></activity>
         <activity android:name=".UserOrder" />
         <activity android:name=".LocationScreen" />
         <activity android:name=".ChangePassword" />
@@ -30,7 +29,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".OperatorDetails" />
-        <activity android:name=".users.UserOrderDetails" />
+        <activity android:name=".OrderDetails" />
         <activity android:name=".OrderSummary" />
         <activity android:name=".OrderConfirmation" />
         <activity android:name=".VehicleScreen" />

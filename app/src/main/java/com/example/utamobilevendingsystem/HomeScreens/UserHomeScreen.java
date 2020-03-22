@@ -91,7 +91,7 @@ public class UserHomeScreen extends RegistrationHelper {
                     flag=false;
                 }
                 if(zip.length()<6){
-                    stateET.setError("Enter a valid zip");
+                    zipET.setError("Zip code must be of 6 digits");
                     flag=false;
                 }
                 if(!verifyAddress(address)){

@@ -2,14 +2,22 @@ package com.example.utamobilevendingsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.utamobilevendingsystem.HomeScreens.ManagerHomeScreen;
 import com.example.utamobilevendingsystem.domain.Status;
 import com.example.utamobilevendingsystem.domain.Vehicle;
 import com.example.utamobilevendingsystem.domain.VehicleType;
@@ -17,33 +25,47 @@ import com.example.utamobilevendingsystem.domain.VehicleType;
 import java.util.ArrayList;
 
 public class VehicleScreen extends AppCompatActivity {
-    Button vehicleDetails;
+    DatabaseHelper dbHelper;
+    SQLiteDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_screen);
-        vehicleDetails = findViewById(R.id.vehicleDetails);
-        ListView vehicleListView = (ListView) findViewById(R.id.vehicleList);
 
-        Vehicle v1 = new Vehicle("Vehicle 1",VehicleType.FOOD_TRUCK, Status.AVAILABLE, 1);
-        Vehicle v2 = new Vehicle("Vehicle 2",VehicleType.CART, Status.AVAILABLE, 2);
-        Vehicle v3 = new Vehicle("Vehicle 3",VehicleType.FOOD_TRUCK, Status.AVAILABLE, 3);
-        Vehicle v4 = new Vehicle("Vehicle 4",VehicleType.CART, Status.AVAILABLE, 4);
-        Vehicle v5 = new Vehicle("Vehicle 5",VehicleType.CART, Status.AVAILABLE, 5);
-        Vehicle v6 = new Vehicle("Vehicle 6",VehicleType.CART, Status.AVAILABLE, 6);
-        Vehicle v7 = new Vehicle("Vehicle 7",VehicleType.CART, Status.AVAILABLE, 7);
+        dbHelper = DatabaseHelper.getInstance(this);
+        db = dbHelper.getWritableDatabase();
 
         ArrayList<Vehicle> vehicleList = new ArrayList<>();
-        vehicleList.add(v1);vehicleList.add(v2);vehicleList.add(v3);vehicleList.add(v4);
-        vehicleList.add(v5);vehicleList.add(v6);vehicleList.add(v7);
+
+        ListView vehicleListView = (ListView) findViewById(R.id.vehicleList);
+
+        String VEHICLE_LOCATION_QUERY = "select v.vehicle_id, v.name, v.type, v.availability, v.location_id, l.locationName from vehicle v left join location l on v.location_id = l.location_id";
+        Cursor c = db.rawQuery(VEHICLE_LOCATION_QUERY, null);
+
+        if (c.getCount() > 0){
+            c.moveToFirst();
+            Vehicle vehicle;
+            for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+                vehicle = new Vehicle();
+                vehicle.setVehicleId(c.getInt(c.getColumnIndex(Resources.VEHICLE_ID)));
+                vehicle.setVehicleName(c.getString(c.getColumnIndex(Resources.VEHICLE_NAME)));
+                vehicle.setVehicleType("Food Truck".equalsIgnoreCase(c.getString(c.getColumnIndex(Resources.VEHICLE_TYPE))) ? VehicleType.FOOD_TRUCK : VehicleType.CART);
+                vehicle.setAvailability((c.getInt(c.getColumnIndex(Resources.VEHICLE_AVAILABILITY)) == 6? Status.AVAILABLE : Status.UNAVAILABLE));
+                vehicle.setLocationId(c.getInt(c.getColumnIndex(Resources.VEHICLE_LOCATION_ID)));
+                vehicle.setLocationName(c.getString(c.getColumnIndex(Resources.LOCATION_NAME)));
+                vehicleList.add(vehicle);
+            }
+        }
 
         VehicleListAdapter adapter = new VehicleListAdapter(this, R.layout.vehicle_list_adaptor_view_layout, vehicleList);
         vehicleListView.setAdapter(adapter);
-        vehicleDetails.setOnClickListener(new View.OnClickListener() {
+        vehicleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent myint = new Intent(VehicleScreen.this,VehicleDetailsScreen.class);
-                startActivity(myint);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = view.findViewById(R.id.vehicleID);
+                Intent intent = new Intent(VehicleScreen.this,VehicleDetailsScreen.class);
+                intent.putExtra("vehicleID", tv.getText().toString());
+                startActivity(intent);
             }
         });
     }
@@ -53,5 +75,67 @@ public class VehicleScreen extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.user_menu,menu);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_location:
+                viewLocationList();
+                return true;
+            case R.id.menu_view_orders:
+                viewOrders();
+                return true;
+            case R.id.app_bar_search:
+                vehicleSearch();
+                return true;
+            case R.id.menu_logout:
+                logout();
+                return true;
+            case R.id.menu_home:
+                SharedPreferences preferences = getSharedPreferences("currUser", MODE_PRIVATE);
+                String role = preferences.getString("userRole","");
+                role= role+"HomeScreen";
+                try {
+                    Class<?> cls = Class.forName("com.example.utamobilevendingsystem.HomeScreens."+role);
+                    Intent homeIntent = new Intent(this, cls);
+                    startActivity(homeIntent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                return true;
+            case R.id.change_password:
+                changePassword();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    private void vehicleSearch() {
+        Intent myint = new Intent(this, VehicleScreen.class);
+        startActivity(myint);
+    }
+
+    private void viewOrders() {
+        Intent myint = new Intent(this, OrderDetails.class);
+        startActivity(myint);
+    }
+
+    private void logout() {
+        SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
+        Intent logout = new Intent(this, LoginActivity.class);
+        startActivity(logout);
+    }
+
+    private void changePassword() {
+        Intent changePasswordIntent = new Intent(this, ChangePassword.class);
+        startActivity(changePasswordIntent);
+    }
+
+    private void viewLocationList(){
+        Intent changePasswordIntent = new Intent(this, LocationScreen.class);
+        startActivity(changePasswordIntent);
     }
 }

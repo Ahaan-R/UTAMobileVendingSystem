@@ -39,6 +39,7 @@ public class UserOrder extends AppCompatActivity {
     HashMap<Integer,Integer> vehicleInventory = new HashMap<>();
     ContentValues cart = new ContentValues();
     SharedPreferences.Editor editor;
+    int locationId=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +47,7 @@ public class UserOrder extends AppCompatActivity {
         Intent myint = getIntent();
         Bundle extras = myint.getExtras();
         String location="";
-        int locationId=0;
+
         if(extras!=null)
         {
              location = myint.getStringExtra("location");
@@ -80,6 +81,8 @@ public class UserOrder extends AppCompatActivity {
         }
         int  vehicleID =c.getInt(c.getColumnIndex(Resources.VEHICLE_ID));
 
+        editor.putInt("vehicleID",vehicleID);
+
         String inventoryQuery= "SELECT * FROM "+ Resources.TABLE_VEHICLE_INVENTORY+ " WHERE " +  Resources.VEHICLE_INVENTORY_VEHICLE_ID + " = " + vehicleID;
         Cursor c1 = db.rawQuery(inventoryQuery, null);
         int count= c1.getCount();
@@ -111,17 +114,27 @@ public class UserOrder extends AppCompatActivity {
                 editor.putString("drinksPrice", String.valueOf(drnksPrice));
                 editor.putString("snacksPrice", String.valueOf(snksPrice));
                 boolean flag= true;
-                if(Integer.parseInt(switchQty.getText().toString()) > Integer.parseInt(swichAvl.getText().toString())){
+                int sandwichQTY = Integer.parseInt(switchQty.getText().toString());
+                int drinksQTY = Integer.parseInt(drinksQty.getText().toString());
+                int snacksQTY= Integer.parseInt(snacksQty.getText().toString());
+                int sandwichAVL = Integer.parseInt(swichAvl.getText().toString());
+                int drinksAVL = Integer.parseInt(drinksAvl.getText().toString());
+                int snacksAVL = Integer.parseInt(snacksAvl.getText().toString());
+                if(sandwichQTY> sandwichAVL){
                     switchQty.setError("Please enter according to availability of item");
                     flag= false;
                 }
-                if(Integer.parseInt(drinksQty.getText().toString()) > Integer.parseInt(drinksAvl.getText().toString())){
+                if(drinksQTY> drinksAVL){
                     drinksQty.setError("Please enter according to availability of item");
                     flag= false;
                 }
-                if(Integer.parseInt(snacksQty.getText().toString()) > Integer.parseInt(snacksAvl.getText().toString())){
+                if(snacksQTY>snacksAVL ){
                     snacksQty.setError("Please enter according to availability of item");
                     flag= false;
+                }
+                if(sandwichQTY==0 && drinksQTY==0 && snacksQTY==0){
+                    switchQty.setError("Please select at least 1 item before placing order");
+                    flag=false;
                 }
                 if(flag){
                     SQLiteDatabase db=DatabaseHelper.getInstance(getApplicationContext()).getWritableDatabase();
@@ -129,20 +142,23 @@ public class UserOrder extends AppCompatActivity {
                     int uid =prefs.getInt("userid",0);
                     cart.put("cart_ID",uid);
                     cart.put("cart_item_id",1);
-                    cart.put("quantity",Integer.parseInt(switchQty.getText().toString()));
+                    cart.put("quantity",sandwichQTY);
                     db.insert(Resources.TABLE_CART,null, cart);
                     cart.put("cart_ID",uid);
                     cart.put("cart_item_id",2);
-                    cart.put("quantity",Integer.parseInt(drinksQty.getText().toString()));
+                    cart.put("quantity",drinksQTY);
                     db.insert(Resources.TABLE_CART,null, cart);
                     cart.put("cart_ID",uid);
                     cart.put("cart_item_id",3);
-                    cart.put("quantity",Integer.parseInt(snacksQty.getText().toString()));
+                    cart.put("quantity",snacksQTY);
                     db.insert(Resources.TABLE_CART,null, cart);
-
-                    editor.putInt("swichQty",Integer.parseInt(switchQty.getText().toString()));
-                    editor.putInt("drinksQty",Integer.parseInt(drinksQty.getText().toString()));
-                    editor.putInt("snacksQty",Integer.parseInt(snacksQty.getText().toString()));
+                    editor.putInt("swichAvl",sandwichAVL);
+                    editor.putInt("drinksAvl",drinksAVL);
+                    editor.putInt("snacksAvl",snacksAVL);
+                    editor.putInt("swichQty",sandwichQTY);
+                    editor.putInt("drinksQty",drinksQTY);
+                    editor.putInt("snacksQty",snacksQTY);
+                    editor.putInt("locationID",locationId);
                     editor.apply();
                     Toast.makeText(getApplicationContext(),"Items added to cart!",Toast.LENGTH_SHORT).show();
                     Intent myint = new Intent(UserOrder.this, CardDetails.class);

@@ -41,7 +41,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/r1c1"
+                android:id="@+id/tvNAme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -53,13 +53,12 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/r1c2"
+                android:id="@+id/tvNameDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
-                android:text="Vehicle 1"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
                 android:textStyle="bold" />
@@ -70,7 +69,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/r2c1"
+                android:id="@+id/tvLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -82,13 +81,12 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/swichAvl"
+                android:id="@+id/tvLocationDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
-                android:text="MAC"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
                 android:textStyle="bold" />
@@ -99,7 +97,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/r3c1"
+                android:id="@+id/tvVehicleType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -111,13 +109,12 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/drinksAvl"
+                android:id="@+id/tvVehicleTypeDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
-                android:text="Food Truck"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
                 android:textStyle="bold" />
@@ -128,7 +125,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/r4c1"
+                android:id="@+id/tvOperator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -140,13 +137,13 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/snacksAvl"
+                android:id="@+id/tvOperatorDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:horizontalSpacing="10dp"
+                android:clickable="true"
                 android:padding="18dip"
-                android:text="Bob"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
                 android:textStyle="bold" />
@@ -157,7 +154,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/r5c1"
+                android:id="@+id/tvSchedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -169,13 +166,12 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/r5c2"
+                android:id="@+id/tvScheduleDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
-                android:text="1:00-5:00PM"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
                 android:textStyle="bold" />
@@ -212,7 +208,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/r7c1"
+                android:id="@+id/tvTotalRevenue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -224,17 +220,41 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/r7c2"
+                android:id="@+id/tvTotalRevenueDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:horizontalSpacing="10dp"
                 android:padding="18dip"
-                android:text="$1550"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14dp"
                 android:textStyle="bold" />
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvAvaiablility"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:horizontalSpacing="10dp"
+                android:padding="18dip"
+                android:text="Available"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <Switch
+                android:id="@+id/switchAvaiability"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_gravity="left" />
+        </TableRow>
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

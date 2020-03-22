@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.example.utamobilevendingsystem.ChangePassword;
 import com.example.utamobilevendingsystem.LocationScreen;
 import com.example.utamobilevendingsystem.LoginActivity;
 import com.example.utamobilevendingsystem.ManagerOrderDetails;
@@ -119,7 +120,7 @@ public class ManagerHomeScreen extends AppCompatActivity {
                 logout();
                 return true;
             case R.id.change_password:
-                logout();
+                changePassword();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -140,14 +141,19 @@ public class ManagerHomeScreen extends AppCompatActivity {
         startActivity(logout);
     }
     public void openOperatorlist(){
-
         Intent intent= new Intent(this, OperatorList.class );
+        intent.putExtra("callingActivity", ManagerHomeScreen.class.toString());
         startActivity(intent );
     }
     public void viewschedule(){
 
         Intent intent= new Intent(this, OperatorScheduleList.class );
         startActivity(intent );
+    }
+
+    private void changePassword() {
+        Intent changePasswordIntent = new Intent(ManagerHomeScreen.this, ChangePassword.class);
+        startActivity(changePasswordIntent);
     }
 
     private void viewLocationList(){

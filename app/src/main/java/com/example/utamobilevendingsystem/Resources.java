@@ -50,7 +50,7 @@ public class Resources {
     public static final String ORDER_ITEM_QUANTITY = "order_item_quantity";
     public static final String ORDER_ITEM_PRICE = "order_item_price"; // Product of item price and quantity
     public static final String ORDER_STATUS_ID = "order_status_id"; // foreign KEY -> STATUS_ID
-
+    public static final String ORDER_VEHICLE_ID = "order_vehicle_id"; //foreign key -> vehicle - vehicle id
     // STATUS
     public static final String TABLE_STATUS = "status";
     public static final String STATUS_ID = "status_id";
@@ -66,14 +66,16 @@ public class Resources {
     public static final String TABLE_VEHICLE = "vehicle";
     public static final String VEHICLE_ID = "vehicle_id";
     public static final String VEHICLE_NAME = "name";
-    public static final String VEHICLE_type = "type";
+    public static final String VEHICLE_TYPE = "type";
     public static final String VEHICLE_AVAILABILITY = "availability";
     public static final String VEHICLE_LOCATION_ID = "location_id";
+    public static final String VEHICLE_USER_ID = "user_id";
+    public static final String VEHICLE_SCHEDULE_TIME = "schedule_time";
 
     // LOCATION
     public static final String TABLE_LOCATION = "location";
     public static final String LOCATION_ID = "location_id";
-    public static final String LOCATION_NAME = "name";
+    public static final String LOCATION_NAME = "locationName";
     public static final String LOCATION_SCHEDULE = "schedule";
 
     // PAYMENTS
@@ -135,15 +137,18 @@ public class Resources {
     public static final String CREATE_TABLE_LOCATION = "CREATE TABLE IF NOT EXISTS " + TABLE_LOCATION
             + "(" + LOCATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + LOCATION_NAME + " TEXT, "
-            + LOCATION_SCHEDULE + " TEXT" + ")";
+            + LOCATION_SCHEDULE + " INTEGER" + ")";
 
     public static final String CREATE_TABLE_VEHICLE = "CREATE TABLE IF NOT EXISTS " + TABLE_VEHICLE
             + "(" + VEHICLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + VEHICLE_NAME + " TEXT, "
-            + VEHICLE_type + " TEXT, "
+            + VEHICLE_TYPE + " TEXT, "
             + VEHICLE_AVAILABILITY + " TEXT, "
             + VEHICLE_LOCATION_ID + " INTEGER, "
-            + "CONSTRAINT fk_vehicle FOREIGN KEY ("+VEHICLE_LOCATION_ID+") REFERENCES "+ TABLE_LOCATION+"(" +LOCATION_ID+")"
+            + VEHICLE_USER_ID + " INTEGER, "
+            + VEHICLE_SCHEDULE_TIME + " TEXT , "
+            + "CONSTRAINT fk_vehicle FOREIGN KEY ("+VEHICLE_LOCATION_ID+") REFERENCES "+ TABLE_LOCATION+"(" +LOCATION_ID+"), "
+            + "CONSTRAINT fk_vehicle_user FOREIGN KEY ("+VEHICLE_USER_ID+") REFERENCES "+ TABLE_USER_CREDS+"(" +USER_CREDS_USER_ID+")"
             + ")";
 
     public static final String CREATE_TABLE_VEHICLE_INVENTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_VEHICLE_INVENTORY
@@ -179,10 +184,12 @@ public class Resources {
     public static final String CREATE_TABLE_ORDER = "CREATE TABLE IF NOT EXISTS " + TABLE_ORDER
             + "(" + ORDER_ID + " INTEGER, "
             + ORDER_ITEM_ID + " INTEGER, "
+            + ORDER_VEHICLE_ID + " INTEGER, "
             + ORDER_ITEM_QUANTITY + " INTEGER, "
             + ORDER_ITEM_PRICE + " INTEGER, "
             + ORDER_STATUS_ID + " INTEGER, "
             + "CONSTRAINT fk_table_order_item FOREIGN KEY ("+ORDER_ITEM_ID+") REFERENCES "+ TABLE_ITEM+"(" +ITEM_ID+"), "
+            + "CONSTRAINT fk_table_order_vehicle FOREIGN KEY ("+ORDER_VEHICLE_ID+") REFERENCES "+ TABLE_VEHICLE+"(" +VEHICLE_ID+"), "
             + "CONSTRAINT fk_table_order_status FOREIGN KEY ("+ORDER_STATUS_ID+") REFERENCES "+ TABLE_STATUS+"(" +STATUS_ID+")"
             + ")";
 

@@ -25,9 +25,10 @@ import java.util.Map;
 public class OrderConfirmation extends AppCompatActivity {
     int userId;
     TextView swichQty,swichPrice,drinksQty,drinksPrice,snacksQty,snacksPrice,total;
-    int swichQuantity,drinksQuantity,snacksQuantity;
+    int swichQuantity,drinksQuantity,snacksQuantity,sandwichAVL,drinksAVL,snacksAVL;
     String switchAmt,drinksAmt,snacksAmt;
     double totalAmt;
+    int locationId,vehicleId;
     private static DecimalFormat df = new DecimalFormat("0.00");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,11 @@ public class OrderConfirmation extends AppCompatActivity {
         switchAmt=preferences.getString("swichPrice","");
         drinksAmt=preferences.getString("drinksPrice","");
         snacksAmt=preferences.getString("snacksPrice","");
+        locationId = preferences.getInt("locationID",0);
+        vehicleId=preferences.getInt("vehicleID",0);
+        sandwichAVL = preferences.getInt("swichAvl",0);
+        drinksAVL = preferences.getInt("drinksAvl",0);
+        snacksAVL = preferences.getInt("snacksAvl",0);
         swichQty.setText(String.valueOf(swichQuantity));
         swichPrice.setText(switchAmt);
         drinksQty.setText(String.valueOf(drinksQuantity));
@@ -73,33 +79,51 @@ public class OrderConfirmation extends AppCompatActivity {
             c.moveToLast();
             order_id = c.getInt(c.getColumnIndex(Resources.ORDER_ID)) + 1;
         }
+        //Insert values into orders table
         ContentValues order = new ContentValues();
         order.put("order_id",order_id);
         order.put("order_item_id",1);
+        order.put(Resources.ORDER_VEHICLE_ID,locationId);
         order.put("order_item_quantity",swichQuantity);
         order.put("order_item_price",switchAmt);
         order.put("order_status_id",Status.CONFIRMED.getDescription());
         db.insert(Resources.TABLE_ORDER,null, order);
         order.put("order_id",order_id);
+        order.put(Resources.ORDER_VEHICLE_ID,locationId);
         order.put("order_item_id",2);
         order.put("order_item_quantity",drinksQuantity);
         order.put("order_item_price",drinksAmt);
         order.put("order_status_id",Status.CONFIRMED.getDescription());
         db.insert(Resources.TABLE_ORDER,null, order);
         order.put("order_id",order_id);
+        order.put(Resources.ORDER_VEHICLE_ID,locationId);
         order.put("order_item_id",3);
         order.put("order_item_quantity",snacksQuantity);
         order.put("order_item_price",snacksAmt);
         order.put("order_status_id",Status.CONFIRMED.getDescription());
         db.insert(Resources.TABLE_ORDER,null, order);
 
+        //Insert values into user orders table
         ContentValues userOrders = new ContentValues();
         userOrders.put("user_id",userId);
         userOrders.put("order_id",order_id);
         db.insert(Resources.TABLE_USER_ORDER,null, userOrders);
 
+        //Modify vehicle inventory after order
+        int swichCount = sandwichAVL - swichQuantity;
+        int drinksCount = drinksAVL - drinksQuantity;
+        int snacksCount = snacksAVL - snacksQuantity;
+        String sandwichUpdate = "UPDATE "+Resources.TABLE_VEHICLE_INVENTORY+" SET quantity = "+swichCount +" WHERE item_id = '1' AND vehicle_id = "+vehicleId;
+        db.execSQL(sandwichUpdate);
+        String drinksUpdate = "UPDATE "+Resources.TABLE_VEHICLE_INVENTORY+" SET quantity = "+drinksCount+" WHERE item_id = '2' AND vehicle_id = "+vehicleId;
+        db.execSQL(drinksUpdate);
+        String snacksUpdate = "UPDATE "+Resources.TABLE_VEHICLE_INVENTORY+" SET quantity = "+snacksCount+" WHERE item_id = '3' AND vehicle_id = "+vehicleId;
+        db.execSQL(snacksUpdate);
         String deleteCart = "DELETE FROM "+Resources.TABLE_CART+" WHERE "+Resources.CART_ID +" = "+userId ;
         db.execSQL(deleteCart);
+        SharedPreferences.Editor editor = getSharedPreferences("userCart", MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
     }
 
     @Override
@@ -125,8 +149,16 @@ public class OrderConfirmation extends AppCompatActivity {
                 logout();
                 return true;
             case R.id.menu_home:
-                Intent homeIntent = new Intent(this, UserHomeScreen.class);
-                startActivity(homeIntent);
+                SharedPreferences preferences = getSharedPreferences("currUser", MODE_PRIVATE);
+                String role = preferences.getString("userRole","");
+                role= role+"HomeScreen";
+                try {
+                    Class<?> cls = Class.forName("com.example.utamobilevendingsystem.HomeScreens."+role);
+                    Intent homeIntent = new Intent(this, cls);
+                    startActivity(homeIntent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
                 return true;
             case R.id.change_password:
                 changePassword();
