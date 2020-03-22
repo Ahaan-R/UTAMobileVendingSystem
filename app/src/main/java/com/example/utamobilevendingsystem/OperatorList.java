@@ -2,7 +2,6 @@ package com.example.utamobilevendingsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,12 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.utamobilevendingsystem.HomeScreens.ManagerHomeScreen;
 import com.example.utamobilevendingsystem.domain.UserDetails;
 
 import java.util.ArrayList;
@@ -29,6 +25,8 @@ public class OperatorList extends AppCompatActivity {
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
     String vehicleID;
+
+    final String OPERATOR_LIST_QUERY = "select ud.first_name, ud.last_name, ud.user_id from user_details ud, user_creds uc where ud.user_id=uc.user_id and uc.role = \"Operator\";";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +40,7 @@ public class OperatorList extends AppCompatActivity {
         ArrayList<UserDetails> operatorList = new ArrayList<>();
         ListView operatorListView = (ListView) findViewById(R.id.lvOperatorList);
 
-        String selectQuery = "select ud.first_name, ud.last_name, ud.user_id from user_details ud, user_creds uc where ud.user_id=uc.user_id and uc.role = \"Operator\";";
-        Cursor c = db.rawQuery(selectQuery, null);
+        Cursor c = db.rawQuery(OPERATOR_LIST_QUERY, null);
 
         if (c.getCount() > 0){
             c.moveToFirst();
@@ -74,11 +71,7 @@ public class OperatorList extends AppCompatActivity {
             operatorListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String userID = ((TextView)view.findViewById(R.id.textViewOperatorID)).getText().toString();
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put(Resources.VEHICLE_USER_ID, userID);
-                    db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
-
+                    updateOperatorVehicle(((TextView)view.findViewById(R.id.textViewOperatorID)).getText().toString());
                     Intent output = new Intent();
                     output.putExtra("userName", ((TextView)view.findViewById(R.id.textViewOperatorName)).getText().toString());
                     setResult(RESULT_OK, output);
@@ -87,6 +80,12 @@ public class OperatorList extends AppCompatActivity {
             });
 
         }
+    }
+
+    private void updateOperatorVehicle(String userID){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Resources.VEHICLE_USER_ID, userID);
+        db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
     }
 
     @Override
