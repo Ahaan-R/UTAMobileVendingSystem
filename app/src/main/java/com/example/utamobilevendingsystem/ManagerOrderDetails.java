@@ -40,15 +40,13 @@ public class ManagerOrderDetails extends AppCompatActivity {
 
     private void getData() {
 
-        Cursor cursor = db.rawQuery("select * from orders", null);
+        Cursor cursor = db.rawQuery("select order_id, sum(order_item_quantity), sum(order_item_price), order_status_id from orders", null);
         while (cursor.moveToNext()) {
             if (cursor.getCount() != 0) {
                 int i = 0, j = 0;
                 while (cursor.moveToNext()) {
                     j = 0;
                     orderID.add(i, cursor.getString(j));
-                    j += 1;
-                    orderItemID.add(i, cursor.getString(j));
                     j += 1;
                     orderItemQuantity.add(i, cursor.getString(j));
                     j += 1;
@@ -64,7 +62,7 @@ public class ManagerOrderDetails extends AppCompatActivity {
     private void initRecyclerView() {
         Log.d(TAG, "ManagerOrderDetails: init recyclerview.");
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        UserOrderDetailsAdapter adapter = new UserOrderDetailsAdapter(ManagerOrderDetails.this, orderID, orderItemID , orderItemQuantity, orderItemPrice, orderStatusID);
+        UserOrderDetailsAdapter adapter = new UserOrderDetailsAdapter(ManagerOrderDetails.this, orderID , orderItemQuantity, orderItemPrice, orderStatusID);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

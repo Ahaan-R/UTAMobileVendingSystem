@@ -29,7 +29,14 @@ public class UserOrderDetailsAdapter extends RecyclerView.Adapter<UserOrderDetai
     ArrayList<String> orderItemPrice;
     ArrayList<String> orderStatusID;
 
-
+    public UserOrderDetailsAdapter(Context mContext, ArrayList<String> orderID, ArrayList<String> orderItemQuantity, ArrayList<String> orderItemPrice, ArrayList<String> orderStatusID) {
+        this.TAG = "UserOrderDetailsAdapter";
+        this.context = mContext;
+        this.orderID = orderID;
+        this.orderItemQuantity = orderItemQuantity;
+        this.orderItemPrice = orderItemPrice;
+        this.orderStatusID = orderStatusID;
+    }
 
     public UserOrderDetailsAdapter(Context mContext, ArrayList<String> orderID, ArrayList<String> orderItemID, ArrayList<String> orderItemQuantity, ArrayList<String> orderItemPrice, ArrayList<String> orderStatusID) {
         this.TAG = "UserOrderDetailsAdapter";
@@ -113,7 +120,7 @@ public class UserOrderDetailsAdapter extends RecyclerView.Adapter<UserOrderDetai
     @Override
     public int getItemCount() {
         Log.i(TAG, "getItemCount: User Home Adapter called.");
-        return orderItemID.size();
+        return orderID.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
