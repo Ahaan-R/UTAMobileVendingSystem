@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.utamobilevendingsystem.HomeScreens.UserHomeScreen;
 import com.example.utamobilevendingsystem.domain.Item;
+import com.example.utamobilevendingsystem.domain.Location;
 import com.example.utamobilevendingsystem.domain.OrderItem;
 import com.example.utamobilevendingsystem.domain.Payments;
 import com.example.utamobilevendingsystem.domain.UserCart;
@@ -77,25 +78,31 @@ public class UserOrder extends AppCompatActivity {
 
         if (c.getCount() > 0){
             c.moveToFirst();
+            int  vehicleID =c.getInt(c.getColumnIndex(Resources.VEHICLE_ID));
+
+            editor.putInt("vehicleID",vehicleID);
+
+            String inventoryQuery= "SELECT * FROM "+ Resources.TABLE_VEHICLE_INVENTORY+ " WHERE " +  Resources.VEHICLE_INVENTORY_VEHICLE_ID + " = " + vehicleID;
+            Cursor c1 = db.rawQuery(inventoryQuery, null);
+            int count= c1.getCount();
+
+            while (count >0){
+                c1.moveToPosition(count-1);
+                int item_id= c1.getInt(c1.getColumnIndex(Resources.VEHICLE_INVENTORY_ITEM_ID));
+                int quantity= c1.getInt(c1.getColumnIndex(Resources.VEHICLE_INVENTORY_QUANTITY));
+                vehicleInventory.put(item_id,quantity);
+                count--;
+            }
+            swichAvl.setText(String.valueOf(vehicleInventory.get(1)));
+            drinksAvl.setText(String.valueOf(vehicleInventory.get(2)));
+            snacksAvl.setText(String.valueOf(vehicleInventory.get(3)));
         }
-        int  vehicleID =c.getInt(c.getColumnIndex(Resources.VEHICLE_ID));
-
-        editor.putInt("vehicleID",vehicleID);
-
-        String inventoryQuery= "SELECT * FROM "+ Resources.TABLE_VEHICLE_INVENTORY+ " WHERE " +  Resources.VEHICLE_INVENTORY_VEHICLE_ID + " = " + vehicleID;
-        Cursor c1 = db.rawQuery(inventoryQuery, null);
-        int count= c1.getCount();
-
-        while (count >0){
-            c1.moveToPosition(count-1);
-            int item_id= c1.getInt(c1.getColumnIndex(Resources.VEHICLE_INVENTORY_ITEM_ID));
-            int quantity= c1.getInt(c1.getColumnIndex(Resources.VEHICLE_INVENTORY_QUANTITY));
-            vehicleInventory.put(item_id,quantity);
-            count--;
+        else{
+            Intent newInt = new Intent(UserOrder.this, LocationScreen.class);
+            startActivity(newInt);
+            Toast.makeText(getApplicationContext(), "No vehicle has been assigned to this location!", Toast.LENGTH_SHORT).show();
         }
-        swichAvl.setText(String.valueOf(vehicleInventory.get(1)));
-        drinksAvl.setText(String.valueOf(vehicleInventory.get(2)));
-        snacksAvl.setText(String.valueOf(vehicleInventory.get(3)));
+
     }
 
     private void placeOrderMethod() {
