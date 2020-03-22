@@ -14,9 +14,7 @@
         <activity android:name=".LocationScreen" />
         <activity android:name=".ChangePassword" />
         <activity
-            android:name=".HomeScreens.VendorHomeScreen"
-            android:label="@string/title_activity_vendor_home_screen"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:name=".users.UserOrderDetails"/>
         <activity
             android:name=".HomeScreens.ManagerHomeScreen"
             android:label="@string/title_activity_manager_home_screen"
