@@ -12,7 +12,7 @@ import com.example.utamobilevendingsystem.ChangePassword;
 import com.example.utamobilevendingsystem.DatabaseHelper;
 import com.example.utamobilevendingsystem.LocationScreen;
 import com.example.utamobilevendingsystem.LoginActivity;
-import com.example.utamobilevendingsystem.OrderDetails;
+import com.example.utamobilevendingsystem.users.UserOrderDetails;
 import com.example.utamobilevendingsystem.Resources;
 import com.example.utamobilevendingsystem.VehicleScreen;
 import com.example.utamobilevendingsystem.domain.RegistrationHelper;
@@ -231,7 +231,7 @@ public class UserHomeScreen extends RegistrationHelper {
     }
 
     private void viewOrders() {
-        Intent myint = new Intent(UserHomeScreen.this, OrderDetails.class);
+        Intent myint = new Intent(UserHomeScreen.this, UserOrderDetails.class);
         startActivity(myint);
     }
 

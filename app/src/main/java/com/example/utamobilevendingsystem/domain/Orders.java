@@ -6,7 +6,7 @@ public class Orders {
 
     private int orderId;
     private List<OrderItem> orderItems;
-    private int quice;
+    private int price;
     private Status status;
 
     public int getOrderId() {
@@ -25,12 +25,12 @@ public class Orders {
         this.orderItems = orderItems;
     }
 
-    public int getQuice() {
-        return quice;
+    public int getPrice() {
+        return price;
     }
 
-    public void setQuice(int quice) {
-        this.quice = quice;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public Status getStatus() {
