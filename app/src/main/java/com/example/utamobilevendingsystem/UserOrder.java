@@ -99,8 +99,7 @@ public class UserOrder extends AppCompatActivity {
             snacksAvl.setText(String.valueOf(vehicleInventory.get(3)));
         }
         else{
-            Intent newInt = new Intent(UserOrder.this, LocationScreen.class);
-            startActivity(newInt);
+            onBackPressed();
             Toast.makeText(getApplicationContext(), "No vehicle has been assigned to this location!", Toast.LENGTH_SHORT).show();
         }
 
