@@ -23,6 +23,9 @@
             android:name=".HomeScreens.UserHomeScreen"
             android:label="@string/title_activity_user_home_screen"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".HomeScreens.OperatorHomeScreen"
+            android:label="Operator Home Screen"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegistrationActivity" />
