@@ -44,7 +44,7 @@ public class OperatorOrderDetails extends AppCompatActivity {
     private void getData() {
         Log.i(TAG, "OperatorOrderDetails: getData");
 
-        Cursor cursor = db.rawQuery("SELECT O.order_id, sum(O.order_item_quantity), sum(O.order_item_price), O.order_status_id FROM orders O LEFT JOIN operator_vehicle OV ON O.order_vehicle_id=OV.vehicle_id GROUP BY order_id", null);
+        Cursor cursor = db.rawQuery("SELECT O.order_id, sum(O.order_item_quantity), sum(O.order_item_price), O.order_status_id FROM orders O LEFT JOIN vehicle V ON O.order_vehicle_id=V.vehicle_id GROUP BY O.order_id", null);
         if (cursor.getCount() >= 1) {
             int i = 0;
             while (cursor.moveToNext()) {
