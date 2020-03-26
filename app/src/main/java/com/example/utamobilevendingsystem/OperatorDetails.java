@@ -20,7 +20,7 @@ public class OperatorDetails extends AppCompatActivity {
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
 
-    TextView odFirstNameDesctv, odLastNameDesctv, odPhoneDesctv, odEmailDesctv, odLocationDesctv, odVehicleDesctv;
+    TextView odFirstNameDesctv, odLastNameDesctv, odPhoneDesctv, odEmailDesctv, odLocationDesctv, odVehicleDesctv, odScheduleDesctv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +35,10 @@ public class OperatorDetails extends AppCompatActivity {
         odEmailDesctv = findViewById(R.id.odEmailDesctv);
         odLocationDesctv = findViewById(R.id.odLocationDesctv);
         odVehicleDesctv = findViewById(R.id.odVehicleDesctv);
+        odScheduleDesctv = findViewById(R.id.odScheduleDesctv);
 
         String userID = getIntent().getStringExtra("userID");
-        String operatorDetaolsQuery = "select u.first_name, u.last_name,u.emailid, u.phone, v.name, l.locationName from " +
+        String operatorDetaolsQuery = "select u.first_name, u.last_name,u.emailid, u.phone, v.name,v.schedule_time, l.locationName from " +
                 "user_details u LEFT JOIN vehicle v on v.user_id = u.user_id  " +
                 "LEFT JOIN location l on v.location_id = l.location_id " +
                 "where u.user_id = ?";
@@ -54,6 +55,7 @@ public class OperatorDetails extends AppCompatActivity {
                 odEmailDesctv.setText(c.getString(c.getColumnIndex(Resources.USER_DETAILS_EMAIL_ID)));
                 odLocationDesctv.setText(c.getString(c.getColumnIndex(Resources.LOCATION_NAME))== null ? Status.UNASSIGNED.getDescription(): c.getString(c.getColumnIndex(Resources.LOCATION_NAME)));
                 odVehicleDesctv.setText(c.getString(c.getColumnIndex(Resources.VEHICLE_NAME))== null ? Status.UNASSIGNED.getDescription(): c.getString(c.getColumnIndex(Resources.VEHICLE_NAME)));
+                odScheduleDesctv.setText(c.getString(c.getColumnIndex(Resources.VEHICLE_SCHEDULE_TIME))== null ? Status.UNASSIGNED.getDescription(): c.getString(c.getColumnIndex(Resources.VEHICLE_SCHEDULE_TIME)));
             }
         }
     }
