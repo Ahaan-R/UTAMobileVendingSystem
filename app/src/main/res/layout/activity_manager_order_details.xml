@@ -4,10 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
     tools:context=".ManagerOrderDetails">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
+        android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/recyclerView"/>
+        android:layout_weight="0.1"
+        android:gravity="center"
+        android:text="Orders"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewManager"
+        android:layout_width="match_parent"
+        android:layout_weight="0.9"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

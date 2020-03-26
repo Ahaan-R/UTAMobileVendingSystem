@@ -32,6 +32,8 @@ public class ManagerOrderDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_order_details);
+        Log.i(TAG, "ManagerOrderDetails: onCreate");
+
         dbHelper = new DatabaseHelper(this);
         db= dbHelper.getReadableDatabase();
         getData();
@@ -39,29 +41,24 @@ public class ManagerOrderDetails extends AppCompatActivity {
     }
 
     private void getData() {
+        Log.i(TAG, "ManagerOrderDetails: getData");
 
-        Cursor cursor = db.rawQuery("select order_id, sum(order_item_quantity), sum(order_item_price), order_status_id from orders", null);
-        while (cursor.moveToNext()) {
-            if (cursor.getCount() != 0) {
-                int i = 0, j = 0;
+        Cursor cursor = db.rawQuery("select order_id, sum(order_item_quantity), sum(order_item_price), order_status_id from orders group by order_id", null);
+            if (cursor.getCount() >= 1) {
+                int i = 0;
                 while (cursor.moveToNext()) {
-                    j = 0;
-                    orderID.add(i, cursor.getString(j));
-                    j += 1;
-                    orderItemQuantity.add(i, cursor.getString(j));
-                    j += 1;
-                    orderItemPrice.add(i, cursor.getString(j));
-                    j += 1;
-                    orderStatusID.add(i, cursor.getString(j));
+                    orderID.add(i, cursor.getString(0));
+                    orderItemQuantity.add(i, cursor.getString(1));
+                    orderItemPrice.add(i, cursor.getString(2));
+                    orderStatusID.add(i, cursor.getString(3));
                     i += 1;
                 }
             }
-        }
     }
 
     private void initRecyclerView() {
-        Log.d(TAG, "ManagerOrderDetails: init recyclerview.");
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        Log.i(TAG, "ManagerOrderDetails: init recyclerview.");
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewManager);
         UserOrderDetailsAdapter adapter = new UserOrderDetailsAdapter(ManagerOrderDetails.this, orderID , orderItemQuantity, orderItemPrice, orderStatusID);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

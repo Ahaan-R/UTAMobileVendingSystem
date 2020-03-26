@@ -132,7 +132,7 @@ public class ManagerHomeScreen extends AppCompatActivity {
     }
 
     private void viewOrders() {
-        Intent myint = new Intent(ManagerHomeScreen.this, UserOrderDetails.class);
+        Intent myint = new Intent(ManagerHomeScreen.this, ManagerOrderDetails.class);
         startActivity(myint);
     }
 

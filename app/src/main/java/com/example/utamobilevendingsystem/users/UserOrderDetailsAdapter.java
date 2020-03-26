@@ -30,7 +30,7 @@ public class UserOrderDetailsAdapter extends RecyclerView.Adapter<UserOrderDetai
     ArrayList<String> orderStatusID;
 
     public UserOrderDetailsAdapter(Context mContext, ArrayList<String> orderID, ArrayList<String> orderItemQuantity, ArrayList<String> orderItemPrice, ArrayList<String> orderStatusID) {
-        this.TAG = "UserOrderDetailsAdapter";
+        this.TAG = "UserOrderDetailsAdapter Constructor from ManagerOrderDetails";
         this.context = mContext;
         this.orderID = orderID;
         this.orderItemQuantity = orderItemQuantity;
@@ -39,7 +39,7 @@ public class UserOrderDetailsAdapter extends RecyclerView.Adapter<UserOrderDetai
     }
 
     public UserOrderDetailsAdapter(Context mContext, ArrayList<String> orderID, ArrayList<String> orderItemID, ArrayList<String> orderItemQuantity, ArrayList<String> orderItemPrice, ArrayList<String> orderStatusID) {
-        this.TAG = "UserOrderDetailsAdapter";
+        this.TAG = "UserOrderDetailsAdapter Constructor from UserOrderDetails";
         this.context = mContext;
         this.orderID = orderID;
         this.orderItemID = orderItemID;
