@@ -12,12 +12,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.utamobilevendingsystem.ChangePassword;
 import com.example.utamobilevendingsystem.DatabaseHelper;
+import com.example.utamobilevendingsystem.HomeScreens.UserHomeScreen;
+import com.example.utamobilevendingsystem.LocationScreen;
+import com.example.utamobilevendingsystem.LoginActivity;
+import com.example.utamobilevendingsystem.ManagerOrderDetails;
 import com.example.utamobilevendingsystem.OrderSummary;
 import com.example.utamobilevendingsystem.R;
 
@@ -103,6 +109,60 @@ public class UserOrderDetails extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.user_menu,menu);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_location:
+                viewLocationList();
+                return true;
+            case R.id.menu_view_orders:
+                viewOrders();
+                return true;
+            case R.id.app_bar_search:
+                //startSettings();
+                return true;
+            case R.id.menu_logout:
+                logout();
+                return true;
+            case R.id.menu_home:
+                userHome();
+                return true;
+            case R.id.change_password:
+                changePassword();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void userHome() {
+        Intent userHome = new Intent(UserOrderDetails.this, UserHomeScreen.class);
+        startActivity(userHome);
+    }
+
+    private void viewOrders() {
+        Intent viewOrders = new Intent(UserOrderDetails.this, UserOrderDetails.class);
+        startActivity(viewOrders);
+    }
+
+    private void logout() {
+        SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
+        Intent logout = new Intent(UserOrderDetails.this, LoginActivity.class);
+        startActivity(logout);
+    }
+
+    private void changePassword() {
+        Intent changePasswordIntent = new Intent(UserOrderDetails.this, ChangePassword.class);
+        startActivity(changePasswordIntent);
+    }
+
+    private void viewLocationList(){
+        Intent changePasswordIntent = new Intent(UserOrderDetails.this, LocationScreen.class);
+        startActivity(changePasswordIntent);
     }
 
 }

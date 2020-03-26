@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.utamobilevendingsystem.ManagerOrderDetails;
+import com.example.utamobilevendingsystem.OperatorOrderDetails;
 import com.example.utamobilevendingsystem.OrderSummary;
 import com.example.utamobilevendingsystem.R;
 
@@ -30,7 +31,7 @@ public class UserOrderDetailsAdapter extends RecyclerView.Adapter<UserOrderDetai
     ArrayList<String> orderStatusID;
 
     public UserOrderDetailsAdapter(Context mContext, ArrayList<String> orderID, ArrayList<String> orderItemQuantity, ArrayList<String> orderItemPrice, ArrayList<String> orderStatusID) {
-        this.TAG = "UserOrderDetailsAdapter";
+        this.TAG = "UserOrderDetailsAdapter Constructor from ManagerOrderDetails";
         this.context = mContext;
         this.orderID = orderID;
         this.orderItemQuantity = orderItemQuantity;
@@ -39,7 +40,7 @@ public class UserOrderDetailsAdapter extends RecyclerView.Adapter<UserOrderDetai
     }
 
     public UserOrderDetailsAdapter(Context mContext, ArrayList<String> orderID, ArrayList<String> orderItemID, ArrayList<String> orderItemQuantity, ArrayList<String> orderItemPrice, ArrayList<String> orderStatusID) {
-        this.TAG = "UserOrderDetailsAdapter";
+        this.TAG = "UserOrderDetailsAdapter Constructor from UserOrderDetails";
         this.context = mContext;
         this.orderID = orderID;
         this.orderItemID = orderItemID;
@@ -66,12 +67,12 @@ public class UserOrderDetailsAdapter extends RecyclerView.Adapter<UserOrderDetai
             return holder;
         }
 
-//        else if (context.getClass() == ManagerOrderDetails.class){
-//            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.acitivity_user_orders_list, parent, false);
-//            UserOrderDetailsAdapter.ViewHolder holder = new UserOrderDetailsAdapter.ViewHolder(view);
-//            Log.i(TAG, "onCreateViewHolder: User Home Adapter called.");
-//            return holder;
-//        }
+        else if (context.getClass() == OperatorOrderDetails.class){
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.acitivity_user_orders_list, parent, false);
+            UserOrderDetailsAdapter.ViewHolder holder = new UserOrderDetailsAdapter.ViewHolder(view);
+            Log.i(TAG, "onCreateViewHolder: User Home Adapter called for OperatorOrderDetails");
+            return holder;
+        }
         return null;
     }
 
@@ -97,6 +98,23 @@ public class UserOrderDetailsAdapter extends RecyclerView.Adapter<UserOrderDetai
             holder.orderPrice.setText(orderItemPrice.get(position));
         }
          else if (context.getClass() == ManagerOrderDetails.class){
+            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i(TAG, " Neenu ottiro button idu untu --> "+position);
+                    Intent intent = new Intent( view.getContext() , OrderSummary.class);
+                    intent.putExtra("context", "UserOrders");
+                    intent.putExtra("orderID", orderID.get(position));
+                    intent.putExtra("totalPrice", orderItemPrice.get(position));
+                    view.getContext().startActivity(intent);
+                }
+
+            });
+            holder.orderID.setText(orderID.get(position));
+            holder.orderStatus.setText(orderStatusID.get(position));
+            holder.orderPrice.setText(orderItemPrice.get(position));
+        }
+        else if (context.getClass() == OperatorOrderDetails.class){
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
