@@ -12,6 +12,7 @@ import com.example.utamobilevendingsystem.ChangePassword;
 import com.example.utamobilevendingsystem.DatabaseHelper;
 import com.example.utamobilevendingsystem.LocationScreen;
 import com.example.utamobilevendingsystem.LoginActivity;
+import com.example.utamobilevendingsystem.OperatorOrderDetails;
 import com.example.utamobilevendingsystem.Resources;
 import com.example.utamobilevendingsystem.domain.RegistrationHelper;
 
@@ -196,7 +197,7 @@ public class OperatorHomeScreen extends RegistrationHelper {
                 viewLocationList();
                 return true;
             case R.id.menu_view_orders:
-                //startSettings();
+                viewOrders();
                 return true;
             case R.id.app_bar_search:
                 //startSettings();
@@ -212,6 +213,11 @@ public class OperatorHomeScreen extends RegistrationHelper {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void viewOrders() {
+        Intent viewOrders = new Intent(OperatorHomeScreen.this, OperatorOrderDetails.class);
+        startActivity(viewOrders);
     }
 
     private void logout() {

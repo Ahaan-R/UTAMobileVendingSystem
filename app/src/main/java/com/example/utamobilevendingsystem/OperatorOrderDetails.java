@@ -13,15 +13,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import com.example.utamobilevendingsystem.HomeScreens.ManagerHomeScreen;
-import com.example.utamobilevendingsystem.users.UserOrderDetails;
+import com.example.utamobilevendingsystem.HomeScreens.OperatorHomeScreen;
 import com.example.utamobilevendingsystem.users.UserOrderDetailsAdapter;
 
 import java.util.ArrayList;
 
-public class ManagerOrderDetails extends AppCompatActivity {
+public class OperatorOrderDetails extends AppCompatActivity {
 
     ArrayList<String> orderID = new ArrayList<>();
     ArrayList<String> orderItemID = new ArrayList<>();
@@ -31,39 +29,38 @@ public class ManagerOrderDetails extends AppCompatActivity {
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
 
-    String TAG = "ManagerOrderDetails";
+    String TAG = "OperatorOrderDetails";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_order_details);
-        Log.i(TAG, "ManagerOrderDetails: onCreate");
+        Log.i(TAG, "OperatorOrderDetails: onCreate");
 
         dbHelper = new DatabaseHelper(this);
         db= dbHelper.getReadableDatabase();
         getData();
         initRecyclerView();
     }
-
     private void getData() {
-        Log.i(TAG, "ManagerOrderDetails: getData");
+        Log.i(TAG, "OperatorOrderDetails: getData");
 
-        Cursor cursor = db.rawQuery("select order_id, sum(order_item_quantity), sum(order_item_price), order_status_id from orders group by order_id", null);
-            if (cursor.getCount() >= 1) {
-                int i = 0;
-                while (cursor.moveToNext()) {
-                    orderID.add(i, cursor.getString(0));
-                    orderItemQuantity.add(i, cursor.getString(1));
-                    orderItemPrice.add(i, cursor.getString(2));
-                    orderStatusID.add(i, cursor.getString(3));
-                    i += 1;
-                }
+        Cursor cursor = db.rawQuery("SELECT O.order_id, sum(O.order_item_quantity), sum(O.order_item_price), O.order_status_id FROM orders O LEFT JOIN operator_vehicle OV ON O.order_vehicle_id=OV.vehicle_id GROUP BY order_id", null);
+        if (cursor.getCount() >= 1) {
+            int i = 0;
+            while (cursor.moveToNext()) {
+                orderID.add(i, cursor.getString(0));
+                orderItemQuantity.add(i, cursor.getString(1));
+                orderItemPrice.add(i, cursor.getString(2));
+                orderStatusID.add(i, cursor.getString(3));
+                i += 1;
             }
+        }
     }
 
     private void initRecyclerView() {
-        Log.i(TAG, "ManagerOrderDetails: init recyclerview.");
+        Log.i(TAG, "OperatorOrderDetails: init recyclerview.");
         RecyclerView recyclerView = findViewById(R.id.recyclerViewManager);
-        UserOrderDetailsAdapter adapter = new UserOrderDetailsAdapter(ManagerOrderDetails.this, orderID , orderItemQuantity, orderItemPrice, orderStatusID);
+        UserOrderDetailsAdapter adapter = new UserOrderDetailsAdapter(OperatorOrderDetails.this, orderID , orderItemQuantity, orderItemPrice, orderStatusID);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -91,7 +88,7 @@ public class ManagerOrderDetails extends AppCompatActivity {
                 logout();
                 return true;
             case R.id.menu_home:
-                managerHome();
+                opHome();
                 return true;
             case R.id.change_password:
                 changePassword();
@@ -101,13 +98,13 @@ public class ManagerOrderDetails extends AppCompatActivity {
         }
     }
 
-    private void managerHome() {
-        Intent managerHome = new Intent(ManagerOrderDetails.this, ManagerHomeScreen.class);
-        startActivity(managerHome);
+    private void opHome() {
+        Intent opHome = new Intent(OperatorOrderDetails.this, OperatorHomeScreen.class);
+        startActivity(opHome);
     }
 
     private void viewOrders() {
-        Intent viewOrders = new Intent(ManagerOrderDetails.this, ManagerOrderDetails.class);
+        Intent viewOrders = new Intent(OperatorOrderDetails.this, OperatorOrderDetails.class);
         startActivity(viewOrders);
     }
 
@@ -115,17 +112,17 @@ public class ManagerOrderDetails extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
         editor.clear();
         editor.apply();
-        Intent logout = new Intent(ManagerOrderDetails.this, LoginActivity.class);
+        Intent logout = new Intent(OperatorOrderDetails.this, LoginActivity.class);
         startActivity(logout);
     }
 
     private void changePassword() {
-        Intent changePasswordIntent = new Intent(ManagerOrderDetails.this, ChangePassword.class);
+        Intent changePasswordIntent = new Intent(OperatorOrderDetails.this, ChangePassword.class);
         startActivity(changePasswordIntent);
     }
 
     private void viewLocationList(){
-        Intent changePasswordIntent = new Intent(ManagerOrderDetails.this, LocationScreen.class);
+        Intent changePasswordIntent = new Intent(OperatorOrderDetails.this, LocationScreen.class);
         startActivity(changePasswordIntent);
     }
 }
