@@ -62,35 +62,6 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/row2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/r2c1"
-                android:layout_width="219dp"
-                android:layout_height="wrap_content"
-                android:horizontalSpacing="10dp"
-                android:padding="18dip"
-                android:text="Sandwiches"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="24dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/swichAvl"
-                android:layout_width="74dp"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:horizontalSpacing="10dp"
-                android:padding="18dip"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="24dp"
-                android:textStyle="bold" />
-
-        </TableRow>
-
-        <TableRow
             android:id="@+id/row3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -120,6 +91,34 @@
                 android:textStyle="bold" />
         </TableRow>
 
+        <TableRow
+            android:id="@+id/row2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/r2c1"
+                android:layout_width="219dp"
+                android:layout_height="wrap_content"
+                android:horizontalSpacing="10dp"
+                android:padding="18dip"
+                android:text="Sandwiches"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/swichAvl"
+                android:layout_width="74dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:horizontalSpacing="10dp"
+                android:padding="18dip"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+        </TableRow>
         <TableRow
             android:id="@+id/row4"
             android:layout_width="match_parent"

@@ -217,6 +217,7 @@ public class OperatorHomeScreen extends RegistrationHelper {
 
     private void viewOrders() {
         Intent viewOrders = new Intent(OperatorHomeScreen.this, OperatorOrderDetails.class);
+        viewOrders.putExtra("userId", String.valueOf(userID));
         startActivity(viewOrders);
     }
 
