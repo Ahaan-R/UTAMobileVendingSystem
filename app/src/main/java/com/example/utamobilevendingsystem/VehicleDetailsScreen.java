@@ -181,6 +181,10 @@ public class VehicleDetailsScreen extends AppCompatActivity {
     private void updateVehicleAvaiablity(Status status){
         ContentValues contentValues = new ContentValues();
         contentValues.put(Resources.VEHICLE_AVAILABILITY, status.getDescription());
+        if(status.equals(Status.UNAVAILABLE)){
+            contentValues.putNull(Resources.VEHICLE_LOCATION_ID);
+            contentValues.putNull(Resources.VEHICLE_SCHEDULE_TIME);
+        }
         db.update(Resources.TABLE_VEHICLE,contentValues, "vehicle_id = ?", new String[] {vehicleID});
     }
 

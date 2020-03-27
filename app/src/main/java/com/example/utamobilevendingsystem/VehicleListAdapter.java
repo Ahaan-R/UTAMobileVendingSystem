@@ -1,6 +1,7 @@
 package com.example.utamobilevendingsystem;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.StaticLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +45,9 @@ public class VehicleListAdapter extends ArrayAdapter<Vehicle> {
         TextView tvLocation = (TextView) convertView.findViewById(R.id.vehicleLocation);
         TextView tvType = (TextView) convertView.findViewById(R.id.vehicleType);
         TextView vehicleIDTV = (TextView) convertView.findViewById(R.id.vehicleID);
-
+        if(getItem(position).isAvailability().equals(Status.UNAVAILABLE)){
+            tvName.setTextColor(Color.rgb(2,1,1));
+        }
         tvName.setText(vehicleName);
         tvLocation.setText("Location: " + (location == 0 ? Status.UNASSIGNED.getDescription() :locationName));
         tvType.setText(String.valueOf(type.name()));
