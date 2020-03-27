@@ -53,21 +53,12 @@ public class ManagerHomeScreen extends AppCompatActivity {
         setUserProfile();
 
         VIEW_OPTR= (Button) findViewById(R.id.viewoperator);
-        VIEW_SCHEDULE=(Button) findViewById(R.id.schedule_id);
         VIEW_OPTR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openOperatorlist();
             }
         });
-
-        VIEW_SCHEDULE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewschedule();
-            }
-        });
-
     }
 
     private void setUserProfile() {

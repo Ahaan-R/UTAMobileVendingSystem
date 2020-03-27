@@ -50,7 +50,7 @@ public class VehicleScreen extends AppCompatActivity {
                 vehicle.setVehicleId(c.getInt(c.getColumnIndex(Resources.VEHICLE_ID)));
                 vehicle.setVehicleName(c.getString(c.getColumnIndex(Resources.VEHICLE_NAME)));
                 vehicle.setVehicleType("Food Truck".equalsIgnoreCase(c.getString(c.getColumnIndex(Resources.VEHICLE_TYPE))) ? VehicleType.FOOD_TRUCK : VehicleType.CART);
-                vehicle.setAvailability((c.getInt(c.getColumnIndex(Resources.VEHICLE_AVAILABILITY)) == 6? Status.AVAILABLE : Status.UNAVAILABLE));
+                vehicle.setAvailability((c.getString(c.getColumnIndex(Resources.VEHICLE_AVAILABILITY)).equalsIgnoreCase(Status.AVAILABLE.getDescription())? Status.AVAILABLE : Status.UNAVAILABLE));
                 vehicle.setLocationId(c.getInt(c.getColumnIndex(Resources.VEHICLE_LOCATION_ID)));
                 vehicle.setLocationName(c.getString(c.getColumnIndex(Resources.LOCATION_NAME)));
                 vehicleList.add(vehicle);
