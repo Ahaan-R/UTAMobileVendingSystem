@@ -26,7 +26,7 @@ public class OperatorList extends AppCompatActivity {
     SQLiteDatabase db;
     String vehicleID;
 
-    final String OPERATOR_LIST_QUERY = "select ud.first_name, ud.last_name, ud.user_id from user_details ud, user_creds uc where ud.user_id=uc.user_id and uc.role = \"Operator\";";
+    final String OPERATOR_LIST_QUERY = "select ud.first_name, ud.last_name, ud.user_id from user_details ud, user_creds uc where ud.user_id=uc.user_id and uc.role = \"Operator\" ORDER BY (ud.last_name) ASC";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

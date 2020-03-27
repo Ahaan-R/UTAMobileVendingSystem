@@ -94,6 +94,7 @@ public class CardDetails extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.user_menu,menu);
+        menu.findItem(R.id.app_bar_search).setVisible(true);
         return true;
     }
     @Override
