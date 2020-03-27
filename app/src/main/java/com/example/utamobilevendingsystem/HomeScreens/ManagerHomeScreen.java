@@ -59,14 +59,6 @@ public class ManagerHomeScreen extends AppCompatActivity {
                 openOperatorlist();
             }
         });
-
-        VIEW_SCHEDULE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewschedule();
-            }
-        });
-
     }
 
     private void setUserProfile() {
