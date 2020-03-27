@@ -63,6 +63,11 @@ public class OperatorDetails extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.user_menu,menu);
+        SharedPreferences preferences = getSharedPreferences("currUser", MODE_PRIVATE);
+        String role = preferences.getString("userRole","");
+        if("Manager".equalsIgnoreCase(role)){
+            menu.findItem(R.id.app_bar_search).setVisible(true);
+        }
         return true;
     }
     @Override
