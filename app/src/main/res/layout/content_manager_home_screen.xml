@@ -97,22 +97,10 @@
 
         <Button
             android:id="@+id/viewoperator"
-            android:layout_width="148dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/colorPrimaryDark"
-            android:text="VIEW OPERATORS" />
-
-        <Button
-            android:id="@+id/schedule_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="100dp"
             android:background="@color/colorPrimaryDark"
-            android:text="VIEW OPERATOR SCHEDULES"/>
+            android:text="VIEW OPERATORS/SCHEDULES" />
     </LinearLayout>
 </LinearLayout>

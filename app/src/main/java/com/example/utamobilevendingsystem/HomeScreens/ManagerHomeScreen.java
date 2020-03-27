@@ -32,6 +32,7 @@ public class ManagerHomeScreen extends AppCompatActivity {
     String fName,lName,username,dob,phoneNummber,email,address,city,state,zip;
     private Button VIEW_OPTR,VIEW_SCHEDULE;
     TextView fNameTV,lNameTV,usernameTV,dobTV,phoneNummberTV,emailTV,addressTV,cityTV,stateTV,zipTV;
+    MenuItem item;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,21 +53,12 @@ public class ManagerHomeScreen extends AppCompatActivity {
         setUserProfile();
 
         VIEW_OPTR= (Button) findViewById(R.id.viewoperator);
-        VIEW_SCHEDULE=(Button) findViewById(R.id.schedule_id);
         VIEW_OPTR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openOperatorlist();
             }
         });
-
-        VIEW_SCHEDULE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewschedule();
-            }
-        });
-
     }
 
     private void setUserProfile() {
@@ -100,6 +92,7 @@ public class ManagerHomeScreen extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.user_menu,menu);
+        menu.findItem(R.id.app_bar_search).setVisible(true);
         return true;
     }
 

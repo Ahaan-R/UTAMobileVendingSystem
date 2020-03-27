@@ -28,14 +28,14 @@ public class OperatorOrderDetails extends AppCompatActivity {
     ArrayList<String> orderStatusID = new ArrayList<>();
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
-
+    String userID;
     String TAG = "OperatorOrderDetails";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_order_details);
         Log.i(TAG, "OperatorOrderDetails: onCreate");
-
+        userID = getIntent().getStringExtra("userId");
         dbHelper = new DatabaseHelper(this);
         db= dbHelper.getReadableDatabase();
         getData();
@@ -44,7 +44,7 @@ public class OperatorOrderDetails extends AppCompatActivity {
     private void getData() {
         Log.i(TAG, "OperatorOrderDetails: getData");
 
-        Cursor cursor = db.rawQuery("SELECT O.order_id, sum(O.order_item_quantity), sum(O.order_item_price), O.order_status_id FROM orders O LEFT JOIN vehicle V ON O.order_vehicle_id=V.vehicle_id GROUP BY O.order_id", null);
+        Cursor cursor = db.rawQuery("SELECT O.order_id, sum(O.order_item_quantity), sum(O.order_item_price), O.order_status_id FROM orders O LEFT JOIN vehicle V ON O.order_vehicle_id=V.vehicle_id WHERE V.user_ID = ? GROUP BY O.order_id", new String[]{userID});
         if (cursor.getCount() >= 1) {
             int i = 0;
             while (cursor.moveToNext()) {
@@ -69,6 +69,11 @@ public class OperatorOrderDetails extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.user_menu,menu);
+        SharedPreferences preferences = getSharedPreferences("currUser", MODE_PRIVATE);
+        String role = preferences.getString("userRole","");
+        if("Manager".equalsIgnoreCase(role)){
+            menu.findItem(R.id.app_bar_search).setVisible(true);
+        }
         return true;
     }
     @Override

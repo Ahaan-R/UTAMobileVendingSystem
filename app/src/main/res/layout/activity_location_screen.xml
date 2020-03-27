@@ -18,6 +18,20 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
+
+    <TextView
+        android:id="@+id/cooperMitchellTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="10dp"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:text="Cooper And W Mitchell"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp" />
+
     <TextView
         android:id="@+id/cooperUtaTV"
         android:layout_width="match_parent"
@@ -32,7 +46,7 @@
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/nedderGreekTV"
+        android:id="@+id/centerMitchellTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -40,7 +54,7 @@
         android:layout_marginRight="10dp"
         android:clickable="true"
         android:contextClickable="true"
-        android:text="W Nedderman and Greek Row"
+        android:text="S Center And W Mitchell"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp" />
 
@@ -53,22 +67,10 @@
         android:layout_marginRight="10dp"
         android:clickable="true"
         android:contextClickable="true"
-        android:text="S Davis and w Mitchell"
+        android:text="S Davis And W Mitchell"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/cooperMitchellTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="10dp"
-        android:clickable="true"
-        android:contextClickable="true"
-        android:text="Cooper and W Mitchell"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/oakUtaTV"
@@ -80,19 +82,6 @@
         android:clickable="true"
         android:contextClickable="true"
         android:text="S Oak and UTA Blvd."
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/spanioloWTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="10dp"
-        android:clickable="true"
-        android:contextClickable="true"
-        android:text="Spaniolo And w 1st"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp" />
 
@@ -110,7 +99,7 @@
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/centerMitchellTV"
+        android:id="@+id/spanioloWTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -118,7 +107,20 @@
         android:layout_marginRight="10dp"
         android:clickable="true"
         android:contextClickable="true"
-        android:text="S Center and W Mitchell"
+        android:text="Spaniolo And W 1st"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/nedderGreekTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="10dp"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:text="W Nedderman and Greek Row"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp" />
 
@@ -135,4 +137,5 @@
         android:textColor="@color/colorPrimaryDark"
         android:visibility="invisible"
         android:textSize="24sp" />
+
 </LinearLayout>
