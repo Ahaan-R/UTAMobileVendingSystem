@@ -155,7 +155,8 @@ public class OrderSummary extends AppCompatActivity {
             loopCounter += 1;
             i += 1;
         }
-        totalPrice.setText(totalprice);
+        double totalWithTax = Double.parseDouble(totalprice) + (0.825*Double.parseDouble(totalprice));
+        totalPrice.setText(String.valueOf(totalWithTax));
     }
 
 }
