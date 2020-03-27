@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,6 +29,8 @@ import com.example.utamobilevendingsystem.domain.Status;
 import com.example.utamobilevendingsystem.domain.Vehicle;
 import com.example.utamobilevendingsystem.domain.VehicleType;
 
+import java.text.DecimalFormat;
+
 public class VehicleDetailsScreen extends AppCompatActivity {
     Button viewInventory;
     DatabaseHelper dbHelper;
@@ -41,6 +44,8 @@ public class VehicleDetailsScreen extends AppCompatActivity {
     final String VEHICLE_DETAILS_SCREEN_QUERY = "select v.name, l.locationName, v.type, v.availability, l.schedule, u.first_name, v.user_id, v.schedule_time " +
             "from vehicle v LEFT JOIN location l on l.location_id = v.location_id " +
             "LEFT JOIN user_details u on v.user_id = u.user_id WHERE v.vehicle_id = ?";
+
+    final String VEHICLE_TOTAL_REVENUE = "SELECT sum(O.order_item_price) FROM orders O LEFT JOIN vehicle V ON O.order_vehicle_id=V.vehicle_id WHERE O.order_vehicle_id = ? GROUP BY O.order_id";
 
     final String LOCATION_SCHEDULE_QUERY = "select schedule from location where locationName = ?";
 
@@ -72,9 +77,18 @@ public class VehicleDetailsScreen extends AppCompatActivity {
                 tvOperatorDesc.setText(c.getString(c.getColumnIndex(Resources.USER_DETAILS_FNAME)) == null ? Status.UNASSIGNED.getDescription() : c.getString(c.getColumnIndex(Resources.USER_DETAILS_FNAME)));
                 tvScheduleDesc.setText(("".equalsIgnoreCase(c.getString(c.getColumnIndex(Resources.VEHICLE_SCHEDULE_TIME))) ||c.getString(c.getColumnIndex(Resources.VEHICLE_SCHEDULE_TIME)) == null) ? Status.UNASSIGNED.getDescription() : c.getString(c.getColumnIndex(Resources.VEHICLE_SCHEDULE_TIME)));
                 toggleAvailability.setChecked(c.getString(c.getColumnIndex(Resources.VEHICLE_AVAILABILITY)).equalsIgnoreCase(Status.AVAILABLE.getDescription()) ? true : false);
-                tvTotalRevenueDesc.setText("1233");
             }
         }
+        c = db.rawQuery(VEHICLE_TOTAL_REVENUE, new String[]{vehicleID});
+
+        float totalCost = 0;
+        if (c.getCount() > 0) {
+            while (c.moveToNext()) {
+                totalCost += Float.valueOf(c.getString(0)) * 1.0825;
+            }
+        }
+        DecimalFormat df = new DecimalFormat("####0.00");
+        tvTotalRevenueDesc.setText(String.valueOf(df.format(totalCost)));
 
         toggleAvailability.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
