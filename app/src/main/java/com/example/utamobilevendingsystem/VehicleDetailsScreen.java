@@ -140,13 +140,33 @@ public class VehicleDetailsScreen extends AppCompatActivity {
                     TimePickerDialog timePickerDialog = new TimePickerDialog(VehicleDetailsScreen.this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                            if(hourOfDay<9){
+                                AlertDialog.Builder alert = new AlertDialog.Builder(VehicleDetailsScreen.this);
+                                alert.setTitle("Location Schedule Time");
+                                alert.setMessage("Schedule Time should start from 9AM");
+                                alert.setPositiveButton("OK",null);
+                                alert.show();
+                            }
+                            else{
                             Cursor c = db.rawQuery(LOCATION_SCHEDULE_QUERY,  new String[] {tvLocationDesc.getText().toString()});
                             c.moveToFirst();
                             int locationSchedule = c.getInt(c.getColumnIndex(Resources.LOCATION_SCHEDULE));
                             int closingTime = hourOfDay+locationSchedule;
+                            if(closingTime>17) {
+                                AlertDialog.Builder alert = new AlertDialog.Builder(VehicleDetailsScreen.this);
+                                alert.setTitle("Location Schedule Time");
+                                alert.setMessage("Closing time exceeding 17:00\nTime Set to 17:00 ");
+                                alert.setPositiveButton("OK",null);
+                                alert.show();
+//                                Toast.makeText(getApplicationContext(), "Closing time cannot exceeded 17:00", Toast.LENGTH_SHORT).show();
+                                closingTime = 17;
+                            }
+                            System.out.println("--------------------------------------------CLosing time: "+closingTime);
+
                             tvScheduleDesc.setText(hourOfDay + ":" + (minute < 10? "0"+minute : minute) +" - "+ closingTime +":" + (minute < 10? "0"+minute : minute));
                             updateVehicleScheduleTime(hourOfDay, minute, closingTime);
                         }
+                    }
                     }, 0, 0, true);
                     timePickerDialog.show();
                 }
