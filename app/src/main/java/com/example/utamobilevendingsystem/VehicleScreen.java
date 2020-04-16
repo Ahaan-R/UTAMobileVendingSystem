@@ -142,8 +142,6 @@ public class VehicleScreen extends AppCompatActivity {
             }
         }
 
-//        Intent myint = new Intent(this, OrderDetails.class);
-//        startActivity(myint);
     }
 
     private void logout() {
