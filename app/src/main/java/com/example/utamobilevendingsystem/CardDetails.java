@@ -38,6 +38,7 @@ public class CardDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_details);
+        setContentView(R.layout.activity_card_details);
         Intent newint = getIntent();
         userId=newint.getIntExtra("uid",0);
         total=newint.getDoubleExtra("total",0.0);

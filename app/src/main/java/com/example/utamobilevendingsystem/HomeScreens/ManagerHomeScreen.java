@@ -11,6 +11,7 @@ import com.example.utamobilevendingsystem.ManagerOrderDetails;
 import com.example.utamobilevendingsystem.OperatorDetails;
 import com.example.utamobilevendingsystem.OperatorList;
 import com.example.utamobilevendingsystem.OperatorScheduleList;
+import com.example.utamobilevendingsystem.UpdateLocationSchedule;
 import com.example.utamobilevendingsystem.users.UserOrderDetails;
 import com.example.utamobilevendingsystem.VehicleScreen;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -59,6 +60,14 @@ public class ManagerHomeScreen extends AppCompatActivity {
                 openOperatorlist();
             }
         });
+        VIEW_SCHEDULE= (Button) findViewById(R.id.updatelocation_schedule);
+        VIEW_SCHEDULE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewschedule();
+            }
+        });
+
     }
 
     private void setUserProfile() {
@@ -140,7 +149,7 @@ public class ManagerHomeScreen extends AppCompatActivity {
     }
     public void viewschedule(){
 
-        Intent intent= new Intent(this, OperatorScheduleList.class );
+        Intent intent= new Intent(this, UpdateLocationSchedule.class );
         startActivity(intent );
     }
 

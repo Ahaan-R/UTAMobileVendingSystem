@@ -31,8 +31,6 @@ public class UpdateLocationSchedule extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_location_schedule);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         dbHelper = new DatabaseHelper(this);
         db= dbHelper.getReadableDatabase();
 
@@ -144,6 +142,18 @@ public class UpdateLocationSchedule extends AppCompatActivity {
                 return true;
             case R.id.menu_logout:
                 logout();
+                return true;
+            case R.id.menu_home:
+                SharedPreferences preferences = getSharedPreferences("currUser", MODE_PRIVATE);
+                String role = preferences.getString("userRole","");
+                role= role+"HomeScreen";
+                try {
+                    Class<?> cls = Class.forName("com.example.utamobilevendingsystem.HomeScreens."+role);
+                    Intent homeIntent = new Intent(this, cls);
+                    startActivity(homeIntent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
                 return true;
             case R.id.change_password:
                 changePassword();
