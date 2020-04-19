@@ -140,10 +140,13 @@ public class UpdateLocationSchedule extends AppCompatActivity {
                 viewOrders();
                 return true;
             case R.id.app_bar_search:
-                vehicleSearch();
+                //startSettings();
                 return true;
             case R.id.menu_logout:
                 logout();
+                return true;
+            case R.id.menu_home:
+                managerHome();
                 return true;
             case R.id.change_password:
                 changePassword();
@@ -152,32 +155,35 @@ public class UpdateLocationSchedule extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    private void vehicleSearch() {
-        Intent myint = new Intent(UpdateLocationSchedule.this, VehicleScreen.class);
-        startActivity(myint);
+
+    private void managerHome() {
+        Intent managerHome = new Intent(getApplicationContext(), ManagerHomeScreen.class);
+        startActivity(managerHome);
     }
 
     private void viewOrders() {
-        Intent myint = new Intent(UpdateLocationSchedule.this, ManagerOrderDetails.class);
-        startActivity(myint);
+        Intent viewOrders = new Intent(getApplicationContext(), ManagerOrderDetails.class);
+        startActivity(viewOrders);
     }
 
     private void logout() {
-        Intent logout = new Intent(UpdateLocationSchedule.this, LoginActivity.class);
+        SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
+        Intent logout = new Intent(getApplicationContext(), LoginActivity.class);
+        Toast.makeText(getApplicationContext(),"Logged out Successfully",Toast.LENGTH_SHORT).show();
         startActivity(logout);
     }
 
     private void changePassword() {
-        Intent changePasswordIntent = new Intent(UpdateLocationSchedule.this, ChangePassword.class);
+        Intent changePasswordIntent = new Intent(getApplicationContext(), ChangePassword.class);
         startActivity(changePasswordIntent);
     }
 
     private void viewLocationList(){
-        Intent changePasswordIntent = new Intent(UpdateLocationSchedule.this, LocationScreen.class);
+        Intent changePasswordIntent = new Intent(getApplicationContext(), LocationScreen.class);
         startActivity(changePasswordIntent);
     }
-
-
 
 
 }
