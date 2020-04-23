@@ -65,6 +65,8 @@ public class VehicleScreen extends AppCompatActivity {
                 TextView tv = view.findViewById(R.id.vehicleID);
                 Intent intent = new Intent(VehicleScreen.this,VehicleDetailsScreen.class);
                 intent.putExtra("vehicleID", tv.getText().toString());
+                intent.putExtra("flag", "2");   //sending a flag value of 2 as manager view
+
                 startActivity(intent);
             }
         });
