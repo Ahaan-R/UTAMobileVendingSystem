@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.utamobilevendingsystem.R;
 
@@ -139,7 +140,11 @@ public class ManagerHomeScreen extends AppCompatActivity {
     }
 
     private void logout() {
-        Intent logout = new Intent(ManagerHomeScreen.this, LoginActivity.class);
+        SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
+        Intent logout = new Intent(getApplicationContext(), LoginActivity.class);
+        Toast.makeText(getApplicationContext(),"Logged out Successfully",Toast.LENGTH_SHORT).show();
         startActivity(logout);
     }
     public void openOperatorlist(){

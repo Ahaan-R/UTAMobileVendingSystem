@@ -217,13 +217,34 @@ public class OperatorHomeScreen extends RegistrationHelper {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        SharedPreferences preferences = getSharedPreferences("currUser", MODE_PRIVATE);
+        String role = preferences.getString("userRole","");
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.menu_location:
                 viewLocationList();
                 return true;
             case R.id.menu_view_orders:
-                viewOrders();
+                role= role+"OrderDetails";
+                if (role == "user"){
+                    try {
+                        Class<?> cls = Class.forName("com.example.utamobilevendingsystem.users."+role);
+                        Intent homeIntent = new Intent(this, cls);
+                        startActivity(homeIntent);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    try {
+                        Class<?> cls = Class.forName("com.example.utamobilevendingsystem."+role);
+                        Intent homeIntent = new Intent(this, cls);
+                        startActivity(homeIntent);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 return true;
             case R.id.Optr_vehicledetails:
                 vehicleSearch_optr();
@@ -267,7 +288,8 @@ public class OperatorHomeScreen extends RegistrationHelper {
         SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
         editor.clear();
         editor.apply();
-        Intent logout = new Intent(OperatorHomeScreen.this, LoginActivity.class);
+        Intent logout = new Intent(getApplicationContext(), LoginActivity.class);
+        Toast.makeText(getApplicationContext(),"Logged out Successfully",Toast.LENGTH_SHORT).show();
         startActivity(logout);
     }
 

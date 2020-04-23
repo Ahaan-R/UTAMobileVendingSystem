@@ -212,7 +212,6 @@ public class UserHomeScreen extends RegistrationHelper {
             case R.id.app_bar_search:
                 vehicleSearch();
                 return true;
-
             case R.id.menu_logout:
                 logout();
                 return true;
@@ -240,7 +239,8 @@ public class UserHomeScreen extends RegistrationHelper {
         SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
         editor.clear();
         editor.apply();
-        Intent logout = new Intent(UserHomeScreen.this, LoginActivity.class);
+        Intent logout = new Intent(getApplicationContext(), LoginActivity.class);
+        Toast.makeText(getApplicationContext(),"Logged out Successfully",Toast.LENGTH_SHORT).show();
         startActivity(logout);
     }
 
