@@ -10,7 +10,7 @@ import com.example.utamobilevendingsystem.LoginActivity;
 import com.example.utamobilevendingsystem.ManagerOrderDetails;
 import com.example.utamobilevendingsystem.OperatorDetails;
 import com.example.utamobilevendingsystem.OperatorList;
-import com.example.utamobilevendingsystem.OperatorScheduleList;
+//import com.example.utamobilevendingsystem.OperatorScheduleList;   //was throwing a "cannot resolve" error.Hence,commented.
 import com.example.utamobilevendingsystem.users.UserOrderDetails;
 import com.example.utamobilevendingsystem.VehicleScreen;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -109,6 +109,7 @@ public class ManagerHomeScreen extends AppCompatActivity {
             case R.id.app_bar_search:
                 vehicleSearch();
                 return true;
+
             case R.id.menu_logout:
                 logout();
                 return true;
@@ -138,11 +139,11 @@ public class ManagerHomeScreen extends AppCompatActivity {
         intent.putExtra("callingActivity", ManagerHomeScreen.class.toString());
         startActivity(intent );
     }
-    public void viewschedule(){
+   // public void viewschedule(){    commented cause never used and no viewschedule function written
 
-        Intent intent= new Intent(this, OperatorScheduleList.class );
-        startActivity(intent );
-    }
+      // Intent intent= new Intent(this, OperatorScheduleList.class );
+     //  startActivity(intent );
+   // }
 
     private void changePassword() {
         Intent changePasswordIntent = new Intent(ManagerHomeScreen.this, ChangePassword.class);

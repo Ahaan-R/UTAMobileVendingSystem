@@ -14,6 +14,8 @@ import com.example.utamobilevendingsystem.LocationScreen;
 import com.example.utamobilevendingsystem.LoginActivity;
 import com.example.utamobilevendingsystem.OperatorOrderDetails;
 import com.example.utamobilevendingsystem.Resources;
+import com.example.utamobilevendingsystem.VehicleDetailsScreen;
+import com.example.utamobilevendingsystem.VehicleScreen;
 import com.example.utamobilevendingsystem.domain.RegistrationHelper;
 
 import androidx.appcompat.widget.Toolbar;
@@ -186,6 +188,7 @@ public class OperatorHomeScreen extends RegistrationHelper {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.user_menu,menu);
+        menu.findItem(R.id.Optr_vehicledetails).setVisible(true);   //making the Vehicle Details tab visible for this page
         return true;
     }
 
@@ -199,8 +202,8 @@ public class OperatorHomeScreen extends RegistrationHelper {
             case R.id.menu_view_orders:
                 viewOrders();
                 return true;
-            case R.id.app_bar_search:
-                //startSettings();
+            case R.id.Optr_vehicledetails:
+                vehicleSearch_optr();
                 return true;
             case R.id.menu_logout:
                 logout();
@@ -210,6 +213,7 @@ public class OperatorHomeScreen extends RegistrationHelper {
             case R.id.change_password:
                 changePassword();
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -219,6 +223,16 @@ public class OperatorHomeScreen extends RegistrationHelper {
         Intent viewOrders = new Intent(OperatorHomeScreen.this, OperatorOrderDetails.class);
         viewOrders.putExtra("userId", String.valueOf(userID));
         startActivity(viewOrders);
+    }
+
+    private void vehicleSearch_optr() {
+        TextView op=findViewById(R.id.fNameTV);   //storing the First name of the operator in the op textview
+        Intent op_vehicle = new Intent(OperatorHomeScreen.this, VehicleDetailsScreen.class);
+        op_vehicle.putExtra("OPERATOR_VEHICLE", op.getText().toString());   //sending the Op FName to the Vehicle Details Screen
+        op_vehicle.putExtra("flag","1");   //Sending a flag variable "1" as well
+
+        startActivity(op_vehicle);
+
     }
 
     private void logout() {

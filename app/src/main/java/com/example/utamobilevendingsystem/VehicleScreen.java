@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.utamobilevendingsystem.HomeScreens.ManagerHomeScreen;
 import com.example.utamobilevendingsystem.domain.Status;
@@ -66,6 +65,8 @@ public class VehicleScreen extends AppCompatActivity {
                 TextView tv = view.findViewById(R.id.vehicleID);
                 Intent intent = new Intent(VehicleScreen.this,VehicleDetailsScreen.class);
                 intent.putExtra("vehicleID", tv.getText().toString());
+                intent.putExtra("flag", "2");   //sending a flag value of 2 as manager view
+
                 startActivity(intent);
             }
         });
@@ -127,7 +128,6 @@ public class VehicleScreen extends AppCompatActivity {
         editor.clear();
         editor.apply();
         Intent logout = new Intent(this, LoginActivity.class);
-        Toast.makeText(getApplicationContext(),"Logged out Successfully",Toast.LENGTH_SHORT).show();
         startActivity(logout);
     }
 

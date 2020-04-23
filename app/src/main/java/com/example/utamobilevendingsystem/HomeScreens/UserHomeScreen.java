@@ -212,6 +212,7 @@ public class UserHomeScreen extends RegistrationHelper {
             case R.id.app_bar_search:
                 vehicleSearch();
                 return true;
+
             case R.id.menu_logout:
                 logout();
                 return true;
