@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:isScrollContainer="true"
     android:orientation="vertical"
     tools:context=".UpdateLocationSchedule">
 
@@ -261,6 +262,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="161dp"
         android:layout_marginBottom="43dp"
         android:background="@color/colorPrimaryDark"
@@ -268,5 +270,6 @@
         android:textColor="@color/cardview_light_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nedderGreekTV" />
 </androidx.constraintlayout.widget.ConstraintLayout>

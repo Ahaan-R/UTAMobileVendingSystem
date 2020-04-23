@@ -18,10 +18,12 @@ import android.widget.Toast;
 
 import com.example.utamobilevendingsystem.users.UserOrderDetails;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class OrderSummary extends AppCompatActivity {
 
+    private static DecimalFormat df = new DecimalFormat("0.00");
     DatabaseHelper dbHelper;
     String TAG = "OrderSummary";
     SQLiteDatabase db;
@@ -162,8 +164,8 @@ public class OrderSummary extends AppCompatActivity {
             loopCounter += 1;
             i += 1;
         }
-        double totalWithTax = Double.parseDouble(totalprice) + (0.825*Double.parseDouble(totalprice));
-        totalPrice.setText(String.valueOf(totalWithTax));
+        double totalWithTax = Double.parseDouble(totalprice) + (0.0825*Double.parseDouble(totalprice));
+        totalPrice.setText(String.valueOf(df.format(totalWithTax)));
     }
 
 }
