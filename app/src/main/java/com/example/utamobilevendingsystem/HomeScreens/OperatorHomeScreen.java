@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -33,6 +34,12 @@ import android.widget.Toast;
 import com.example.utamobilevendingsystem.R;
 
 public class OperatorHomeScreen extends RegistrationHelper {
+
+    DatabaseHelper dbHelper;
+    SQLiteDatabase db;
+
+    Cursor c;
+
     String firstName,lastName,username,dob,phoneNummber,email,address,city,state,zip;
     int userID;
     TextView fNameTV,lNameTV,usernameTV,dobTV,phoneNummberTV,emailTV,addressTV,cityTV,stateTV,zipTV;
@@ -41,6 +48,10 @@ public class OperatorHomeScreen extends RegistrationHelper {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        dbHelper = new DatabaseHelper(this);
+        db = dbHelper.getWritableDatabase();
+
         setContentView(R.layout.activity_vendor_home_screen);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -148,7 +159,19 @@ public class OperatorHomeScreen extends RegistrationHelper {
             }
         });
 
-    }
+
+
+           //condition check for vehicle assigned for operator
+
+
+            String VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR = "select v.name, l.locationName, v.type, v.availability, l.schedule, u.first_name, v.user_id, v.schedule_time " +
+                    "from vehicle v LEFT JOIN location l on l.location_id = v.location_id " +
+                    "LEFT JOIN user_details u on v.user_id = u.user_id WHERE u.first_name =\"" + firstName + "\"";    //Query for getting all details of the operator from DB
+            System.out.println("--------------------------------------------\n\n\n\n\n\n" + VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR);
+            c = db.rawQuery(VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR, null);
+
+
+        }
 
     private void setUserProfile() {
         fNameTV.setText("First Name: "+firstName);
@@ -226,12 +249,17 @@ public class OperatorHomeScreen extends RegistrationHelper {
     }
 
     private void vehicleSearch_optr() {
-        TextView op=findViewById(R.id.fNameTV);   //storing the First name of the operator in the op textview
-        Intent op_vehicle = new Intent(OperatorHomeScreen.this, VehicleDetailsScreen.class);
-        op_vehicle.putExtra("OPERATOR_VEHICLE", op.getText().toString());   //sending the Op FName to the Vehicle Details Screen
-        op_vehicle.putExtra("flag","1");   //Sending a flag variable "1" as well
+        if (c.getCount() > 0) {   //checking if operator has a vehicle assigned
+            TextView op = findViewById(R.id.fNameTV);   //storing the First name of the operator in the op textview
+            Intent op_vehicle = new Intent(OperatorHomeScreen.this, VehicleDetailsScreen.class);
+            op_vehicle.putExtra("OPERATOR_VEHICLE", op.getText().toString());   //sending the Op FName to the Vehicle Details Screen
+            op_vehicle.putExtra("flag", "1");   //Sending a flag variable "1" as well
 
-        startActivity(op_vehicle);
+            startActivity(op_vehicle);
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"No Vehicle assigned for this operator.",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
