@@ -29,10 +29,11 @@ import android.widget.TextView;
 import com.example.utamobilevendingsystem.R;
 
 public class ManagerHomeScreen extends AppCompatActivity {
-    String fName,lName,username,dob,phoneNummber,email,address,city,state,zip;
-    private Button VIEW_OPTR,VIEW_SCHEDULE;
-    TextView fNameTV,lNameTV,usernameTV,dobTV,phoneNummberTV,emailTV,addressTV,cityTV,stateTV,zipTV;
+    String fName, lName, username, dob, phoneNummber, email, address, city, state, zip;
+    private Button VIEW_OPTR, VIEW_SCHEDULE;
+    TextView fNameTV, lNameTV, usernameTV, dobTV, phoneNummberTV, emailTV, addressTV, cityTV, stateTV, zipTV;
     MenuItem item;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,19 +41,19 @@ public class ManagerHomeScreen extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fNameTV = findViewById(R.id.fNameTV);
-        lNameTV= findViewById(R.id.lNameTV);
-        usernameTV= findViewById(R.id.userNameTV);
-        dobTV= findViewById(R.id.dobTV);
-        phoneNummberTV= findViewById(R.id.phoneTV);
-        emailTV= findViewById(R.id.emailTV);
-        addressTV= findViewById(R.id.addressTV);
-        cityTV= findViewById(R.id.cityTV);
-        stateTV= findViewById(R.id.stateTV);
-        zipTV= findViewById(R.id.zipTV);
+        lNameTV = findViewById(R.id.lNameTV);
+        usernameTV = findViewById(R.id.userNameTV);
+        dobTV = findViewById(R.id.dobTV);
+        phoneNummberTV = findViewById(R.id.phoneTV);
+        emailTV = findViewById(R.id.emailTV);
+        addressTV = findViewById(R.id.addressTV);
+        cityTV = findViewById(R.id.cityTV);
+        stateTV = findViewById(R.id.stateTV);
+        zipTV = findViewById(R.id.zipTV);
         fetchSharedPref();
         setUserProfile();
 
-        VIEW_OPTR= (Button) findViewById(R.id.viewoperator);
+        VIEW_OPTR = (Button) findViewById(R.id.viewoperator);
         VIEW_OPTR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,36 +63,36 @@ public class ManagerHomeScreen extends AppCompatActivity {
     }
 
     private void setUserProfile() {
-        fNameTV.setText("First Name: "+fName);
-        lNameTV.setText("Last Name: "+lName);
-        usernameTV.setText("Welcome, "+username);
-        dobTV.setText("Date of Birth: "+dob);
-        phoneNummberTV.setText("Phone: "+phoneNummber);
-        emailTV.setText("Email: "+email);
-        addressTV.setText("Address: "+address);
-        cityTV.setText("City: "+city);
-        stateTV.setText("State: "+state);
-        zipTV.setText("ZIP: "+zip);
+        fNameTV.setText("First Name: " + fName);
+        lNameTV.setText("Last Name: " + lName);
+        usernameTV.setText("Welcome, " + username);
+        dobTV.setText("Date of Birth: " + dob);
+        phoneNummberTV.setText("Phone: " + phoneNummber);
+        emailTV.setText("Email: " + email);
+        addressTV.setText("Address: " + address);
+        cityTV.setText("City: " + city);
+        stateTV.setText("State: " + state);
+        zipTV.setText("ZIP: " + zip);
     }
 
     private void fetchSharedPref() {
         SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
-        fName =prefs.getString("fname","");
-        lName =prefs.getString("lname","");
-        username =prefs.getString("username","");
-        dob =prefs.getString("dob","");
-        phoneNummber =prefs.getString("phone","");
-        email =prefs.getString("email","");
-        address =prefs.getString("address","");
-        city =prefs.getString("city","");
-        state =prefs.getString("state","");
-        zip =prefs.getString("zip","");
+        fName = prefs.getString("fname", "");
+        lName = prefs.getString("lname", "");
+        username = prefs.getString("username", "");
+        dob = prefs.getString("dob", "");
+        phoneNummber = prefs.getString("phone", "");
+        email = prefs.getString("email", "");
+        address = prefs.getString("address", "");
+        city = prefs.getString("city", "");
+        state = prefs.getString("state", "");
+        zip = prefs.getString("zip", "");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.user_menu,menu);
+        inflater.inflate(R.menu.user_menu, menu);
         menu.findItem(R.id.app_bar_search).setVisible(true);
         return true;
     }
@@ -120,6 +121,7 @@ public class ManagerHomeScreen extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     private void vehicleSearch() {
         Intent myint = new Intent(ManagerHomeScreen.this, VehicleScreen.class);
         startActivity(myint);
@@ -134,23 +136,24 @@ public class ManagerHomeScreen extends AppCompatActivity {
         Intent logout = new Intent(ManagerHomeScreen.this, LoginActivity.class);
         startActivity(logout);
     }
-    public void openOperatorlist(){
-        Intent intent= new Intent(this, OperatorList.class );
-        intent.putExtra("callingActivity", ManagerHomeScreen.class.toString());
-        startActivity(intent );
-    }
-   // public void viewschedule(){    commented cause never used and no viewschedule function written
 
-      // Intent intent= new Intent(this, OperatorScheduleList.class );
-     //  startActivity(intent );
-   // }
+    public void openOperatorlist() {
+        Intent intent = new Intent(this, OperatorList.class);
+        intent.putExtra("callingActivity", ManagerHomeScreen.class.toString());
+        startActivity(intent);
+    }
+    // public void viewschedule(){    commented cause never used and no viewschedule function written
+
+    // Intent intent= new Intent(this, OperatorScheduleList.class );
+    //  startActivity(intent );
+    // }
 
     private void changePassword() {
         Intent changePasswordIntent = new Intent(ManagerHomeScreen.this, ChangePassword.class);
         startActivity(changePasswordIntent);
     }
 
-    private void viewLocationList(){
+    private void viewLocationList() {
         Intent changePasswordIntent = new Intent(ManagerHomeScreen.this, LocationScreen.class);
         startActivity(changePasswordIntent);
     }
