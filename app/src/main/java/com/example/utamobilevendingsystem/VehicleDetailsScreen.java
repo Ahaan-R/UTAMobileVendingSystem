@@ -98,6 +98,7 @@ public class VehicleDetailsScreen extends AppCompatActivity {
                 } else {
                     updateVehicleAvaiablity(Status.UNAVAILABLE);
                 }
+                Toast.makeText(getApplicationContext(), "Vehicle availability Updated", Toast.LENGTH_SHORT).show();
             }
         });
         viewInventory= findViewById(R.id.viewInventoryBtn);
@@ -159,6 +160,7 @@ public class VehicleDetailsScreen extends AppCompatActivity {
 
         if (requestCode == OPERATOR_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             tvOperatorDesc.setText(data.getStringExtra("userName"));
+            Toast.makeText(getApplicationContext(), "Operator Updated", Toast.LENGTH_SHORT).show();
         }
 
         if (requestCode == LOCATION_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
@@ -169,6 +171,7 @@ public class VehicleDetailsScreen extends AppCompatActivity {
             ContentValues contentValues = new ContentValues();
             contentValues.put(Resources.VEHICLE_SCHEDULE_TIME, "");
             db.update(Resources.TABLE_VEHICLE, contentValues, "vehicle_id = ?", new String[]{vehicleID});
+            Toast.makeText(getApplicationContext(), "Location Updated", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -176,6 +179,7 @@ public class VehicleDetailsScreen extends AppCompatActivity {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Resources.VEHICLE_SCHEDULE_TIME, hourOfDay + ":" + (minute < 10? "0"+minute : minute) +" - "+ closingTime +":" + (minute < 10? "0"+minute : minute));
         db.update(Resources.TABLE_VEHICLE, contentValues, "vehicle_id = ?", new String[]{vehicleID});
+        Toast.makeText(getApplicationContext(), "Schedule Updated", Toast.LENGTH_SHORT).show();
     }
 
     private void updateVehicleAvaiablity(Status status){
