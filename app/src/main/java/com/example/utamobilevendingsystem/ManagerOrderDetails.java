@@ -54,7 +54,6 @@ public class ManagerOrderDetails extends AppCompatActivity {
             String total_Rev = cursor.getString(cursor.getColumnIndex("totalrevenue"));
             Double total_rev_tax = 1.0825 * Double.parseDouble(total_Rev);
             TotalRevenue_Manager.setText(String.valueOf(total_rev_tax));
-
         }
     }
 

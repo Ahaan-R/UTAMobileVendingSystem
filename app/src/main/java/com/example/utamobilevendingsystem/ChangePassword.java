@@ -145,5 +145,6 @@ public class ChangePassword extends AppCompatActivity {
         cv.put(Resources.USER_CREDS_PASSWORD, password);
         String tableName = Resources.TABLE_USER_CREDS;
         int value = db.update(Resources.TABLE_USER_CREDS,cv ,"user_id = "+ userID, null);
+        Toast.makeText(getApplicationContext(), "Password change success.!", Toast.LENGTH_SHORT).show();
     }
 }

@@ -31,8 +31,8 @@ public class UpdateLocationSchedule extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_location_schedule);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+
         dbHelper = new DatabaseHelper(this);
         db= dbHelper.getReadableDatabase();
 
@@ -131,22 +131,50 @@ public class UpdateLocationSchedule extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        SharedPreferences preferences = getSharedPreferences("currUser", MODE_PRIVATE);
+        String role = preferences.getString("userRole","");
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.menu_location:
                 viewLocationList();
                 return true;
             case R.id.menu_view_orders:
-                viewOrders();
+                role= role+"OrderDetails";
+                if (role == "user"){
+                    try {
+                        Class<?> cls = Class.forName("com.example.utamobilevendingsystem.users."+role);
+                        Intent homeIntent = new Intent(this, cls);
+                        startActivity(homeIntent);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    try {
+                        Class<?> cls = Class.forName("com.example.utamobilevendingsystem."+role);
+                        Intent homeIntent = new Intent(this, cls);
+                        startActivity(homeIntent);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 return true;
             case R.id.app_bar_search:
-                //startSettings();
+                vehicleSearch();
                 return true;
             case R.id.menu_logout:
                 logout();
                 return true;
             case R.id.menu_home:
-                managerHome();
+                role= role+"HomeScreen";
+                try {
+                    Class<?> cls = Class.forName("com.example.utamobilevendingsystem.HomeScreens"+role);
+                    Intent homeIntent = new Intent(this, cls);
+                    startActivity(homeIntent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
                 return true;
             case R.id.change_password:
                 changePassword();
@@ -156,16 +184,6 @@ public class UpdateLocationSchedule extends AppCompatActivity {
         }
     }
 
-    private void managerHome() {
-        Intent managerHome = new Intent(getApplicationContext(), ManagerHomeScreen.class);
-        startActivity(managerHome);
-    }
-
-    private void viewOrders() {
-        Intent viewOrders = new Intent(getApplicationContext(), ManagerOrderDetails.class);
-        startActivity(viewOrders);
-    }
-
     private void logout() {
         SharedPreferences.Editor editor = getSharedPreferences("currUser", MODE_PRIVATE).edit();
         editor.clear();
@@ -173,6 +191,11 @@ public class UpdateLocationSchedule extends AppCompatActivity {
         Intent logout = new Intent(getApplicationContext(), LoginActivity.class);
         Toast.makeText(getApplicationContext(),"Logged out Successfully",Toast.LENGTH_SHORT).show();
         startActivity(logout);
+    }
+
+    private void vehicleSearch() {
+        Intent myint = new Intent(UpdateLocationSchedule.this, VehicleScreen.class);
+        startActivity(myint);
     }
 
     private void changePassword() {
