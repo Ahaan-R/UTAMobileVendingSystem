@@ -155,11 +155,11 @@ public class ManagerHomeScreen extends AppCompatActivity {
         intent.putExtra("callingActivity", ManagerHomeScreen.class.toString());
         startActivity(intent);
     }
-    // public void viewschedule(){    commented cause never used and no viewschedule function written
+     public void viewschedule(){    //commented cause never used and no viewschedule function written
 
-    // Intent intent= new Intent(this, OperatorScheduleList.class );
-    //  startActivity(intent );
-    // }
+     Intent intent= new Intent(this, OperatorScheduleList.class );
+      startActivity(intent );
+     }
 
     private void changePassword() {
         Intent changePasswordIntent = new Intent(ManagerHomeScreen.this, ChangePassword.class);

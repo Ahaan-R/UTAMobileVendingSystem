@@ -225,9 +225,9 @@ public class OperatorHomeScreen extends RegistrationHelper {
             case R.id.menu_location:
                 viewLocationList();
                 return true;
-            case R.id.menu_view_orders:
+           case R.id.menu_view_orders:
                 role= role+"OrderDetails";
-                if (role == "user"){
+                if (role == "User"){
                     try {
                         Class<?> cls = Class.forName("com.example.utamobilevendingsystem.users."+role);
                         Intent homeIntent = new Intent(this, cls);
@@ -240,6 +240,7 @@ public class OperatorHomeScreen extends RegistrationHelper {
                     try {
                         Class<?> cls = Class.forName("com.example.utamobilevendingsystem."+role);
                         Intent homeIntent = new Intent(this, cls);
+                        homeIntent.putExtra("userId",String.valueOf(userID));
                         startActivity(homeIntent);
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
@@ -247,7 +248,10 @@ public class OperatorHomeScreen extends RegistrationHelper {
                 }
 
                 return true;
-            case R.id.Optr_vehicledetails:
+           /* case R.id.menu_view_orders:
+                viewOrders();
+                return true; */
+             case R.id.Optr_vehicledetails:
                 vehicleSearch_optr();
                 return true;
             case R.id.menu_logout:

@@ -67,8 +67,8 @@ public class VehicleDetailsScreen extends AppCompatActivity {
             toggleAvailability = findViewById(R.id.switchAvaiability);
 
             tvAvaiablility.setEnabled(false);   //Disabling for operator view
-            tvTotalRevenue.setVisibility(View.GONE);   //hiding for operator view
-            tvTotalRevenueDesc.setVisibility(View.GONE);    //hiding for operator view
+            //tvTotalRevenue.setVisibility(View.GONE);   //hiding for operator view
+           // tvTotalRevenueDesc.setVisibility(View.GONE);    //hiding for operator view
             toggleAvailability.setEnabled(false);   //Disabling for operator view
         }
         dbHelper = new DatabaseHelper(this);
@@ -128,18 +128,18 @@ public class VehicleDetailsScreen extends AppCompatActivity {
             }
         }
 
-        if (flag.equals("2")) {    //condition check for Manager view
-            c = db.rawQuery(VEHICLE_TOTAL_REVENUE, new String[]{vehicleID});
+       // if (flag.equals("2")) {    //condition check for Manager view ----------
+        c = db.rawQuery(VEHICLE_TOTAL_REVENUE, new String[]{vehicleID});
 
-            float totalCost = 0;
-            if (c.getCount() > 0) {
-                while (c.moveToNext()) {
-                    totalCost += Float.valueOf(c.getString(0)) * 1.0825;
-                }
+        float totalCost = 0;
+        if (c.getCount() > 0) {
+            while (c.moveToNext()) {
+                totalCost += Float.valueOf(c.getString(0)) * 1.0825;
             }
-            DecimalFormat df = new DecimalFormat("####0.00");
-            tvTotalRevenueDesc.setText(String.valueOf(df.format(totalCost)));
         }
+        DecimalFormat df = new DecimalFormat("####0.00");
+        tvTotalRevenueDesc.setText(String.valueOf(df.format(totalCost)));
+
         toggleAvailability.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
