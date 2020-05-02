@@ -247,6 +247,8 @@ public class OperatorHomeScreen extends RegistrationHelper {
 
     private void viewOrders() {
         Intent viewOrders = new Intent(OperatorHomeScreen.this, OperatorOrderDetails.class);
+        SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
+        userID = prefs.getInt("userid", 0);
         viewOrders.putExtra("userId", String.valueOf(userID));
         startActivity(viewOrders);
     }
