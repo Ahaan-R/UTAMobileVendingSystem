@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,7 +24,9 @@ import com.example.utamobilevendingsystem.domain.Status;
 public class LocationScreen extends AppCompatActivity {
 
     DatabaseHelper dbHelper;
+    Cursor c,d;
     SQLiteDatabase db;
+    String firstName;
     String vehicleID,screen_ref;
     Button VIEW_SCHEDULE;
     TextView cooperUtaTV,nedderGreekTV,davisMitchellTV,cooperMitchellTV,oakUtaTV,spanioloWTV,spanioloMitchellTv,centerMitchellTV, removeAllocationTV;
@@ -91,6 +94,14 @@ public class LocationScreen extends AppCompatActivity {
         });
 
 
+
+        String VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR = "select v.name, l.locationName, v.type, v.availability, l.schedule, u.first_name, v.user_id, v.schedule_time " +
+                "from vehicle v LEFT JOIN location l on l.location_id = v.location_id " +
+                "LEFT JOIN user_details u on v.user_id = u.user_id WHERE u.first_name =\"" + firstName + "\"";    //Query for getting all details of the operator from DB
+        System.out.println("--------------------------------------------\n\n\n\n\n\n" + VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR);
+        c = db.rawQuery(VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR, null);
+
+        //System.out.println("Op name is  sample "+firstName);
     }
 
     private void onClicks() {
@@ -217,6 +228,9 @@ public class LocationScreen extends AppCompatActivity {
         if("Manager".equalsIgnoreCase(role)){
             menu.findItem(R.id.app_bar_search).setVisible(true);
         }
+        if ("Operator".equalsIgnoreCase(role)) {
+            menu.findItem(R.id.Optr_vehicledetails).setVisible(true);
+        }
         return true;
     }   @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -252,6 +266,9 @@ public class LocationScreen extends AppCompatActivity {
             case R.id.app_bar_search:
                 vehicleSearch();
                 return true;
+            case R.id.Optr_vehicledetails:
+                vehicleSearch_optr();
+                return true;
             case R.id.menu_logout:
                 logout();
                 return true;
@@ -278,6 +295,21 @@ public class LocationScreen extends AppCompatActivity {
     private void vehicleSearch() {
         Intent myint = new Intent(LocationScreen.this, VehicleScreen.class);
         startActivity(myint);
+    }
+    private void vehicleSearch_optr() {
+        if (c.getCount() > 0) {   //checking if operator has a vehicle assigned
+            TextView op = findViewById(R.id.fNameTV);   //storing the First name of the operator in the op textview
+            String ftrialname=op.getText().toString();
+            //System.out.println("Op name is  sample "+firstName);
+            Intent op_vehicle = new Intent(LocationScreen.this, VehicleDetailsScreen.class);
+            op_vehicle.putExtra("OPERATOR_VEHICLE", op.getText().toString());   //sending the Op FName to the Vehicle Details Screen
+            op_vehicle.putExtra("flag", "1");   //Sending a flag variable "1" as well
+
+            startActivity(op_vehicle);
+        } else {
+            Toast.makeText(getApplicationContext(), "No Vehicle assigned for this operator.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void Homescreen(String role) {

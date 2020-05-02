@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.utamobilevendingsystem.HomeScreens.OperatorHomeScreen;
 import com.example.utamobilevendingsystem.domain.Status;
 import com.example.utamobilevendingsystem.domain.Vehicle;
 import com.example.utamobilevendingsystem.domain.VehicleType;
@@ -68,7 +69,7 @@ public class VehicleDetailsScreen extends AppCompatActivity {
 
             tvAvaiablility.setEnabled(false);   //Disabling for operator view
             //tvTotalRevenue.setVisibility(View.GONE);   //hiding for operator view
-           // tvTotalRevenueDesc.setVisibility(View.GONE);    //hiding for operator view
+            // tvTotalRevenueDesc.setVisibility(View.GONE);    //hiding for operator view
             toggleAvailability.setEnabled(false);   //Disabling for operator view
         }
         dbHelper = new DatabaseHelper(this);
@@ -94,7 +95,6 @@ public class VehicleDetailsScreen extends AppCompatActivity {
             String VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR = "select v.name, l.locationName, v.type, v.availability, l.schedule, u.first_name, v.user_id, v.schedule_time " +
                     "from vehicle v LEFT JOIN location l on l.location_id = v.location_id " +
                     "LEFT JOIN user_details u on v.user_id = u.user_id WHERE u.first_name =\"" + name_opr + "\"";    //Query for getting all details of the operator from DB
-            System.out.println("--------------------------------------------\n\n\n\n\n\n" + VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR);
             c = db.rawQuery(VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR, null);
 
 //            String[] vehicle_name1 = vehicleID.split("");
@@ -128,7 +128,7 @@ public class VehicleDetailsScreen extends AppCompatActivity {
             }
         }
 
-       // if (flag.equals("2")) {    //condition check for Manager view ----------
+        // if (flag.equals("2")) {    //condition check for Manager view ----------
         c = db.rawQuery(VEHICLE_TOTAL_REVENUE, new String[]{vehicleID});
 
         float totalCost = 0;
@@ -285,6 +285,9 @@ public class VehicleDetailsScreen extends AppCompatActivity {
         if ("Manager".equalsIgnoreCase(role)) {
             menu.findItem(R.id.app_bar_search).setVisible(true);
         }
+        if ("Operator".equalsIgnoreCase(role)) {
+            menu.findItem(R.id.Optr_vehicledetails).setVisible(true);
+        }
         return true;
     }
 
@@ -300,6 +303,9 @@ public class VehicleDetailsScreen extends AppCompatActivity {
                 return true;
             case R.id.app_bar_search:
                 vehicleSearch();
+                return true;
+            case R.id.Optr_vehicledetails:
+                vehicleSearch_optr();
                 return true;
             case R.id.menu_logout:
                 logout();
@@ -332,6 +338,20 @@ public class VehicleDetailsScreen extends AppCompatActivity {
     private void viewOrders() {
         Intent myint = new Intent(this, OrderDetails.class);
         startActivity(myint);
+    }
+
+    private void vehicleSearch_optr() {
+
+        TextView op = findViewById(R.id.tvOperatorDesc);   //storing the First name of the operator in the op textview
+        String ftrialname = op.getText().toString();
+        String fname = "First Name: " + ftrialname;
+        Intent op_vehicle = new Intent(VehicleDetailsScreen.this, VehicleDetailsScreen.class);
+        op_vehicle.putExtra("OPERATOR_VEHICLE", fname);//op.getText().toString());   //sending the Op FName to the Vehicle Details Screen
+        op_vehicle.putExtra("flag", "1");   //Sending a flag variable "1" as well
+
+        startActivity(op_vehicle);
+
+
     }
 
     private void logout() {

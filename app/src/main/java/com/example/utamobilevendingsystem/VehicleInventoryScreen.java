@@ -47,7 +47,12 @@ public class VehicleInventoryScreen extends AppCompatActivity {
         snacksAvl = findViewById(R.id.snacksAvl);
         updateInventoryBtn = findViewById(R.id.updateInventoryBtn);
 
-
+        if (flag.equals("1")) {   //Disabling for operator view
+            swichAvl.setEnabled(false);
+            drinksAvl.setEnabled(false);
+            snacksAvl.setEnabled(false);
+            updateInventoryBtn.setVisibility(View.GONE);
+        }
 
 
         vehicleID  = getIntent().getStringExtra("vehicleID");
