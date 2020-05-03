@@ -41,6 +41,8 @@ public class VehicleDetailsScreen extends AppCompatActivity {
     String vehicleID, Operator_name;
     String flag = "";
     Button UpdateInventorybtn;
+    int userID;
+    String role;
 
 
     final int OPERATOR_REQUEST_CODE = 1111;
@@ -55,9 +57,16 @@ public class VehicleDetailsScreen extends AppCompatActivity {
 
     final String LOCATION_SCHEDULE_QUERY = "select schedule from location where locationName = ?";
 
+    private void fetchSharedPref() {
+        SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
+        userID = prefs.getInt("userid", 0);
+        role = prefs.getString("userRole", "");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fetchSharedPref();
         flag = getIntent().getStringExtra("flag");
 
         setContentView(R.layout.activity_vehicle_details_screen);
@@ -67,10 +76,10 @@ public class VehicleDetailsScreen extends AppCompatActivity {
             tvAvaiablility = findViewById(R.id.tvAvaiablility);
             toggleAvailability = findViewById(R.id.switchAvaiability);
 
-            tvAvaiablility.setEnabled(false);   //Disabling for operator view
+            tvAvaiablility.setVisibility(View.GONE);   //Disabling for operator view
             //tvTotalRevenue.setVisibility(View.GONE);   //hiding for operator view
             // tvTotalRevenueDesc.setVisibility(View.GONE);    //hiding for operator view
-            toggleAvailability.setEnabled(false);   //Disabling for operator view
+            toggleAvailability.setVisibility(View.GONE);   //Disabling for operator view
         }
         dbHelper = new DatabaseHelper(this);
         db = dbHelper.getWritableDatabase();
@@ -88,13 +97,11 @@ public class VehicleDetailsScreen extends AppCompatActivity {
 
         Cursor c, Get_Vehicle_id;
         if (flag.equals("1")) {     //condition check for Operator view
-            Operator_name = getIntent().getStringExtra("OPERATOR_VEHICLE");
-            String[] Operator_name1 = Operator_name.split(": ");
-            String name_opr = Operator_name1[1];   //storing operator name
+
 
             String VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR = "select v.name, l.locationName, v.type, v.availability, l.schedule, u.first_name, v.user_id, v.schedule_time " +
                     "from vehicle v LEFT JOIN location l on l.location_id = v.location_id " +
-                    "LEFT JOIN user_details u on v.user_id = u.user_id WHERE u.first_name =\"" + name_opr + "\"";    //Query for getting all details of the operator from DB
+                    "LEFT JOIN user_details u on v.user_id = u.user_id WHERE u.user_id =\"" + userID + "\"";    //Query for getting all details of the operator from DB
             c = db.rawQuery(VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR, null);
 
 //            String[] vehicle_name1 = vehicleID.split("");
@@ -225,7 +232,6 @@ public class VehicleDetailsScreen extends AppCompatActivity {
 //                                Toast.makeText(getApplicationContext(), "Closing time cannot exceeded 17:00", Toast.LENGTH_SHORT).show();
                                         closingTime = 17;
                                     }
-                                    System.out.println("--------------------------------------------CLosing time: " + closingTime);
 
                                     tvScheduleDesc.setText(hourOfDay + ":" + (minute < 10 ? "0" + minute : minute) + " - " + closingTime + ":" + (minute < 10 ? "0" + minute : minute));
                                     updateVehicleScheduleTime(hourOfDay, minute, closingTime);
@@ -280,8 +286,8 @@ public class VehicleDetailsScreen extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.user_menu, menu);
-        SharedPreferences preferences = getSharedPreferences("currUser", MODE_PRIVATE);
-        String role = preferences.getString("userRole", "");
+        //SharedPreferences preferences = getSharedPreferences("currUser", MODE_PRIVATE);
+
         if ("Manager".equalsIgnoreCase(role)) {
             menu.findItem(R.id.app_bar_search).setVisible(true);
         }
@@ -336,20 +342,14 @@ public class VehicleDetailsScreen extends AppCompatActivity {
     }
 
     private void viewOrders() {
-        Intent myint = new Intent(this, OrderDetails.class);
-        startActivity(myint);
+        Intent viewOrders = new Intent(this, OperatorOrderDetails.class);
+        SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
+        userID = prefs.getInt("userid", 0);
+        viewOrders.putExtra("userId", String.valueOf(userID));
+        startActivity(viewOrders);
     }
 
     private void vehicleSearch_optr() {
-
-        TextView op = findViewById(R.id.tvOperatorDesc);   //storing the First name of the operator in the op textview
-        String ftrialname = op.getText().toString();
-        String fname = "First Name: " + ftrialname;
-        Intent op_vehicle = new Intent(VehicleDetailsScreen.this, VehicleDetailsScreen.class);
-        op_vehicle.putExtra("OPERATOR_VEHICLE", fname);//op.getText().toString());   //sending the Op FName to the Vehicle Details Screen
-        op_vehicle.putExtra("flag", "1");   //Sending a flag variable "1" as well
-
-        startActivity(op_vehicle);
 
 
     }

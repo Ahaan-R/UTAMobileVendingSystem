@@ -167,7 +167,6 @@ public class OperatorHomeScreen extends RegistrationHelper {
         String VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR = "select v.name, l.locationName, v.type, v.availability, l.schedule, u.first_name, v.user_id, v.schedule_time " +
                 "from vehicle v LEFT JOIN location l on l.location_id = v.location_id " +
                 "LEFT JOIN user_details u on v.user_id = u.user_id WHERE u.first_name =\"" + firstName + "\"";    //Query for getting all details of the operator from DB
-        System.out.println("--------------------------------------------\n\n\n\n\n\n" + VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR);
         c = db.rawQuery(VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR, null);
 
 
@@ -257,7 +256,7 @@ public class OperatorHomeScreen extends RegistrationHelper {
         if (c.getCount() > 0) {   //checking if operator has a vehicle assigned
             TextView op = findViewById(R.id.fNameTV);   //storing the First name of the operator in the op textview
             Intent op_vehicle = new Intent(OperatorHomeScreen.this, VehicleDetailsScreen.class);
-            op_vehicle.putExtra("OPERATOR_VEHICLE", op.getText().toString());   //sending the Op FName to the Vehicle Details Screen
+          //  op_vehicle.putExtra("OPERATOR_VEHICLE", op.getText().toString());   //sending the Op FName to the Vehicle Details Screen
             op_vehicle.putExtra("flag", "1");   //Sending a flag variable "1" as well
 
             startActivity(op_vehicle);
