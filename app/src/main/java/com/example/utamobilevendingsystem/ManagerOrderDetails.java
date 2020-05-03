@@ -53,9 +53,11 @@ public class ManagerOrderDetails extends AppCompatActivity {
         Cursor cursor = db.rawQuery("select  sum(order_item_price) as totalrevenue from orders", null);
         while (cursor.moveToNext()) {
             String total_Rev = cursor.getString(cursor.getColumnIndex("totalrevenue"));
-            Double total_rev_tax = 1.0825 * Double.parseDouble(total_Rev);
-            DecimalFormat df = new DecimalFormat("####0.00");
-            TotalRevenue_Manager.setText(String.valueOf(df.format(total_rev_tax)));
+            if(total_Rev!=null) {
+                Double total_rev_tax = 1.0825 * Double.parseDouble(total_Rev);
+                DecimalFormat df = new DecimalFormat("####0.00");
+                TotalRevenue_Manager.setText(String.valueOf(df.format(total_rev_tax)));
+            }
         }
     }
 

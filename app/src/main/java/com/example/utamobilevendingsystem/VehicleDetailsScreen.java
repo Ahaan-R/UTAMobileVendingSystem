@@ -43,18 +43,13 @@ public class VehicleDetailsScreen extends AppCompatActivity {
     Button UpdateInventorybtn;
     int userID;
     String role;
-
-
     final int OPERATOR_REQUEST_CODE = 1111;
     final int LOCATION_REQUEST_CODE = 2222;
-
     final String VEHICLE_DETAILS_SCREEN_QUERY = "select v.name, l.locationName, v.type, v.availability, l.schedule, u.first_name, v.user_id, v.schedule_time " +
             "from vehicle v LEFT JOIN location l on l.location_id = v.location_id " +
             "LEFT JOIN user_details u on v.user_id = u.user_id WHERE v.vehicle_id = ?";
-
-
+    Cursor c;
     final String VEHICLE_TOTAL_REVENUE = "SELECT sum(O.order_item_price) FROM orders O LEFT JOIN vehicle V ON O.order_vehicle_id=V.vehicle_id WHERE O.order_vehicle_id = ? GROUP BY O.order_id";
-
     final String LOCATION_SCHEDULE_QUERY = "select schedule from location where locationName = ?";
 
     private void fetchSharedPref() {
@@ -68,22 +63,20 @@ public class VehicleDetailsScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         fetchSharedPref();
         flag = getIntent().getStringExtra("flag");
-
+        String Assigned_Op_location_ID = "";
+        String Assigned_vehicle_location_ID = "";
+        String vehicle_name = "";
         setContentView(R.layout.activity_vehicle_details_screen);
         if (flag.equals("1")) {
             tvTotalRevenueDesc = findViewById(R.id.tvTotalRevenueDesc);
             tvTotalRevenue = findViewById(R.id.tvTotalRevenue);
             tvAvaiablility = findViewById(R.id.tvAvaiablility);
             toggleAvailability = findViewById(R.id.switchAvaiability);
-
             tvAvaiablility.setVisibility(View.GONE);   //Disabling for operator view
-            //tvTotalRevenue.setVisibility(View.GONE);   //hiding for operator view
-            // tvTotalRevenueDesc.setVisibility(View.GONE);    //hiding for operator view
             toggleAvailability.setVisibility(View.GONE);   //Disabling for operator view
         }
         dbHelper = new DatabaseHelper(this);
         db = dbHelper.getWritableDatabase();
-
         tvNameDesc = findViewById(R.id.tvNameDesc);
         tvLocationDesc = findViewById(R.id.tvLocationDesc);
         tvVehicleTypeDesc = findViewById(R.id.tvVehicleTypeDesc);
@@ -93,26 +86,14 @@ public class VehicleDetailsScreen extends AppCompatActivity {
         toggleAvailability = findViewById(R.id.switchAvaiability);
         vehicleID = getIntent().getStringExtra("vehicleID");
         v_name = findViewById(R.id.tvNameDesc);
-
-
-        Cursor c, Get_Vehicle_id;
         if (flag.equals("1")) {     //condition check for Operator view
-
-
             String VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR = "select v.name, l.locationName, v.type, v.availability, l.schedule, u.first_name, v.user_id, v.schedule_time " +
                     "from vehicle v LEFT JOIN location l on l.location_id = v.location_id " +
                     "LEFT JOIN user_details u on v.user_id = u.user_id WHERE u.user_id =\"" + userID + "\"";    //Query for getting all details of the operator from DB
             c = db.rawQuery(VEHICLE_DETAILS_SCREEN_QUERY_FOR_OPTR, null);
-
-//            String[] vehicle_name1 = vehicleID.split("");
-//            String name_opr = Operator_name1[1];
-
-
         } else {   //Query to be run for Manager view
             c = db.rawQuery(VEHICLE_DETAILS_SCREEN_QUERY, new String[]{vehicleID});
-
         }
-
 
         if (c.getCount() > 0) {
             c.moveToFirst();
@@ -127,26 +108,40 @@ public class VehicleDetailsScreen extends AppCompatActivity {
         }
 
         if (flag.equals("1")) {    //condition check for Operator view
-            String a = v_name.getText().toString();
-
-            Get_Vehicle_id = db.rawQuery("select vehicle_id from vehicle where name=\"" + v_name.getText().toString() + "\"", null);
-            while (Get_Vehicle_id.moveToNext()) {
-                vehicleID = Get_Vehicle_id.getString(Get_Vehicle_id.getColumnIndex("vehicle_id"));
+            Cursor cursor = db.rawQuery("SELECT location_id FROM vehicle WHERE user_id=?", new String[]{String.valueOf(userID)});
+            while (cursor.moveToNext()) {
+                Assigned_Op_location_ID = cursor.getString(cursor.getColumnIndex("location_id"));
+            }
+            Cursor Oprevenue = db.rawQuery("select  sum(order_item_price) as Op_totalrevenue from orders where order_vehicle_id=?", new String[]{Assigned_Op_location_ID});
+            while (Oprevenue.moveToNext()) {
+                String Op_total_Rev = Oprevenue.getString(Oprevenue.getColumnIndex("Op_totalrevenue"));
+                if (Op_total_Rev != null) {
+                    Double total_rev_tax = 1.0825 * Double.parseDouble(Op_total_Rev);
+                    DecimalFormat df = new DecimalFormat("####0.00");
+                    tvTotalRevenueDesc.setText(String.valueOf(df.format(total_rev_tax)));
+                }
             }
         }
 
-        // if (flag.equals("2")) {    //condition check for Manager view ----------
-        c = db.rawQuery(VEHICLE_TOTAL_REVENUE, new String[]{vehicleID});
-
-        float totalCost = 0;
-        if (c.getCount() > 0) {
-            while (c.moveToNext()) {
-                totalCost += Float.valueOf(c.getString(0)) * 1.0825;
+        if (flag.equals("2")) {    //condition check for Manager view ----------
+            Cursor cursor1 = db.rawQuery("SELECT name FROM vehicle WHERE vehicle_id=?", new String[]{String.valueOf(vehicleID)});
+            while (cursor1.moveToNext()) {
+                vehicle_name = cursor1.getString(cursor1.getColumnIndex("name"));
+            }
+            Cursor cursor = db.rawQuery("SELECT location_id FROM vehicle WHERE name=?", new String[]{String.valueOf(vehicle_name)});
+            while (cursor.moveToNext()) {
+                Assigned_vehicle_location_ID = cursor.getString(cursor.getColumnIndex("location_id"));
+            }
+            Cursor Veh_revenue = db.rawQuery("select  sum(order_item_price) as Veh_totalrevenue from orders where order_vehicle_id=?", new String[]{Assigned_vehicle_location_ID});
+            while (Veh_revenue.moveToNext()) {
+                String Op_total_Rev = Veh_revenue.getString(Veh_revenue.getColumnIndex("Veh_totalrevenue"));
+                if (Op_total_Rev != null) {
+                    Double total_rev_tax = 1.0825 * Double.parseDouble(Op_total_Rev);
+                    DecimalFormat df = new DecimalFormat("####0.00");
+                    tvTotalRevenueDesc.setText(String.valueOf(df.format(total_rev_tax)));
+                }
             }
         }
-        DecimalFormat df = new DecimalFormat("####0.00");
-        tvTotalRevenueDesc.setText(String.valueOf(df.format(totalCost)));
-
         toggleAvailability.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -160,7 +155,6 @@ public class VehicleDetailsScreen extends AppCompatActivity {
         });
         viewInventory = findViewById(R.id.viewInventoryBtn);
         UpdateInventorybtn = (Button) findViewById(R.id.updateInventoryBtn);
-
         viewInventory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,11 +162,9 @@ public class VehicleDetailsScreen extends AppCompatActivity {
                 if (flag.equals("2")) {
                     myint.putExtra("vehicleID", vehicleID);
                     myint.putExtra("flag_btn", "2");   //sending flag value as 2 if manager view
-
                 } else {
                     myint.putExtra("vehicleID", vehicleID);
                     myint.putExtra("flag_btn", "1");   //sending flag value as 1 if operator view
-
                 }
                 startActivity(myint);
             }
@@ -212,29 +204,22 @@ public class VehicleDetailsScreen extends AppCompatActivity {
                         TimePickerDialog timePickerDialog = new TimePickerDialog(VehicleDetailsScreen.this, new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                if (hourOfDay < 9) {
-                                    AlertDialog.Builder alert = new AlertDialog.Builder(VehicleDetailsScreen.this);
-                                    alert.setTitle("Location Schedule Time");
-                                    alert.setMessage("Schedule Time should start from 9AM");
-                                    alert.setPositiveButton("OK", null);
-                                    alert.show();
-                                } else {
-                                    Cursor c = db.rawQuery(LOCATION_SCHEDULE_QUERY, new String[]{tvLocationDesc.getText().toString()});
-                                    c.moveToFirst();
-                                    int locationSchedule = c.getInt(c.getColumnIndex(Resources.LOCATION_SCHEDULE));
-                                    int closingTime = hourOfDay + locationSchedule;
-                                    if (closingTime > 17) {
-                                        AlertDialog.Builder alert = new AlertDialog.Builder(VehicleDetailsScreen.this);
-                                        alert.setTitle("Location Schedule Time");
-                                        alert.setMessage("Closing time exceeding 17:00\nTime Set to 17:00 ");
-                                        alert.setPositiveButton("OK", null);
-                                        alert.show();
-//                                Toast.makeText(getApplicationContext(), "Closing time cannot exceeded 17:00", Toast.LENGTH_SHORT).show();
-                                        closingTime = 17;
-                                    }
-
+                                Cursor c = db.rawQuery(LOCATION_SCHEDULE_QUERY, new String[]{tvLocationDesc.getText().toString()});
+                                c.moveToFirst();
+                                int locationSchedule = c.getInt(c.getColumnIndex(Resources.LOCATION_SCHEDULE));
+                                int closingTime = hourOfDay + locationSchedule;
+                                if (closingTime > 17 && hourOfDay < 17) {
+                                    Toast.makeText(getApplicationContext(), "Closing time cannot exceed 17:00", Toast.LENGTH_SHORT).show();
+                                    closingTime = 17;
                                     tvScheduleDesc.setText(hourOfDay + ":" + (minute < 10 ? "0" + minute : minute) + " - " + closingTime + ":" + (minute < 10 ? "0" + minute : minute));
                                     updateVehicleScheduleTime(hourOfDay, minute, closingTime);
+                                } else if (hourOfDay >= 17) {
+                                    Toast.makeText(getApplicationContext(), "Closing time cannot exceed 17:00", Toast.LENGTH_SHORT).show();
+                                    tvScheduleDesc.setText("Unassigned");
+                                } else {
+                                    tvScheduleDesc.setText(hourOfDay + ":" + (minute < 10 ? "0" + minute : minute) + " - " + closingTime + ":" + (minute < 10 ? "0" + minute : minute));
+                                    updateVehicleScheduleTime(hourOfDay, minute, closingTime);
+                                    Toast.makeText(getApplicationContext(), "Schedule Updated", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }, 0, 0, true);
@@ -247,12 +232,10 @@ public class VehicleDetailsScreen extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == OPERATOR_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             tvOperatorDesc.setText(data.getStringExtra("userName"));
             Toast.makeText(getApplicationContext(), "Operator Updated", Toast.LENGTH_SHORT).show();
         }
-
         if (requestCode == LOCATION_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             tvLocationDesc.setText(data.getStringExtra("locationName"));
             if (Status.UNASSIGNED.getDescription().equalsIgnoreCase(data.getStringExtra("locationName"))) {
@@ -269,7 +252,6 @@ public class VehicleDetailsScreen extends AppCompatActivity {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Resources.VEHICLE_SCHEDULE_TIME, hourOfDay + ":" + (minute < 10 ? "0" + minute : minute) + " - " + closingTime + ":" + (minute < 10 ? "0" + minute : minute));
         db.update(Resources.TABLE_VEHICLE, contentValues, "vehicle_id = ?", new String[]{vehicleID});
-        Toast.makeText(getApplicationContext(), "Schedule Updated", Toast.LENGTH_SHORT).show();
     }
 
     private void updateVehicleAvaiablity(Status status) {
@@ -286,8 +268,6 @@ public class VehicleDetailsScreen extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.user_menu, menu);
-        //SharedPreferences preferences = getSharedPreferences("currUser", MODE_PRIVATE);
-
         if ("Manager".equalsIgnoreCase(role)) {
             menu.findItem(R.id.app_bar_search).setVisible(true);
         }
@@ -305,7 +285,7 @@ public class VehicleDetailsScreen extends AppCompatActivity {
                 viewLocationList();
                 return true;
             case R.id.menu_view_orders:
-                viewOrders();
+                viewOrders(role);
                 return true;
             case R.id.app_bar_search:
                 vehicleSearch();
@@ -341,17 +321,21 @@ public class VehicleDetailsScreen extends AppCompatActivity {
         startActivity(myint);
     }
 
-    private void viewOrders() {
-        Intent viewOrders = new Intent(this, OperatorOrderDetails.class);
-        SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
-        userID = prefs.getInt("userid", 0);
-        viewOrders.putExtra("userId", String.valueOf(userID));
-        startActivity(viewOrders);
+    private void viewOrders(String role) {
+        if (role.equals("Manager")) {
+            Intent myint = new Intent(this, ManagerOrderDetails.class);
+            startActivity(myint);
+        }
+        if (role.equals("Operator")) {
+            Intent viewOrders = new Intent(this, OperatorOrderDetails.class);
+            SharedPreferences prefs = getSharedPreferences("currUser", MODE_PRIVATE);
+            userID = prefs.getInt("userid", 0);
+            viewOrders.putExtra("userId", String.valueOf(userID));
+            startActivity(viewOrders);
+        }
     }
 
     private void vehicleSearch_optr() {
-
-
     }
 
     private void logout() {
