@@ -48,7 +48,7 @@ public class VehicleDetailsScreen extends AppCompatActivity {
     final String VEHICLE_DETAILS_SCREEN_QUERY = "select v.name, l.locationName, v.type, v.availability, l.schedule, u.first_name, v.user_id, v.schedule_time " +
             "from vehicle v LEFT JOIN location l on l.location_id = v.location_id " +
             "LEFT JOIN user_details u on v.user_id = u.user_id WHERE v.vehicle_id = ?";
-    Cursor c;
+    Cursor c,Veh_revenue;
     final String VEHICLE_TOTAL_REVENUE = "SELECT sum(O.order_item_price) FROM orders O LEFT JOIN vehicle V ON O.order_vehicle_id=V.vehicle_id WHERE O.order_vehicle_id = ? GROUP BY O.order_id";
     final String LOCATION_SCHEDULE_QUERY = "select schedule from location where locationName = ?";
 
@@ -129,16 +129,20 @@ public class VehicleDetailsScreen extends AppCompatActivity {
                 vehicle_name = cursor1.getString(cursor1.getColumnIndex("name"));
             }
             Cursor cursor = db.rawQuery("SELECT location_id FROM vehicle WHERE name=?", new String[]{String.valueOf(vehicle_name)});
-            while (cursor.moveToNext()) {
-                Assigned_vehicle_location_ID = cursor.getString(cursor.getColumnIndex("location_id"));
-            }
-            Cursor Veh_revenue = db.rawQuery("select  sum(order_item_price) as Veh_totalrevenue from orders where order_vehicle_id=?", new String[]{Assigned_vehicle_location_ID});
-            while (Veh_revenue.moveToNext()) {
-                String Op_total_Rev = Veh_revenue.getString(Veh_revenue.getColumnIndex("Veh_totalrevenue"));
-                if (Op_total_Rev != null) {
-                    Double total_rev_tax = 1.0825 * Double.parseDouble(Op_total_Rev);
-                    DecimalFormat df = new DecimalFormat("####0.00");
-                    tvTotalRevenueDesc.setText(String.valueOf(df.format(total_rev_tax)));
+            if(cursor!=null){
+                while (cursor.moveToNext()) {
+                    Assigned_vehicle_location_ID = cursor.getString(cursor.getColumnIndex("location_id"));
+                }}
+
+            if(Assigned_vehicle_location_ID!=null){
+                Veh_revenue = db.rawQuery("select  sum(order_item_price) as Veh_totalrevenue from orders where order_vehicle_id=?", new String[]{Assigned_vehicle_location_ID});
+                while (Veh_revenue.moveToNext()) {
+                    String Op_total_Rev = Veh_revenue.getString(Veh_revenue.getColumnIndex("Veh_totalrevenue"));
+                    if (Op_total_Rev != null) {
+                        Double total_rev_tax = 1.0825 * Double.parseDouble(Op_total_Rev);
+                        DecimalFormat df = new DecimalFormat("####0.00");
+                        tvTotalRevenueDesc.setText(String.valueOf(df.format(total_rev_tax)));
+                    }
                 }
             }
         }
